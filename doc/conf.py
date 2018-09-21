@@ -18,13 +18,13 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 master_doc = 'index'
 
-project = u'telepot'
+project = u'amanobot'
 year = datetime.now().year
 copyright = u'%d, Nick Lee' % year
 author = u'Nick Lee'
 
 
-from telepot import __version__
+from amanobot import __version__
 version = __version__
 release = __version__
 
@@ -35,13 +35,13 @@ pygments_style = 'sphinx'
 todo_include_todos = False
 
 
-html_theme = 'alabaster'
+html_theme = 'rtd'
 html_theme_options = {
-    'description': 'Python framework for Telegram Bot API',
+    'description': 'Python framework for Telegram Bot API based on Telepot',
     'show_powered_by': False,
     'fixed_sidebar': True,
-    'github_user': 'nickoala',
-    'github_repo': 'telepot',
+    'github_user': 'AmanoTeam',
+    'github_repo': 'amanobot',
     'github_type': 'star',
 }
 html_static_path = ['_static']

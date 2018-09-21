@@ -7,7 +7,7 @@ Introduction
 
    reference
 
-Telepot helps you build applications for `Telegram Bot API <https://core.telegram.org/bots>`_.
+Amanobot helps you build applications for `Telegram Bot API <https://core.telegram.org/bots>`_.
 It works on Python 2.7 and Python 3. For Python 3.5+, it also has an `async version <#async-version-python-3-5>`_
 based on `asyncio <https://docs.python.org/3/library/asyncio.html>`_.
 
@@ -15,8 +15,8 @@ For a time, I tried to list the features here like many projects do. Eventually,
 
 Common and straight-forward features are too trivial to worth listing.
 For more unique and novel features, I cannot find standard terms to describe them.
-The best way to experience telepot is by reading this page and going through the
-`examples <https://github.com/nickoala/telepot/tree/master/examples>`_. Let's go.
+The best way to experience amanobot is by reading this page and going through the
+`examples <https://github.com/nickoala/amanobot/tree/master/examples>`_. Let's go.
 
 .. contents::
     :local:
@@ -26,13 +26,13 @@ Installation
 
 pip::
 
-    $ pip install telepot
-    $ pip install telepot --upgrade  # UPGRADE
+    $ pip install amanobot
+    $ pip install amanobot --upgrade  # UPGRADE
 
 easy_install::
 
-    $ easy_install telepot
-    $ easy_install --upgrade telepot  # UPGRADE
+    $ easy_install amanobot
+    $ easy_install --upgrade amanobot  # UPGRADE
 
 Get a token
 -----------
@@ -42,15 +42,15 @@ have to `get a bot account <http://www.instructables.com/id/Set-up-Telegram-Bot-
 by `chatting with BotFather <https://core.telegram.org/bots#6-botfather>`_.
 
 BotFather will give you a **token**, something like ``123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ``.
-With the token in hand, you can start using telepot to access the bot account.
+With the token in hand, you can start using amanobot to access the bot account.
 
 Test the account
 ----------------
 
 ::
 
-    >>> import telepot
-    >>> bot = telepot.Bot('***** PUT YOUR TOKEN HERE *****')
+    >>> import amanobot
+    >>> bot = amanobot.Bot('***** PUT YOUR TOKEN HERE *****')
     >>> bot.getMe()
     {'first_name': 'Your Bot', 'username': 'YourBot', 'id': 123456789}
 
@@ -81,7 +81,7 @@ The ``chat`` field represents the conversation. Its ``type`` can be ``private``,
 According to Bot API, the method `getUpdates <https://core.telegram.org/bots/api#getupdates>`_
 returns an array of `Update <https://core.telegram.org/bots/api#update>`_ objects.
 As you can see, an Update object is nothing more than a Python dictionary.
-In telepot, **Bot API objects are represented as dictionary.**
+In amanobot, **Bot API objects are represented as dictionary.**
 
 Note the ``update_id``. It is an ever-increasing number. Next time you should use
 ``getUpdates(offset=100000001)`` to avoid getting the same old messages over and over.
@@ -94,10 +94,10 @@ all ``update_id``\s lower than ``offset``::
 An easier way to receive messages
 ---------------------------------
 
-It is troublesome to keep checking messages while managing ``offset``. Let telepot
+It is troublesome to keep checking messages while managing ``offset``. Let amanobot
 take care of the mundane stuff and notify you whenever new messages arrive::
 
-    >>> from telepot.loop import MessageLoop
+    >>> from amanobot.loop import MessageLoop
     >>> def handle(msg):
     ...     pprint(msg)
     ...
@@ -119,16 +119,16 @@ Quickly ``glance`` a message
 ----------------------------
 
 When processing a message, a few pieces of information are so central that you
-almost always have to extract them. Use :func:`telepot.glance` to extract
+almost always have to extract them. Use :func:`amanobot.glance` to extract
 "headline info". Try this skeleton, a bot which echoes what you said::
 
     import sys
     import time
-    import telepot
-    from telepot.loop import MessageLoop
+    import amanobot
+    from amanobot.loop import MessageLoop
 
     def handle(msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
         print(content_type, chat_type, chat_id)
 
         if content_type == 'text':
@@ -136,7 +136,7 @@ almost always have to extract them. Use :func:`telepot.glance` to extract
 
     TOKEN = sys.argv[1]  # get token from command-line
 
-    bot = telepot.Bot(TOKEN)
+    bot = amanobot.Bot(TOKEN)
     MessageLoop(bot, handle).run_as_thread()
     print ('Listening ...')
 
@@ -154,7 +154,7 @@ Besides sending messages back and forth, Bot API allows richer interactions
 with `custom keyboard <https://core.telegram.org/bots#keyboards>`_ and
 `inline keyboard <https://core.telegram.org/bots#inline-keyboards-and-on-the-fly-updating>`_.
 Both can be specified with the parameter ``reply_markup`` in :meth:`.Bot.sendMessage`.
-The module :mod:`telepot.namedtuple` provides namedtuple classes for easier
+The module :mod:`amanobot.namedtuple` provides namedtuple classes for easier
 construction of these keyboards.
 
 Pressing a button on a *custom* keyboard results in a
@@ -170,7 +170,7 @@ Here comes the concept of **flavor**.
 Message has a Flavor
 --------------------
 
-Regardless of the type of objects received, telepot generically calls them
+Regardless of the type of objects received, amanobot generically calls them
 "message" (with a lowercase "m"). A message's *flavor* depends on the
 underlying object:
 
@@ -178,7 +178,7 @@ underlying object:
 - a CallbackQuery object gives the flavor ``callback_query``
 - there are two more flavors, which you will come to shortly.
 
-Use :func:`telepot.flavor` to check a message's flavor.
+Use :func:`amanobot.flavor` to check a message's flavor.
 
 Here is a bot which does two things:
 
@@ -191,7 +191,7 @@ Pay attention to these things in the code:
   an `InlineKeyboardMarkup <https://core.telegram.org/bots/api#inlinekeyboardmarkup>`_
   and an `InlineKeyboardButton <https://core.telegram.org/bots/api#inlinekeyboardbutton>`_
   object
-- :func:`telepot.glance` works on any type of messages. Just give it the flavor.
+- :func:`amanobot.glance` works on any type of messages. Just give it the flavor.
 - Use :meth:`.Bot.answerCallbackQuery` to react to callback query
 - To *route* messages according to flavor, give a *routing table* to
   :class:`.MessageLoop`
@@ -317,7 +317,7 @@ Everything discussed so far assumes traditional Python. That is, network operati
 if you want to serve many users at the same time, some kind of threads are usually needed.
 Another option is to use an asynchronous or event-driven framework, such as `Twisted <http://twistedmatrix.com/>`_.
 
-Python 3.5+ has its own ``asyncio`` module. Telepot supports that, too.
+Python 3.5+ has its own ``asyncio`` module. Amanobot supports that, too.
 
 Here is how to compile and install Python 3.6, if your O/S does not have it built in::
 
@@ -325,16 +325,16 @@ Here is how to compile and install Python 3.6, if your O/S does not have it buil
     $ sudo apt-get upgrade
     $ sudo apt-get install libssl-dev openssl libreadline-dev
     $ cd ~
-    $ wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz
-    $ tar zxf Python-3.6.1.tgz
-    $ cd Python-3.6.1
+    $ wget https://www.python.org/ftp/python/3.6.1/Python-3.6.6.tgz
+    $ tar zxf Python-3.6.6.tgz
+    $ cd Python-3.6.6
     $ ./configure
     $ make
     $ sudo make install
 
 Finally::
 
-    $ pip3.6 install telepot
+    $ pip3.6 install amanobot
 
 In case you are not familiar with asynchronous programming, let's start by learning about generators and coroutines:
 
@@ -356,7 +356,7 @@ In case you are not familiar with asynchronous programming, let's start by learn
 - `Event loop examples <https://docs.python.org/3/library/asyncio-eventloop.html#event-loop-examples>`_
 - `HTTP server and client <http://aiohttp.readthedocs.org/en/stable/>`_
 
-Telepot's async version basically mirrors the traditional version. Main differences are:
+Amanobot's async version basically mirrors the traditional version. Main differences are:
 
 - blocking methods are now coroutines, and should be called with ``await``
 - delegation is achieved by tasks, instead of threads
@@ -365,7 +365,7 @@ Because of that (and this is true of asynchronous Python in general), a lot of m
 will not work in the interactive Python interpreter like regular functions would.
 They will have to be driven by an event loop.
 
-Async version is under module :mod:`telepot.aio`. I duplicate the message counter example
+Async version is under module :mod:`amanobot.aio`. I duplicate the message counter example
 below in async style:
 
 - Substitute async version of relevant classes and functions
@@ -375,5 +375,5 @@ below in async style:
 .. literalinclude:: _code/countera.py
    :emphasize-lines: 4-5,7,12-14,24
 
-`More Examples » <https://github.com/nickoala/telepot/tree/master/examples>`_
+`More Examples » <https://github.com/nickoala/amanobot/tree/master/examples>`_
 -----------------------------------------------------------------------------

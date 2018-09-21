@@ -1,3 +1,13 @@
+# amanobot changelog
+
+## 1.0 (2018-xx-yy)
+
+- Bot API 4.1
+- Added method `editMessageMedia` and `sendAnimation`
+- Added `thumb` to `sendAudio`, `sendDocument`, `sendVideo` and `sendVideoNote` methods
+- Added `foursquare_type` to `sendVenue` method and to `objects Venue`, `InlineQueryResultVenue` and `InputVenueMessageContent`
+
+
 # telepot changelog
 
 ## 12.7 (2018-05-27)

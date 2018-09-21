@@ -43,7 +43,7 @@ else:
     cmdclass['install_lib'] = nocompile_async
 
 # Parse version
-with open(path.join(here, 'telepot', '__init__.py')) as f:
+with open(path.join(here, 'amanobot', '__init__.py')) as f:
     m = re.search('^__version_info__ *= *\(([0-9]+), *([0-9]+)\)', f.read(), re.MULTILINE)
     version = '.'.join(m.groups())
 
@@ -51,22 +51,22 @@ with open(path.join(here, 'telepot', '__init__.py')) as f:
 setup(
     cmdclass=cmdclass,
 
-    name='telepot',
-    packages=['telepot', 'telepot.aio'],
+    name='amanobot',
+    packages=['amanobot', 'amanobot.aio'],
     # Do not filter out packages because we need the whole thing during `sdist`.
 
     install_requires=install_requires,
 
     version=version,
 
-    description='Python framework for Telegram Bot API',
+    description='Python framework for Telegram Bot API based on Telepot',
 
     long_description='',
 
-    url='https://github.com/nickoala/telepot',
+    url='https://github.com/AmanoTeam/amanobot',
 
-    author='Nick Lee',
-    author_email='lee1nick@yahoo.ca',
+    author='Amano Team',
+    author_email='contact@amanoteam.ml',
 
     license='MIT',
 

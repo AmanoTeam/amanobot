@@ -1,7 +1,7 @@
-telepot reference
+amanobot reference
 =================
 
-Telepot has two versions:
+Amanobot has two versions:
 
 - **Traditional version works on Python 2.7 and Python 3.** It uses
   `urllib3 <https://urllib3.readthedocs.io/en/latest/>`_ to make HTTP requests,
@@ -19,30 +19,30 @@ the most significant differences being:
 - Delegation is achieved by tasks, instead of threads. Thread-safety ceases to
   be a concern.
 
-Traditional modules are under the package :mod:`telepot`, while async modules are
-under :mod:`telepot.aio`:
+Traditional modules are under the package :mod:`amanobot`, while async modules are
+under :mod:`amanobot.aio`:
 
-+-------------------+-----------------------+
-| Traditional       | Async                 |
-+===================+=======================+
-| telepot           | telepot.aio           |
-+-------------------+-----------------------+
-| telepot.loop      | telepot.aio.loop      |
-+-------------------+-----------------------+
-| telepot.delegate  | telepot.aio.delegate  |
-+-------------------+-----------------------+
-| telepot.helper    | telepot.aio.helper    |
-+-------------------+-----------------------+
-| telepot.routing   | telepot.aio.routing   |
-+-------------------+-----------------------+
-| telepot.api       | telepot.aio.api       |
-+-------------------+-----------------------+
++--------------------+------------------------+
+| Traditional        | Async                  |
++====================+========================+
+| amanobot           | amanobot.aio           |
++--------------------+------------------------+
+| amanobot.loop      | amanobot.aio.loop      |
++--------------------+------------------------+
+| amanobot.delegate  | amanobot.aio.delegate  |
++--------------------+------------------------+
+| amanobot.helper    | amanobot.aio.helper    |
++--------------------+------------------------+
+| amanobot.routing   | amanobot.aio.routing   |
++--------------------+------------------------+
+| amanobot.api       | amanobot.aio.api       |
++--------------------+------------------------+
 
-Some modules do not have async counterparts, e.g. :mod:`telepot.namedtuple` and
-:mod:`telepot.exception`, because they are shared.
+Some modules do not have async counterparts, e.g. :mod:`amanobot.namedtuple` and
+:mod:`amanobot.exception`, because they are shared.
 
 Try to combine this reading with the provided
-`examples <https://github.com/nickoala/telepot/tree/master/examples>`_ .
+`examples <https://github.com/nickoala/amanobot/tree/master/examples>`_ .
 One example is worth a thousand words. I hope they make things clear.
 
 Basic Bot
@@ -52,7 +52,7 @@ The ``Bot`` class is mostly a wrapper around `Telegram Bot API <https://core.tel
 Many methods are straight mappings to Bot API methods. Where appropriate,
 I only give links below. No point to duplicate all the details.
 
-.. autoclass:: telepot.Bot
+.. autoclass:: amanobot.Bot
    :members:
 
 Message Loop and Webhook
@@ -64,7 +64,7 @@ There are two ways to obtain updates from Telegram Bot API: make calls to
 In the former case, it is troublesome to have to program that manually.
 So :class:`.MessageLoop` is here to ease your burden. In the latter case,
 although the programming overhead is mainly on the web server, a structured way
-to funnel web requests into telepot is desirable. The result is :class:`.Webhook`
+to funnel web requests into amanobot is desirable. The result is :class:`.Webhook`
 and :class:`.OrderedWebhook`.
 
 The idea is similar. You supply a message-handling function to the object
@@ -86,7 +86,7 @@ define functions specifically to handle one flavor of messages. It usually looks
 like this: ``{'chat': fn1, 'callback_query': fn2, 'inline_query': fn3, ...}``.
 Each handler function should take one argument (the message).
 
-.. autoclass:: telepot.loop.MessageLoop
+.. autoclass:: amanobot.loop.MessageLoop
    :members:
    :undoc-members:
    :inherited-members:
@@ -101,15 +101,15 @@ want to implement your own ordering logic, :class:`.Webhook` should not be used.
 In async version, a task of :meth:`.run_forever` should be created instead of
 :meth:`.run_as_thread`.
 
-Refer to `webhook examples <https://github.com/nickoala/telepot/tree/master/examples/webhook>`_
+Refer to `webhook examples <https://github.com/nickoala/amanobot/tree/master/examples/webhook>`_
 for usage.
 
-.. autoclass:: telepot.loop.OrderedWebhook
+.. autoclass:: amanobot.loop.OrderedWebhook
    :members:
    :undoc-members:
    :inherited-members:
 
-.. autoclass:: telepot.loop.Webhook
+.. autoclass:: amanobot.loop.Webhook
    :members:
    :undoc-members:
    :inherited-members:
@@ -117,19 +117,19 @@ for usage.
 Functions
 ---------
 
-.. autofunction:: telepot.flavor
-.. autofunction:: telepot.glance
-.. autofunction:: telepot.flance
-.. autofunction:: telepot.peel
-.. autofunction:: telepot.fleece
-.. autofunction:: telepot.is_event
-.. autofunction:: telepot.message_identifier
-.. autofunction:: telepot.origin_identifier
+.. autofunction:: amanobot.flavor
+.. autofunction:: amanobot.glance
+.. autofunction:: amanobot.flance
+.. autofunction:: amanobot.peel
+.. autofunction:: amanobot.fleece
+.. autofunction:: amanobot.is_event
+.. autofunction:: amanobot.message_identifier
+.. autofunction:: amanobot.origin_identifier
 
 DelegatorBot
 ------------
 
-.. autoclass:: telepot.DelegatorBot
+.. autoclass:: amanobot.DelegatorBot
 
 A *seeder* is a function that:
 
@@ -168,133 +168,133 @@ argument, the above logic will be executed for every message received.
 In the list of delegation patterns, all seeder functions are evaluated in order.
 One message may start multiple delegates.
 
-The module :mod:`telepot.delegate` has a bunch of seeder factories
+The module :mod:`amanobot.delegate` has a bunch of seeder factories
 and delegator factories, which greatly ease the use of DelegatorBot. The module
-:mod:`telepot.helper` also has a number of ``*Handler`` classes which provide
+:mod:`amanobot.helper` also has a number of ``*Handler`` classes which provide
 a connection-like interface to deal with individual chats or users.
 
-I have given an `answer <https://stackoverflow.com/questions/45387797/how-does-the-delegatorbot-work-exactly-in-telepot/45397368#45397368>`_
+I have given an `answer <https://stackoverflow.com/questions/45387797/how-does-the-delegatorbot-work-exactly-in-amanobot/45397368#45397368>`_
 on Stack Overflow which elaborates on the inner workings of DelegatorBot in
 greater details. Interested readers are encouraged to read that.
 
 In the rest of discussions, *seed tuple* means a (bot, message, seed) tuple,
 referring to the single argument taken by delegator functions.
 
-``telepot.delegate``
+``amanobot.delegate``
 --------------------
 
-.. automodule:: telepot.delegate
+.. automodule:: amanobot.delegate
    :members:
 
-``telepot.helper``
+``amanobot.helper``
 ------------------
 
 Handlers
 ++++++++
 
-.. autoclass:: telepot.helper.Monitor
+.. autoclass:: amanobot.helper.Monitor
    :show-inheritance:
    :members:
 
-.. autoclass:: telepot.helper.ChatHandler
+.. autoclass:: amanobot.helper.ChatHandler
    :show-inheritance:
    :members:
 
-.. autoclass:: telepot.helper.UserHandler
+.. autoclass:: amanobot.helper.UserHandler
    :show-inheritance:
    :members:
 
-.. autoclass:: telepot.helper.InlineUserHandler
+.. autoclass:: amanobot.helper.InlineUserHandler
    :show-inheritance:
    :members:
 
-.. autoclass:: telepot.helper.CallbackQueryOriginHandler
+.. autoclass:: amanobot.helper.CallbackQueryOriginHandler
    :show-inheritance:
    :members:
 
-.. autoclass:: telepot.helper.InvoiceHandler
+.. autoclass:: amanobot.helper.InvoiceHandler
    :show-inheritance:
    :members:
 
 Contexts
 ++++++++
 
-.. autoclass:: telepot.helper.ListenerContext
+.. autoclass:: amanobot.helper.ListenerContext
    :members:
    :undoc-members:
 
-.. autoclass:: telepot.helper.ChatContext
+.. autoclass:: amanobot.helper.ChatContext
    :show-inheritance:
    :members:
    :undoc-members:
 
-.. autoclass:: telepot.helper.UserContext
+.. autoclass:: amanobot.helper.UserContext
    :show-inheritance:
    :members:
    :undoc-members:
 
-.. autoclass:: telepot.helper.CallbackQueryOriginContext
+.. autoclass:: amanobot.helper.CallbackQueryOriginContext
    :show-inheritance:
    :members:
    :undoc-members:
 
-.. autoclass:: telepot.helper.InvoiceContext
+.. autoclass:: amanobot.helper.InvoiceContext
    :show-inheritance:
    :members:
    :undoc-members:
 
-.. autoclass:: telepot.helper.Sender
+.. autoclass:: amanobot.helper.Sender
    :members:
 
-.. autoclass:: telepot.helper.Administrator
+.. autoclass:: amanobot.helper.Administrator
    :members:
 
-.. autoclass:: telepot.helper.Editor
+.. autoclass:: amanobot.helper.Editor
    :members:
 
-.. autoclass:: telepot.helper.Listener
+.. autoclass:: amanobot.helper.Listener
    :members:
 
 Mixins
 ++++++
 
-.. autoclass:: telepot.helper.Router
+.. autoclass:: amanobot.helper.Router
    :members:
 
-.. autoclass:: telepot.helper.DefaultRouterMixin
-   :members:
-   :undoc-members:
-
-.. autoclass:: telepot.helper.StandardEventScheduler
+.. autoclass:: amanobot.helper.DefaultRouterMixin
    :members:
    :undoc-members:
 
-.. autoclass:: telepot.helper.StandardEventMixin
+.. autoclass:: amanobot.helper.StandardEventScheduler
+   :members:
+   :undoc-members:
+
+.. autoclass:: amanobot.helper.StandardEventMixin
    :members:
    :undoc-members:
    :exclude-members: StandardEventScheduler
 
-.. autoclass:: telepot.helper.IdleEventCoordinator
+.. autoclass:: amanobot.helper.IdleEventCoordinator
    :members:
 
-.. autoclass:: telepot.helper.IdleTerminateMixin
+.. autoclass:: amanobot.helper.IdleTerminateMixin
    :members:
    :undoc-members:
    :exclude-members: IdleEventCoordinator
 
-.. autoclass:: telepot.helper.CallbackQueryCoordinator
+.. autoclass:: amanobot.helper.CallbackQueryCoordinator
    :members:
    :undoc-members:
 
-.. autoclass:: telepot.helper.InterceptCallbackQueryMixin
+.. autoclass:: amanobot.helper.InterceptCallbackQueryMixin
    :members:
    :undoc-members:
    :exclude-members: CallbackQueryCoordinator
 
-.. autoclass:: telepot.helper.Answerer
+.. autoclass:: amanobot.helper.Answerer
    :members:
 
-.. autoclass:: telepot.helper.AnswererMixin
+.. autoclass:: amanobot.helper.AnswererMixin
    :members:
    :undoc-members:
    :exclude-members: Answerer
@@ -302,23 +302,23 @@ Mixins
 Utilities
 +++++++++
 
-.. autoclass:: telepot.helper.SafeDict
+.. autoclass:: amanobot.helper.SafeDict
    :members:
 
-.. autofunction:: telepot.helper.openable
+.. autofunction:: amanobot.helper.openable
 
-``telepot.exception``
+``amanobot.exception``
 ---------------------
 
-.. automodule:: telepot.exception
+.. automodule:: amanobot.exception
    :members:
    :undoc-members:
 
-``telepot.namedtuple``
+``amanobot.namedtuple``
 ----------------------
 
-Telepot's custom is to represent Bot API object as *dictionary*.
-On the other hand, the module :mod:`telepot.namedtuple` also provide namedtuple
+Amanobot's custom is to represent Bot API object as *dictionary*.
+On the other hand, the module :mod:`amanobot.namedtuple` also provide namedtuple
 classes mirroring those objects. The reasons are twofold:
 
 1. Under some situations, you may want an object with a complete set of fields,
@@ -376,20 +376,20 @@ Outgoing objects include:
 - `LabeledPrice <https://core.telegram.org/bots/api#labeledprice>`_
 - `ShippingOption <https://core.telegram.org/bots/api#shippingoption>`_
 
-``telepot.routing``
+``amanobot.routing``
 -------------------
 
-.. automodule:: telepot.routing
+.. automodule:: amanobot.routing
    :members:
 
-``telepot.text``
+``amanobot.text``
 ----------------
 
-.. automodule:: telepot.text
+.. automodule:: amanobot.text
    :members:
 
-``telepot.api``
+``amanobot.api``
 ----------------
 
-.. automodule:: telepot.api
+.. automodule:: amanobot.api
    :members:
