@@ -1,9 +1,9 @@
 import sys
 import asyncio
 import random
-import telepot
-from telepot.aio.loop import MessageLoop
-from telepot.aio.delegate import per_chat_id, create_open, pave_event_space
+import amanobot
+from amanobot.aio.loop import MessageLoop
+from amanobot.aio.delegate import per_chat_id, create_open, pave_event_space
 
 """
 $ python3.5 guessa.py <token>
@@ -17,7 +17,7 @@ Guess a number:
 5. Repeat step 3 and 4, until guess is correct.
 """
 
-class Player(telepot.aio.helper.ChatHandler):
+class Player(amanobot.aio.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(Player, self).__init__(*args, **kwargs)
         self._answer = random.randint(0,99)
@@ -33,7 +33,7 @@ class Player(telepot.aio.helper.ChatHandler):
         return True  # prevent on_message() from being called on the initial message
 
     async def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if content_type != 'text':
             await self.sender.sendMessage('Give me a number, please.')
@@ -61,7 +61,7 @@ class Player(telepot.aio.helper.ChatHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.aio.DelegatorBot(TOKEN, [
+bot = amanobot.aio.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, Player, timeout=10),
 ])

@@ -1,12 +1,12 @@
 import sys
 import asyncio
 from functools import reduce
-from telepot import glance, message_identifier
-import telepot.aio
-import telepot.aio.helper
-from telepot.aio.loop import MessageLoop
-from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-from telepot.aio.delegate import (
+from amanobot import glance, message_identifier
+import amanobot.aio
+import amanobot.aio.helper
+from amanobot.aio.loop import MessageLoop
+from amanobot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
+from amanobot.aio.delegate import (
     per_chat_id, create_open, pave_event_space, include_callback_query_chat_id)
 
 """
@@ -25,14 +25,14 @@ This is the chat-centric approach.
 
 votes = dict()
 
-class VoteCounter(telepot.aio.helper.ChatHandler):
+class VoteCounter(amanobot.aio.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(VoteCounter, self).__init__(*args, **kwargs)
 
         global votes
         if self.id in votes:
             self._ballot_box, self._keyboard_msg_ident, self._expired_event, self._member_count = votes[self.id]
-            self._editor = telepot.aio.helper.Editor(self.bot, self._keyboard_msg_ident) if self._keyboard_msg_ident else None
+            self._editor = amanobot.aio.helper.Editor(self.bot, self._keyboard_msg_ident) if self._keyboard_msg_ident else None
         else:
             self._ballot_box = None
             self._keyboard_msg_ident = None
@@ -75,7 +75,7 @@ class VoteCounter(telepot.aio.helper.ChatHandler):
 
         self._ballot_box = {}
         self._keyboard_msg_ident = message_identifier(sent)
-        self._editor = telepot.aio.helper.Editor(self.bot, self._keyboard_msg_ident)
+        self._editor = amanobot.aio.helper.Editor(self.bot, self._keyboard_msg_ident)
 
         # Generate an expiry event 30 seconds later
         self._expired_event = self.scheduler.event_later(30, ('_vote_expired', {'seconds': 30}))
@@ -126,7 +126,7 @@ class VoteCounter(telepot.aio.helper.ChatHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.aio.DelegatorBot(TOKEN, [
+bot = amanobot.aio.DelegatorBot(TOKEN, [
     include_callback_query_chat_id(
         pave_event_space())(
             per_chat_id(types=['group']), create_open, VoteCounter, timeout=10),

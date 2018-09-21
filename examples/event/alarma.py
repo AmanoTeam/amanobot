@@ -1,8 +1,8 @@
 import sys
 import asyncio
-import telepot
-from telepot.aio.loop import MessageLoop
-from telepot.aio.delegate import per_chat_id, create_open, pave_event_space
+import amanobot
+from amanobot.aio.loop import MessageLoop
+from amanobot.aio.delegate import per_chat_id, create_open, pave_event_space
 
 """
 $ python3.6 alarma.py <token>
@@ -21,7 +21,7 @@ comments in the code:
 3. Provide the event spec when scheduling events
 """
 
-class AlarmSetter(telepot.aio.helper.ChatHandler):
+class AlarmSetter(amanobot.aio.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(AlarmSetter, self).__init__(*args, **kwargs)
 
@@ -53,7 +53,7 @@ class AlarmSetter(telepot.aio.helper.ChatHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.aio.DelegatorBot(TOKEN, [
+bot = amanobot.aio.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, AlarmSetter, timeout=10),
 ])

@@ -1,8 +1,8 @@
 import sys
 import time
-import telepot
-from telepot.loop import MessageLoop
-from telepot.delegate import per_chat_id, create_open, pave_event_space
+import amanobot
+from amanobot.loop import MessageLoop
+from amanobot.delegate import per_chat_id, create_open, pave_event_space
 
 """
 $ python3.6 alarm.py <token>
@@ -21,7 +21,7 @@ comments in the code:
 3. Provide the event spec when scheduling events
 """
 
-class AlarmSetter(telepot.helper.ChatHandler):
+class AlarmSetter(amanobot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(AlarmSetter, self).__init__(*args, **kwargs)
 
@@ -53,7 +53,7 @@ class AlarmSetter(telepot.helper.ChatHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.DelegatorBot(TOKEN, [
+bot = amanobot.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, AlarmSetter, timeout=10),
 ])

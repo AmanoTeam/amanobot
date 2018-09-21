@@ -1,8 +1,8 @@
 import sys
 import asyncio
-import telepot
-from telepot.aio.loop import MessageLoop
-from telepot.aio.delegate import (
+import amanobot
+from amanobot.aio.loop import MessageLoop
+from amanobot.aio.delegate import (
     per_chat_id_in, per_application, call, create_open, pave_event_space)
 
 """
@@ -58,7 +58,7 @@ class UnreadStore(object):
 
 
 # Accept commands from owner. Give him unread messages.
-class OwnerHandler(telepot.aio.helper.ChatHandler):
+class OwnerHandler(amanobot.aio.helper.ChatHandler):
     def __init__(self, seed_tuple, store, **kwargs):
         super(OwnerHandler, self).__init__(seed_tuple, **kwargs)
         self._store = store
@@ -69,7 +69,7 @@ class OwnerHandler(telepot.aio.helper.ChatHandler):
             await self.sender.sendMessage(msg['text'])
 
     async def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if content_type != 'text':
             await self.sender.sendMessage("I don't understand")
@@ -109,16 +109,16 @@ class OwnerHandler(telepot.aio.helper.ChatHandler):
             await self.sender.sendMessage("I don't understand")
 
 
-class MessageSaver(telepot.aio.helper.Monitor):
+class MessageSaver(amanobot.aio.helper.Monitor):
     def __init__(self, seed_tuple, store, exclude):
         # The `capture` criteria means to capture all messages.
-        super(MessageSaver, self).__init__(seed_tuple, capture=[[lambda msg: not telepot.is_event(msg)]])
+        super(MessageSaver, self).__init__(seed_tuple, capture=[[lambda msg: not amanobot.is_event(msg)]])
         self._store = store
         self._exclude = exclude
 
     # Store every message, except those whose sender is in the exclude list, or non-text messages.
     def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if chat_id in self._exclude:
             print('Chat id %d is excluded.' % chat_id)
@@ -132,7 +132,7 @@ class MessageSaver(telepot.aio.helper.Monitor):
         self._store.put(msg)
 
 
-class ChatBox(telepot.aio.DelegatorBot):
+class ChatBox(amanobot.aio.DelegatorBot):
     def __init__(self, token, owner_id):
         self._owner_id = owner_id
         self._seen = set()
@@ -152,7 +152,7 @@ class ChatBox(telepot.aio.DelegatorBot):
 
     # seed-calculating function: use returned value to indicate whether to spawn a delegate
     def _is_newcomer(self, msg):
-        if telepot.is_event(msg):
+        if amanobot.is_event(msg):
             return None
 
         chat_id = msg['chat']['id']

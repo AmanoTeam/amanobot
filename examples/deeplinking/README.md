@@ -28,7 +28,7 @@ may be a bit confusing. I try to give a clearer explanation here.
    If user `123` has the key `abcde`, his personalized link will be:
 
     ```
-    https://telegram.me/<bot_username>?start=abcde
+    https://t.me/<bot_username>?start=abcde
     ```
 
 3. Someone clicks on the link, and is led to a conversation with your bot.

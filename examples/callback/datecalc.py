@@ -2,14 +2,14 @@ import sys
 import time
 from datetime import datetime, timedelta
 from functools import reduce
-import telepot
-import telepot.helper
-from telepot.loop import MessageLoop
-from telepot.namedtuple import (
+import amanobot
+import amanobot.helper
+from amanobot.loop import MessageLoop
+from amanobot.namedtuple import (
     InlineQueryResultArticle, InputTextMessageContent,
     InlineKeyboardMarkup, InlineKeyboardButton,
     ReplyKeyboardMarkup, KeyboardButton)
-from telepot.delegate import (
+from amanobot.delegate import (
     per_inline_from_id, create_open, pave_event_space,
     intercept_callback_query_origin)
 
@@ -37,11 +37,11 @@ an inline keyboard) and answer-gathering (receiving callback query) in the same
 object.
 """
 
-user_ballots = telepot.helper.SafeDict()  # thread-safe dict
+user_ballots = amanobot.helper.SafeDict()  # thread-safe dict
 
-class DateCalculator(telepot.helper.InlineUserHandler,
-                     telepot.helper.AnswererMixin,
-                     telepot.helper.InterceptCallbackQueryMixin):
+class DateCalculator(amanobot.helper.InlineUserHandler,
+                     amanobot.helper.AnswererMixin,
+                     amanobot.helper.InterceptCallbackQueryMixin):
     def __init__(self, *args, **kwargs):
         super(DateCalculator, self).__init__(*args, **kwargs)
 
@@ -57,7 +57,7 @@ class DateCalculator(telepot.helper.InlineUserHandler,
 
     def on_inline_query(self, msg):
         def compute():
-            query_id, from_id, query_string = telepot.glance(msg, flavor='inline_query')
+            query_id, from_id, query_string = amanobot.glance(msg, flavor='inline_query')
             print('Inline query:', query_id, from_id, query_string)
 
             weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
@@ -118,7 +118,7 @@ class DateCalculator(telepot.helper.InlineUserHandler,
             inline_message_id = msg['inline_message_id']
             ballot = self._ballots[inline_message_id]
 
-            query_id, from_id, query_data = telepot.glance(msg, flavor='callback_query')
+            query_id, from_id, query_data = amanobot.glance(msg, flavor='callback_query')
             if from_id in ballot:
                 self.bot.answerCallbackQuery(query_id, text='You have already voted %s' % ballot[from_id])
             else:
@@ -131,14 +131,14 @@ class DateCalculator(telepot.helper.InlineUserHandler,
         return yes, no
 
     def on__expired(self, event):
-        evt = telepot.peel(event)
+        evt = amanobot.peel(event)
         inline_message_id = evt['inline_message_id']
         suggested_date = evt['date']
 
         ballot = self._ballots[inline_message_id]
         text = '%s\nYes: %d\nNo: %d' % ((suggested_date,) + self._count(ballot))
 
-        editor = telepot.helper.Editor(self.bot, inline_message_id)
+        editor = amanobot.helper.Editor(self.bot, inline_message_id)
         editor.editMessageText(text=text, reply_markup=None)
 
         del self._ballots[inline_message_id]
@@ -152,7 +152,7 @@ class DateCalculator(telepot.helper.InlineUserHandler,
 
 TOKEN = sys.argv[1]
 
-bot = telepot.DelegatorBot(TOKEN, [
+bot = amanobot.DelegatorBot(TOKEN, [
     intercept_callback_query_origin(
         pave_event_space())(
             per_inline_from_id(), create_open, DateCalculator, timeout=10),

@@ -2,14 +2,14 @@ import sys
 import time
 import threading
 import random
-import telepot
-from telepot.loop import MessageLoop
-from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, ForceReply
-from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-from telepot.namedtuple import InlineQueryResultArticle, InlineQueryResultPhoto, InputTextMessageContent
+import amanobot
+from amanobot.loop import MessageLoop
+from amanobot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, ForceReply
+from amanobot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
+from amanobot.namedtuple import InlineQueryResultArticle, InlineQueryResultPhoto, InputTextMessageContent
 
 """
-$ python3.5 skeleton_route.py <token>
+$ python3 skeleton_route.py <token>
 
 It demonstrates:
 - passing a routing table to `MessageLoop` to filter flavors.
@@ -34,7 +34,7 @@ It works like this:
 message_with_inline_keyboard = None
 
 def on_chat_message(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
     print('Chat:', content_type, chat_type, chat_id)
 
     if content_type != 'text':
@@ -68,7 +68,7 @@ def on_chat_message(msg):
 
 
 def on_callback_query(msg):
-    query_id, from_id, data = telepot.glance(msg, flavor='callback_query')
+    query_id, from_id, data = amanobot.glance(msg, flavor='callback_query')
     print('Callback query:', query_id, from_id, data)
 
     if data == 'notification':
@@ -79,7 +79,7 @@ def on_callback_query(msg):
         global message_with_inline_keyboard
 
         if message_with_inline_keyboard:
-            msg_idf = telepot.message_identifier(message_with_inline_keyboard)
+            msg_idf = amanobot.message_identifier(message_with_inline_keyboard)
             bot.editMessageText(msg_idf, 'NEW MESSAGE HERE!!!!!')
         else:
             bot.answerCallbackQuery(query_id, text='No previous message to edit')
@@ -87,7 +87,7 @@ def on_callback_query(msg):
 
 def on_inline_query(msg):
     def compute():
-        query_id, from_id, query_string = telepot.glance(msg, flavor='inline_query')
+        query_id, from_id, query_string = amanobot.glance(msg, flavor='inline_query')
         print('%s: Computing for: %s' % (threading.current_thread().name, query_string))
 
         articles = [InlineQueryResultArticle(
@@ -119,14 +119,14 @@ def on_inline_query(msg):
 
 
 def on_chosen_inline_result(msg):
-    result_id, from_id, query_string = telepot.glance(msg, flavor='chosen_inline_result')
+    result_id, from_id, query_string = amanobot.glance(msg, flavor='chosen_inline_result')
     print('Chosen Inline Result:', result_id, from_id, query_string)
 
 
 TOKEN = sys.argv[1]  # get token from command-line
 
-bot = telepot.Bot(TOKEN)
-answerer = telepot.helper.Answerer(bot)
+bot = amanobot.Bot(TOKEN)
+answerer = amanobot.helper.Answerer(bot)
 
 MessageLoop(bot, {'chat': on_chat_message,
                   'callback_query': on_callback_query,

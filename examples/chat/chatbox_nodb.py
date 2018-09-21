@@ -1,8 +1,8 @@
 import sys
 import time
-import telepot
-from telepot.loop import MessageLoop
-from telepot.delegate import (
+import amanobot
+from amanobot.loop import MessageLoop
+from amanobot.delegate import (
     per_chat_id_in, per_application, call, create_open, pave_event_space)
 
 """
@@ -58,7 +58,7 @@ class UnreadStore(object):
 
 
 # Accept commands from owner. Give him unread messages.
-class OwnerHandler(telepot.helper.ChatHandler):
+class OwnerHandler(amanobot.helper.ChatHandler):
     def __init__(self, seed_tuple, store, **kwargs):
         super(OwnerHandler, self).__init__(seed_tuple, **kwargs)
         self._store = store
@@ -69,7 +69,7 @@ class OwnerHandler(telepot.helper.ChatHandler):
             self.sender.sendMessage(msg['text'])
 
     def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if content_type != 'text':
             self.sender.sendMessage("I don't understand")
@@ -109,16 +109,16 @@ class OwnerHandler(telepot.helper.ChatHandler):
             self.sender.sendMessage("I don't understand")
 
 
-class MessageSaver(telepot.helper.Monitor):
+class MessageSaver(amanobot.helper.Monitor):
     def __init__(self, seed_tuple, store, exclude):
         # The `capture` criteria means to capture all messages.
-        super(MessageSaver, self).__init__(seed_tuple, capture=[[lambda msg: not telepot.is_event(msg)]])
+        super(MessageSaver, self).__init__(seed_tuple, capture=[[lambda msg: not amanobot.is_event(msg)]])
         self._store = store
         self._exclude = exclude
 
     # Store every message, except those whose sender is in the exclude list, or non-text messages.
     def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if chat_id in self._exclude:
             print('Chat id %d is excluded.' % chat_id)
@@ -155,7 +155,7 @@ def custom_thread(func):
     return f
 
 
-class ChatBox(telepot.DelegatorBot):
+class ChatBox(amanobot.DelegatorBot):
     def __init__(self, token, owner_id):
         self._owner_id = owner_id
         self._seen = set()
@@ -175,7 +175,7 @@ class ChatBox(telepot.DelegatorBot):
 
     # seed-calculating function: use returned value to indicate whether to spawn a delegate
     def _is_newcomer(self, msg):
-        if telepot.is_event(msg):
+        if amanobot.is_event(msg):
             return None
 
         chat_id = msg['chat']['id']

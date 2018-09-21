@@ -5,7 +5,7 @@
 After **inserting token** in the source code, run it:
 
 ```
-$ python2.7 diceyclock.py
+$ python3 diceyclock.py
 ```
 
 [Here is a tutorial](http://www.instructables.com/id/Set-up-Telegram-Bot-on-Raspberry-Pi/)
@@ -27,8 +27,8 @@ But if you really want to put emoji in a string, I recommend using this
 ### Simple Skeleton
 
 ```
-$ python2.7 skeleton.py <token>   # traditional
-$ python3.5 skeletona.py <token>  # async
+$ python3 skeleton.py <token>   # traditional
+$ python3 skeletona.py <token>  # async
 ```
 
 **[Traditional »](skeleton.py)**   
@@ -37,8 +37,8 @@ $ python3.5 skeletona.py <token>  # async
 ### Various keyboards and buttons
 
 ```
-$ python3.5 skeleton_route.py <token>   # traditional
-$ python3.5 skeletona_route.py <token>  # async
+$ python3 skeleton_route.py <token>   # traditional
+$ python3 skeletona_route.py <token>  # async
 ```
 
 It demonstrates:

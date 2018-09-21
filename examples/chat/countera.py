@@ -1,8 +1,8 @@
 import sys
 import asyncio
-import telepot
-from telepot.aio.loop import MessageLoop
-from telepot.aio.delegate import per_chat_id, create_open, pave_event_space
+import amanobot
+from amanobot.aio.loop import MessageLoop
+from amanobot.aio.delegate import per_chat_id, create_open, pave_event_space
 
 """
 $ python3.5 countera.py <token>
@@ -11,7 +11,7 @@ Counts number of messages a user has sent. Starts over if silent for 10 seconds.
 Illustrates the basic usage of `DelegateBot` and `ChatHandler`.
 """
 
-class MessageCounter(telepot.aio.helper.ChatHandler):
+class MessageCounter(amanobot.aio.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(MessageCounter, self).__init__(*args, **kwargs)
         self._count = 0
@@ -23,7 +23,7 @@ class MessageCounter(telepot.aio.helper.ChatHandler):
 
 TOKEN = sys.argv[1]  # get token from command-line
 
-bot = telepot.aio.DelegatorBot(TOKEN, [
+bot = amanobot.aio.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, MessageCounter, timeout=10),
 ])

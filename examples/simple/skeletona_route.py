@@ -1,15 +1,15 @@
 import sys
 import asyncio
 import random
-import telepot
-import telepot.aio
-from telepot.aio.loop import MessageLoop
-from telepot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, ForceReply
-from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-from telepot.namedtuple import InlineQueryResultArticle, InlineQueryResultPhoto, InputTextMessageContent
+import amanobot
+import amanobot.aio
+from amanobot.aio.loop import MessageLoop
+from amanobot.namedtuple import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove, ForceReply
+from amanobot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
+from amanobot.namedtuple import InlineQueryResultArticle, InlineQueryResultPhoto, InputTextMessageContent
 
 """
-$ python3.5 skeletona_route.py <token>
+$ python3 skeletona_route.py <token>
 
 It demonstrates:
 - passing a routing table to `MessageLoop` to filter flavors.
@@ -34,7 +34,7 @@ It works like this:
 message_with_inline_keyboard = None
 
 async def on_chat_message(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
     print('Chat:', content_type, chat_type, chat_id)
 
     if content_type != 'text':
@@ -68,7 +68,7 @@ async def on_chat_message(msg):
 
 
 async def on_callback_query(msg):
-    query_id, from_id, data = telepot.glance(msg, flavor='callback_query')
+    query_id, from_id, data = amanobot.glance(msg, flavor='callback_query')
     print('Callback query:', query_id, from_id, data)
 
     if data == 'notification':
@@ -79,7 +79,7 @@ async def on_callback_query(msg):
         global message_with_inline_keyboard
 
         if message_with_inline_keyboard:
-            msg_idf = telepot.message_identifier(message_with_inline_keyboard)
+            msg_idf = amanobot.message_identifier(message_with_inline_keyboard)
             await bot.editMessageText(msg_idf, 'NEW MESSAGE HERE!!!!!')
         else:
             await bot.answerCallbackQuery(query_id, text='No previous message to edit')
@@ -87,7 +87,7 @@ async def on_callback_query(msg):
 
 def on_inline_query(msg):
     def compute():
-        query_id, from_id, query_string = telepot.glance(msg, flavor='inline_query')
+        query_id, from_id, query_string = amanobot.glance(msg, flavor='inline_query')
         print('Computing for: %s' % query_string)
 
         articles = [InlineQueryResultArticle(
@@ -119,14 +119,14 @@ def on_inline_query(msg):
 
 
 def on_chosen_inline_result(msg):
-    result_id, from_id, query_string = telepot.glance(msg, flavor='chosen_inline_result')
+    result_id, from_id, query_string = amanobot.glance(msg, flavor='chosen_inline_result')
     print('Chosen Inline Result:', result_id, from_id, query_string)
 
 
 TOKEN = sys.argv[1]  # get token from command-line
 
-bot = telepot.aio.Bot(TOKEN)
-answerer = telepot.aio.helper.Answerer(bot)
+bot = amanobot.aio.Bot(TOKEN)
+answerer = amanobot.aio.helper.Answerer(bot)
 
 loop = asyncio.get_event_loop()
 loop.create_task(MessageLoop(bot, {'chat': on_chat_message,

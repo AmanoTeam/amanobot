@@ -2,16 +2,16 @@ import sys
 import asyncio
 from datetime import datetime, timedelta
 from functools import reduce
-from telepot import glance, peel
-import telepot.aio
-from telepot.aio.loop import MessageLoop
-from telepot.aio.helper import (
+from amanobot import glance, peel
+import amanobot.aio
+from amanobot.aio.loop import MessageLoop
+from amanobot.aio.helper import (
     InlineUserHandler, AnswererMixin, InterceptCallbackQueryMixin, Editor)
-from telepot.namedtuple import (
+from amanobot.namedtuple import (
     InlineQueryResultArticle, InputTextMessageContent,
     InlineKeyboardMarkup, InlineKeyboardButton,
     ReplyKeyboardMarkup, KeyboardButton)
-from telepot.aio.delegate import (
+from amanobot.aio.delegate import (
     per_inline_from_id, create_open, pave_event_space,
     intercept_callback_query_origin)
 
@@ -154,7 +154,7 @@ class DateCalculator(InlineUserHandler,
 
 TOKEN = sys.argv[1]
 
-bot = telepot.aio.DelegatorBot(TOKEN, [
+bot = amanobot.aio.DelegatorBot(TOKEN, [
     intercept_callback_query_origin(
         pave_event_space())(
             per_inline_from_id(), create_open, DateCalculator, timeout=10),

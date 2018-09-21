@@ -1,14 +1,14 @@
 import time
 import random
 import datetime
-import telepot
-from telepot.loop import MessageLoop
+import amanobot
+from amanobot.loop import MessageLoop
 
 """
 After **inserting token** in the source code, run it:
 
 ```
-$ python2.7 diceyclock.py
+$ python3 diceyclock.py
 ```
 
 [Here is a tutorial](http://www.instructables.com/id/Set-up-Telegram-Bot-on-Raspberry-Pi/)
@@ -30,7 +30,7 @@ def handle(msg):
     elif command == '/time':
         bot.sendMessage(chat_id, str(datetime.datetime.now()))
 
-bot = telepot.Bot('*** INSERT TOKEN ***')
+bot = amanobot.Bot('*** INSERT TOKEN ***')
 
 MessageLoop(bot, handle).run_as_thread()
 print 'I am listening ...'

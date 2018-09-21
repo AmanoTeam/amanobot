@@ -1,12 +1,12 @@
 import sys
 import asyncio
 import random
-from telepot import glance
-import telepot.aio
-import telepot.aio.helper
-from telepot.aio.loop import MessageLoop
-from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-from telepot.aio.delegate import (
+from amanobot import glance
+import amanobot.aio
+import amanobot.aio.helper
+from amanobot.aio.loop import MessageLoop
+from amanobot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
+from amanobot.aio.delegate import (
     per_chat_id, per_callback_query_origin, create_open, pave_event_space)
 
 """
@@ -19,7 +19,7 @@ It handles callback query by their origins. All callback query originated from
 the same chat message will be handled by the same `CallbackQueryOriginHandler`.
 """
 
-class QuizStarter(telepot.aio.helper.ChatHandler):
+class QuizStarter(amanobot.aio.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(QuizStarter, self).__init__(*args, **kwargs)
 
@@ -35,7 +35,7 @@ class QuizStarter(telepot.aio.helper.ChatHandler):
         )
         self.close()  # let Quizzer take over
 
-class Quizzer(telepot.aio.helper.CallbackQueryOriginHandler):
+class Quizzer(amanobot.aio.helper.CallbackQueryOriginHandler):
     def __init__(self, *args, **kwargs):
         super(Quizzer, self).__init__(*args, **kwargs)
         self._score = {True: 0, False: 0}
@@ -81,7 +81,7 @@ class Quizzer(telepot.aio.helper.CallbackQueryOriginHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.aio.DelegatorBot(TOKEN, [
+bot = amanobot.aio.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, QuizStarter, timeout=3),
     pave_event_space()(

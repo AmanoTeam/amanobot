@@ -1,24 +1,24 @@
 import sys
 import time
-import telepot
-from telepot.loop import MessageLoop
+import amanobot
+from amanobot.loop import MessageLoop
 
 """
-$ python2.7 skeleton.py <token>
+$ python3 skeleton.py <token>
 
-A skeleton for your telepot programs.
+A skeleton for your amanobot programs.
 """
 
 def handle(msg):
-    flavor = telepot.flavor(msg)
+    flavor = amanobot.flavor(msg)
 
-    summary = telepot.glance(msg, flavor=flavor)
+    summary = amanobot.glance(msg, flavor=flavor)
     print flavor, summary
 
 
 TOKEN = sys.argv[1]  # get token from command-line
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 MessageLoop(bot, handle).run_as_thread()
 print 'Listening ...'
 

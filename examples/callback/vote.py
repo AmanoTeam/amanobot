@@ -1,11 +1,11 @@
 import sys
 import time
 from functools import reduce
-import telepot
-import telepot.helper
-from telepot.loop import MessageLoop
-from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-from telepot.delegate import (
+import amanobot
+import amanobot.helper
+from amanobot.loop import MessageLoop
+from amanobot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
+from amanobot.delegate import (
     per_chat_id, create_open, pave_event_space, include_callback_query_chat_id)
 
 """
@@ -22,16 +22,16 @@ It statically captures callback query according to the originating chat id.
 This is the chat-centric approach.
 """
 
-votes = telepot.helper.SafeDict()  # thread-safe dict
+votes = amanobot.helper.SafeDict()  # thread-safe dict
 
-class VoteCounter(telepot.helper.ChatHandler):
+class VoteCounter(amanobot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(VoteCounter, self).__init__(*args, **kwargs)
 
         global votes
         if self.id in votes:
             self._ballot_box, self._keyboard_msg_ident, self._expired_event = votes[self.id]
-            self._editor = telepot.helper.Editor(self.bot, self._keyboard_msg_ident) if self._keyboard_msg_ident else None
+            self._editor = amanobot.helper.Editor(self.bot, self._keyboard_msg_ident) if self._keyboard_msg_ident else None
         else:
             self._ballot_box = None
             self._keyboard_msg_ident = None
@@ -44,7 +44,7 @@ class VoteCounter(telepot.helper.ChatHandler):
         self.router.routing_table['_vote_expired'] = self.on__vote_expired
 
     def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if content_type != 'text':
             print('Not a text message.')
@@ -72,8 +72,8 @@ class VoteCounter(telepot.helper.ChatHandler):
         sent = self.sender.sendMessage("Let's Vote ...", reply_markup=keyboard)
 
         self._ballot_box = {}
-        self._keyboard_msg_ident = telepot.message_identifier(sent)
-        self._editor = telepot.helper.Editor(self.bot, self._keyboard_msg_ident)
+        self._keyboard_msg_ident = amanobot.message_identifier(sent)
+        self._editor = amanobot.helper.Editor(self.bot, self._keyboard_msg_ident)
 
         # Generate an expiry event 30 seconds later
         self._expired_event = self.scheduler.event_later(30, ('_vote_expired', {'seconds': 30}))
@@ -82,7 +82,7 @@ class VoteCounter(telepot.helper.ChatHandler):
         try:
             self.scheduler.cancel(self._expired_event)
         # The expiry event may have already occurred and cannot be found in scheduler.
-        except telepot.exception.EventNotFound:
+        except amanobot.exception.EventNotFound:
             pass
 
         self._editor.editMessageReplyMarkup(reply_markup=None)
@@ -92,7 +92,7 @@ class VoteCounter(telepot.helper.ChatHandler):
         self._editor = None
 
     def on_callback_query(self, msg):
-        query_id, from_id, query_data = telepot.glance(msg, flavor='callback_query')
+        query_id, from_id, query_data = amanobot.glance(msg, flavor='callback_query')
 
         if from_id in self._ballot_box:
             self.bot.answerCallbackQuery(query_id, text='You have already voted %s' % self._ballot_box[from_id])
@@ -127,7 +127,7 @@ class VoteCounter(telepot.helper.ChatHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.DelegatorBot(TOKEN, [
+bot = amanobot.DelegatorBot(TOKEN, [
     include_callback_query_chat_id(
         pave_event_space())(
             per_chat_id(types=['group']), create_open, VoteCounter, timeout=10),

@@ -1,11 +1,11 @@
 import sys
 import time
-import telepot
-import telepot.namedtuple
-from telepot.loop import MessageLoop
+import amanobot
+import amanobot.namedtuple
+from amanobot.loop import MessageLoop
 
 """
-$ python2.7 emodi.py <token>
+$ python3 emodi.py <token>
 
 Emodi: An Emoji Unicode Decoder - You send it some emoji, it tells you the unicodes.
 
@@ -16,8 +16,8 @@ checking and substring-extraction below may not work as expected.
 """
 
 def handle(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
-    m = telepot.namedtuple.Message(**msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
+    m = amanobot.namedtuple.Message(**msg)
 
     if chat_id < 0:
         # group message
@@ -42,7 +42,7 @@ def handle(msg):
 
 TOKEN = sys.argv[1]  # get token from command-line
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 MessageLoop(bot, handle).run_as_thread()
 print 'Listening ...'
 

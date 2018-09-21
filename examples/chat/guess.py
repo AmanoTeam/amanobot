@@ -2,9 +2,9 @@ import sys
 import time
 import random
 import traceback
-import telepot
-from telepot.loop import MessageLoop
-from telepot.delegate import per_chat_id, create_open, pave_event_space
+import amanobot
+from amanobot.loop import MessageLoop
+from amanobot.delegate import per_chat_id, create_open, pave_event_space
 
 """
 $ python3.5 guess.py <token>
@@ -18,7 +18,7 @@ Guess a number:
 5. Repeat step 3 and 4, until guess is correct.
 """
 
-class Player(telepot.helper.ChatHandler):
+class Player(amanobot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(Player, self).__init__(*args, **kwargs)
         self._answer = random.randint(0,99)
@@ -34,7 +34,7 @@ class Player(telepot.helper.ChatHandler):
         return True  # prevent on_message() from being called on the initial message
 
     def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if content_type != 'text':
             self.sender.sendMessage('Give me a number, please.')
@@ -62,7 +62,7 @@ class Player(telepot.helper.ChatHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.DelegatorBot(TOKEN, [
+bot = amanobot.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, Player, timeout=10),
 ])

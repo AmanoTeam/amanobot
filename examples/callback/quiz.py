@@ -1,11 +1,11 @@
 import sys
 import time
 import random
-import telepot
-import telepot.helper
-from telepot.loop import MessageLoop
-from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-from telepot.delegate import (
+import amanobot
+import amanobot.helper
+from amanobot.loop import MessageLoop
+from amanobot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
+from amanobot.delegate import (
     per_chat_id, per_callback_query_origin, create_open, pave_event_space)
 
 """
@@ -18,12 +18,12 @@ It handles callback query by their origins. All callback query originated from
 the same chat message will be handled by the same `CallbackQueryOriginHandler`.
 """
 
-class QuizStarter(telepot.helper.ChatHandler):
+class QuizStarter(amanobot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(QuizStarter, self).__init__(*args, **kwargs)
 
     def on_chat_message(self, msg):
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
         self.sender.sendMessage(
             'Press START to do some math ...',
             reply_markup=InlineKeyboardMarkup(
@@ -34,7 +34,7 @@ class QuizStarter(telepot.helper.ChatHandler):
         )
         self.close()  # let Quizzer take over
 
-class Quizzer(telepot.helper.CallbackQueryOriginHandler):
+class Quizzer(amanobot.helper.CallbackQueryOriginHandler):
     def __init__(self, *args, **kwargs):
         super(Quizzer, self).__init__(*args, **kwargs)
         self._score = {True: 0, False: 0}
@@ -60,7 +60,7 @@ class Quizzer(telepot.helper.CallbackQueryOriginHandler):
         return answer
 
     def on_callback_query(self, msg):
-        query_id, from_id, query_data = telepot.glance(msg, flavor='callback_query')
+        query_id, from_id, query_data = amanobot.glance(msg, flavor='callback_query')
 
         if query_data != 'start':
             self._score[self._answer == int(query_data)] += 1
@@ -80,7 +80,7 @@ class Quizzer(telepot.helper.CallbackQueryOriginHandler):
 
 TOKEN = sys.argv[1]
 
-bot = telepot.DelegatorBot(TOKEN, [
+bot = amanobot.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, QuizStarter, timeout=3),
     pave_event_space()(

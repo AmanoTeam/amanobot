@@ -1,7 +1,7 @@
 import sys
 from flask import Flask, request
-import telepot
-from telepot.loop import OrderedWebhook
+import amanobot
+from amanobot.loop import OrderedWebhook
 
 """
 $ python2.7 flask_deeplinking.py <bot_username> <token> <listening_port> https://<domain>/webhook
@@ -19,7 +19,7 @@ Initial webpage is '/link'.
 key_id_map = { 'ghijk' : 123 }
 
 def handle(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
     print 'Chat Message:', content_type, chat_type, chat_id
 
     if content_type == 'text':
@@ -47,7 +47,7 @@ PORT = int(sys.argv[3])
 URL = sys.argv[4]
 
 app = Flask(__name__)
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 webhook = OrderedWebhook(bot, handle)
 
 @app.route('/link', methods=['GET', 'POST'])
@@ -64,7 +64,7 @@ if __name__ == '__main__':
     try:
         bot.setWebhook(URL)
     # Sometimes it would raise this error, but webhook still set successfully.
-    except telepot.exception.TooManyRequestsError:
+    except amanobot.exception.TooManyRequestsError:
         pass
 
     webhook.run_as_thread()
