@@ -1,18 +1,18 @@
 import sys
 from flask import Flask, request
-import telepot
-from telepot.loop import OrderedWebhook
-from telepot.delegate import per_chat_id, create_open, pave_event_space
+import amanobot
+from amanobot.loop import OrderedWebhook
+from amanobot.delegate import per_chat_id, create_open, pave_event_space
 
 """
-$ python3.5 flask_counter.py <token> <listening_port> <webhook_url>
+$ python3 flask_counter.py <token> <listening_port> <webhook_url>
 
 Webhook path is '/webhook', therefore:
 
 <webhook_url>: https://<base>/webhook
 """
 
-class MessageCounter(telepot.helper.ChatHandler):
+class MessageCounter(amanobot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
         super(MessageCounter, self).__init__(*args, **kwargs)
         self._count = 0
@@ -28,7 +28,7 @@ URL = sys.argv[3]
 
 app = Flask(__name__)
 
-bot = telepot.DelegatorBot(TOKEN, [
+bot = amanobot.DelegatorBot(TOKEN, [
     pave_event_space()(
         per_chat_id(), create_open, MessageCounter, timeout=10),
 ])
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     try:
         bot.setWebhook(URL)
     # Sometimes it would raise this error, but webhook still set successfully.
-    except telepot.exception.TooManyRequestsError:
+    except amanobot.exception.TooManyRequestsError:
         pass
 
     webhook.run_as_thread()

@@ -1,10 +1,10 @@
 import sys
 from flask import Flask, request
-import telepot
-from telepot.loop import OrderedWebhook
+import amanobot
+from amanobot.loop import OrderedWebhook
 
 """
-$ python2.7 flask_skeleton.py <token> <listening_port> <webhook_url>
+$ python3 flask_skeleton.py <token> <listening_port> <webhook_url>
 
 Webhook path is '/webhook', therefore:
 
@@ -12,16 +12,16 @@ Webhook path is '/webhook', therefore:
 """
 
 def on_chat_message(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
     print('Chat Message:', content_type, chat_type, chat_id)
 
 def on_callback_query(msg):
-    query_id, from_id, data = telepot.glance(msg, flavor='callback_query')
+    query_id, from_id, data = amanobot.glance(msg, flavor='callback_query')
     print('Callback query:', query_id, from_id, data)
 
 # need `/setinline`
 def on_inline_query(msg):
-    query_id, from_id, query_string = telepot.glance(msg, flavor='inline_query')
+    query_id, from_id, query_string = amanobot.glance(msg, flavor='inline_query')
     print('Inline Query:', query_id, from_id, query_string)
 
     # Compose your own answers
@@ -32,7 +32,7 @@ def on_inline_query(msg):
 
 # need `/setinlinefeedback`
 def on_chosen_inline_result(msg):
-    result_id, from_id, query_string = telepot.glance(msg, flavor='chosen_inline_result')
+    result_id, from_id, query_string = amanobot.glance(msg, flavor='chosen_inline_result')
     print('Chosen Inline Result:', result_id, from_id, query_string)
 
 
@@ -41,7 +41,7 @@ PORT = int(sys.argv[2])
 URL = sys.argv[3]
 
 app = Flask(__name__)
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 webhook = OrderedWebhook(bot, {'chat': on_chat_message,
                                'callback_query': on_callback_query,
                                'inline_query': on_inline_query,
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     try:
         bot.setWebhook(URL)
     # Sometimes it would raise this error, but webhook still set successfully.
-    except telepot.exception.TooManyRequestsError:
+    except amanobot.exception.TooManyRequestsError:
         pass
 
     webhook.run_as_thread()

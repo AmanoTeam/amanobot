@@ -66,7 +66,7 @@ class TelegramError(AmanobotException):
     """
     To indicate erroneous situations, Telegram returns a JSON object containing
     an *error code* and a *description*. This will cause a ``TelegramError`` to
-    be raised. Before raising a generic ``TelegramError``, telepot looks for
+    be raised. Before raising a generic ``TelegramError``, amanobot looks for
     a more specific subclass that "matches" the error. If such a class exists,
     an exception of that specific subclass is raised. This allows you to either
     catch specific errors or to cast a wide net (by a catch-all ``TelegramError``).

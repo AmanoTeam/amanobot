@@ -3,20 +3,20 @@
 Traditional version using **[Flask](http://flask.pocoo.org/)** as web server:
 
 ```
-$ python2.7 flask_skeleton.py <token> <listening_port> https://<domain>/abc
-$ python3.5 flask_counter.py <token> <listening_port> https://<domain>/abc
+$ python3 flask_skeleton.py <token> <listening_port> https://<domain>/abc
+$ python3 flask_counter.py <token> <listening_port> https://<domain>/abc
 ```
 
 Async version using **[aiohttp](http://aiohttp.readthedocs.org/en/stable/)** as web server:
 
 ```
-$ python3.5 aiohttp_skeletona.py <token> <listening_port> https://<domain>/abc
-$ python3.5 aiohttp_countera.py <token> <listening_port> https://<domain>/abc
+$ python3 aiohttp_skeletona.py <token> <listening_port> https://<domain>/abc
+$ python3 aiohttp_countera.py <token> <listening_port> https://<domain>/abc
 ```
 
 Remember you will have to set up the **webhook URL, SSL certificate, and web server** on your own.
 
-## Telepot's Webhook Interface
+## Amanobot's Webhook Interface
 
 Setting up a **[webhook](https://core.telegram.org/bots/api#setwebhook)** is
 more complicated than using `getUpdates()` because:
@@ -30,16 +30,16 @@ That is, update_id `1000` may arrive ahead of update_id `999`, if the two are is
 Telegram servers very closely. Unless a bot absolutely doesn't care about update order,
 it will have to re-order them in some way.
 
-Telepot has a mechanism to interface with web applications, and it takes care of re-ordering
+Amanobot has a mechanism to interface with web applications, and it takes care of re-ordering
 for you. It is called `OrderedWebhook`.
 
 ```python
-from telepot.loop import OrderedWebhook
+from amanobot.loop import OrderedWebhook
 
 def handle(msg):
     # ......
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 webhook = OrderedWebhook(bot, handle)
 
 webhook.run_as_thread()

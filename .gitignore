@@ -1,6 +1,6 @@
 *.pyc
 .idea/
-telepot.egg-info/
+amanobot.egg-info/
 dist/
 experiments/
 doc/_build/

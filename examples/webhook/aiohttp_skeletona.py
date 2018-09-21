@@ -1,12 +1,12 @@
 import sys
 import asyncio
 from aiohttp import web
-import telepot
-import telepot.aio
-from telepot.aio.loop import OrderedWebhook
+import amanobot
+import amanobot.aio
+from amanobot.aio.loop import OrderedWebhook
 
 """
-$ python3.5 aiohttp_skeletona.py <token> <listening_port> <webhook_url>
+$ python3 aiohttp_skeletona.py <token> <listening_port> <webhook_url>
 
 Webhook path is '/webhook', therefore:
 
@@ -14,16 +14,16 @@ Webhook path is '/webhook', therefore:
 """
 
 def on_chat_message(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
     print('Chat Message:', content_type, chat_type, chat_id)
 
 def on_callback_query(msg):
-    query_id, from_id, data = telepot.glance(msg, flavor='callback_query')
+    query_id, from_id, data = amanobot.glance(msg, flavor='callback_query')
     print('Callback query:', query_id, from_id, data)
 
 # need `/setinline`
 async def on_inline_query(msg):
-    query_id, from_id, query_string = telepot.glance(msg, flavor='inline_query')
+    query_id, from_id, query_string = amanobot.glance(msg, flavor='inline_query')
     print('Inline Query:', query_id, from_id, query_string)
 
     # Compose your own answers
@@ -34,7 +34,7 @@ async def on_inline_query(msg):
 
 # need `/setinlinefeedback`
 def on_chosen_inline_result(msg):
-    result_id, from_id, query_string = telepot.glance(msg, flavor='chosen_inline_result')
+    result_id, from_id, query_string = amanobot.glance(msg, flavor='chosen_inline_result')
     print('Chosen Inline Result:', result_id, from_id, query_string)
 
 async def feeder(request):
@@ -56,7 +56,7 @@ URL = sys.argv[3]
 loop = asyncio.get_event_loop()
 
 app = web.Application(loop=loop)
-bot = telepot.aio.Bot(TOKEN, loop=loop)
+bot = amanobot.aio.Bot(TOKEN, loop=loop)
 webhook = OrderedWebhook(bot, {'chat': on_chat_message,
                                'callback_query': on_callback_query,
                                'inline_query': on_inline_query,

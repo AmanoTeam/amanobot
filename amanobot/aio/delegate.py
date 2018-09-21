@@ -1,5 +1,5 @@
 """
-Like :mod:`telepot.delegate`, this module has a bunch of seeder factories
+Like :mod:`amanobot.delegate`, this module has a bunch of seeder factories
 and delegator factories.
 
 .. autofunction:: per_chat_id

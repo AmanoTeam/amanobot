@@ -274,7 +274,7 @@ class Monitor(helper.ListenerContext, DefaultRouterMixin):
     def __init__(self, seed_tuple, capture, **kwargs):
         """
         A delegate that never times-out, probably doing some kind of background monitoring
-        in the application. Most naturally paired with :func:`telepot.aio.delegate.per_application`.
+        in the application. Most naturally paired with :func:`amanobot.aio.delegate.per_application`.
 
         :param capture: a list of patterns for ``listener`` to capture
         """
