@@ -325,7 +325,7 @@ Here is how to compile and install Python 3.6, if your O/S does not have it buil
     $ sudo apt-get upgrade
     $ sudo apt-get install libssl-dev openssl libreadline-dev
     $ cd ~
-    $ wget https://www.python.org/ftp/python/3.6.1/Python-3.6.6.tgz
+    $ wget https://www.python.org/ftp/python/3.6.6/Python-3.6.6.tgz
     $ tar zxf Python-3.6.6.tgz
     $ cd Python-3.6.6
     $ ./configure
