@@ -5,7 +5,7 @@
 - Bot API 4.1 (partial)
 - Added method `editMessageMedia` and `sendAnimation`
 - Added `thumb` to `sendAudio`, `sendDocument`, `sendVideo` and `sendVideoNote` methods
-- Added `foursquare_type` to `sendVenue` method and to `objects Venue`, `InlineQueryResultVenue` and `InputVenueMessageContent`
+- Added `foursquare_type` to `sendVenue` method and to objects `Venue`, `InlineQueryResultVenue` and `InputVenueMessageContent`
 
 
 # telepot changelog
