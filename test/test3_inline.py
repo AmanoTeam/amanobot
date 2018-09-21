@@ -6,8 +6,8 @@ import pprint
 import sys
 import traceback
 import random
-import telepot
-from telepot.namedtuple import (
+import amanobot
+from amanobot.namedtuple import (
     InlineQuery, ChosenInlineResult, InputTextMessageContent,
     InlineQueryResultArticle, InlineQueryResultPhoto, InlineQueryResultGame)
 
@@ -62,7 +62,7 @@ def on_inline_query(msg):
         results = random.choice([articles, photos, games])
         return results
 
-    query_id, from_id, query = telepot.glance(msg, flavor='inline_query')
+    query_id, from_id, query = amanobot.glance(msg, flavor='inline_query')
 
     if from_id != USER_ID:
         print('Unauthorized user:', from_id)
@@ -73,7 +73,7 @@ def on_inline_query(msg):
 
 
 def on_chosen_inline_result(msg):
-    result_id, from_id, query = telepot.glance(msg, flavor='chosen_inline_result')
+    result_id, from_id, query = amanobot.glance(msg, flavor='chosen_inline_result')
 
     if from_id != USER_ID:
         print('Unauthorized user:', from_id)
@@ -103,8 +103,8 @@ def compute(inline_query):
 TOKEN = sys.argv[1]
 USER_ID = int(sys.argv[2])
 
-bot = telepot.Bot(TOKEN)
-answerer = telepot.helper.Answerer(bot)
+bot = amanobot.Bot(TOKEN)
+answerer = amanobot.helper.Answerer(bot)
 
 bot.sendMessage(USER_ID, 'Please give me an inline query.')
 

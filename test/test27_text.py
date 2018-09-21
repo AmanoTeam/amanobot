@@ -1,12 +1,12 @@
 import sys
 import time
-import telepot
-from telepot.text import apply_entities_as_markdown, apply_entities_as_html
+import amanobot
+from amanobot.text import apply_entities_as_markdown, apply_entities_as_html
 
 TOKEN = sys.argv[1]
 USER_ID = long(sys.argv[2])
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 
 user_link = 'tg://user?id=' + str(USER_ID)
 

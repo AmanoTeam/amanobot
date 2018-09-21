@@ -1,11 +1,11 @@
 import sys
 import time
 from pprint import pprint
-import telepot
-from telepot.namedtuple import (
+import amanobot
+from amanobot.namedtuple import (
     LabeledPrice, Invoice, PreCheckoutQuery, ShippingQuery, ShippingOption,
     SuccessfulPayment)
-from telepot.loop import MessageLoop
+from amanobot.loop import MessageLoop
 
 """
 This script tests the payment process:
@@ -19,7 +19,7 @@ $ python3.5 script.py <bot-token> <payment-provider-token>
 """
 
 def on_chat_message(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
     print(content_type, chat_type, chat_id)
 
     if content_type != 'successful_payment':
@@ -43,7 +43,7 @@ def on_chat_message(msg):
         print(SuccessfulPayment(**msg['successful_payment']))
 
 def on_shipping_query(msg):
-    query_id, from_id, invoice_payload = telepot.glance(msg, flavor='shipping_query')
+    query_id, from_id, invoice_payload = amanobot.glance(msg, flavor='shipping_query')
 
     print('Shipping query:')
     print(query_id, from_id, invoice_payload)
@@ -61,7 +61,7 @@ def on_shipping_query(msg):
                 LabeledPrice(label='International', amount=1234)])])
 
 def on_pre_checkout_query(msg):
-    query_id, from_id, invoice_payload, currency, total_amount = telepot.glance(msg, flavor='pre_checkout_query', long=True)
+    query_id, from_id, invoice_payload, currency, total_amount = amanobot.glance(msg, flavor='pre_checkout_query', long=True)
 
     print('Pre-Checkout query:')
     print(query_id, from_id, invoice_payload, currency, total_amount)
@@ -73,7 +73,7 @@ def on_pre_checkout_query(msg):
 TOKEN = sys.argv[1]
 PAYMENT_PROVIDER_TOKEN = sys.argv[2]
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 MessageLoop(bot, {'chat': on_chat_message,
                   'shipping_query': on_shipping_query,
                   'pre_checkout_query': on_pre_checkout_query}).run_as_thread()

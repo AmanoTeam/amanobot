@@ -1,8 +1,8 @@
 import sys
 import time
 import random
-import telepot.helper
-from telepot.routing import (by_content_type, make_content_type_routing_table,
+import amanobot.helper
+from amanobot.routing import (by_content_type, make_content_type_routing_table,
                              lower_key, by_chat_command, make_routing_table,
                              by_regex)
 
@@ -34,7 +34,7 @@ def none_tuple(msg):
 def none_of_above(msg, *args, **kwargs):
     print 'None of above', msg, args, kwargs
 
-top_router = telepot.helper.Router(random_key, {0: zero,
+top_router = amanobot.helper.Router(random_key, {0: zero,
                                                 1: one,
                                                 2: two,
                                                 3: three,
@@ -86,7 +86,7 @@ class CommandHandler(object):
         print 'Invalid command', msg
 
 command_handler = CommandHandler()
-command_router = telepot.helper.Router(lower_key(by_chat_command()),
+command_router = amanobot.helper.Router(lower_key(by_chat_command()),
                                        make_routing_table(command_handler, [
                                            'start',
                                            'settings',
@@ -123,7 +123,7 @@ class RegexHandler(object):
         print '%s does not exist' % match.group(1), msg
 
 regex_handler = RegexHandler()
-regex_router = telepot.helper.Router(by_regex(lambda msg: msg['text'], '(CS[0-9]{3})'),
+regex_router = amanobot.helper.Router(by_regex(lambda msg: msg['text'], '(CS[0-9]{3})'),
                                      make_routing_table(regex_handler, [
                                          'CS101',
                                          'CS202',
@@ -152,7 +152,7 @@ print
 
 TOKEN = sys.argv[1]
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 bot._router.routing_table['chat'] = top_router.route
 
 bot.message_loop()

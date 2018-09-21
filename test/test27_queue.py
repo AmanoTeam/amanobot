@@ -1,6 +1,6 @@
 import time
-import telepot
-from telepot.loop import OrderedWebhook
+import amanobot
+from amanobot.loop import OrderedWebhook
 
 def u(update_id):
     return { 'update_id': update_id, 'message': update_id }
@@ -69,7 +69,7 @@ sequence = [
 def handle(msg):
     print msg
 
-bot = telepot.Bot('abc')
+bot = amanobot.Bot('abc')
 webhook = OrderedWebhook(bot, handle)
 
 webhook.run_as_thread(maxhold=8)

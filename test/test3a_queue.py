@@ -1,7 +1,7 @@
 import time
 import asyncio
-import telepot.aio
-from telepot.aio.loop import OrderedWebhook
+import amanobot.aio
+from amanobot.aio.loop import OrderedWebhook
 
 def u(update_id):
     return { 'update_id': update_id, 'message': update_id }
@@ -78,7 +78,7 @@ async def feed():
 def handle(msg):
     print(msg)
 
-bot = telepot.aio.Bot('abc')
+bot = amanobot.aio.Bot('abc')
 webhook = OrderedWebhook(bot, handle)
 
 loop = asyncio.get_event_loop()

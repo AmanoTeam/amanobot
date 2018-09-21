@@ -1,14 +1,14 @@
 import sys
 import time
 from pprint import pprint
-import telepot
-from telepot.namedtuple import StickerSet
+import amanobot
+from amanobot.namedtuple import StickerSet
 
 TOKEN = sys.argv[1]
 USER_ID = int(sys.argv[2])
 STICKER_SET = sys.argv[3]
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 
 f = bot.uploadStickerFile(USER_ID, open('gandhi.png', 'rb'))
 print('Uploaded Gandhi')

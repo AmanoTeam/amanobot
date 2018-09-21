@@ -7,9 +7,9 @@ import pprint
 import sys
 import traceback
 import random
-import telepot
-import telepot.aio
-from telepot.namedtuple import (
+import amanobot
+import amanobot.aio
+from amanobot.namedtuple import (
     InlineQuery, ChosenInlineResult, InputTextMessageContent,
     InlineQueryResultArticle, InlineQueryResultPhoto, InlineQueryResultGame)
 
@@ -66,7 +66,7 @@ def on_inline_query(msg):
         results = random.choice([articles, photos, games])
         return results
 
-    query_id, from_id, query = telepot.glance(msg, flavor='inline_query')
+    query_id, from_id, query = amanobot.glance(msg, flavor='inline_query')
 
     if from_id != USER_ID:
         print('Unauthorized user:', from_id)
@@ -77,7 +77,7 @@ def on_inline_query(msg):
 
 
 def on_chosen_inline_result(msg):
-    result_id, from_id, query = telepot.glance(msg, flavor='chosen_inline_result')
+    result_id, from_id, query = amanobot.glance(msg, flavor='chosen_inline_result')
 
     if from_id != USER_ID:
         print('Unauthorized user:', from_id)
@@ -92,8 +92,8 @@ def on_chosen_inline_result(msg):
 TOKEN = sys.argv[1]
 USER_ID = int(sys.argv[2])
 
-bot = telepot.aio.Bot(TOKEN)
-answerer = telepot.aio.helper.Answerer(bot)
+bot = amanobot.aio.Bot(TOKEN)
+answerer = amanobot.aio.helper.Answerer(bot)
 loop = asyncio.get_event_loop()
 
 print('Give me an inline query.')

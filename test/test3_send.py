@@ -6,8 +6,8 @@ import pprint
 import sys
 import traceback
 import urllib.request
-import telepot
-import telepot.namedtuple
+import amanobot
+import amanobot.namedtuple
 
 """
 This script tests:
@@ -61,7 +61,7 @@ def examine(result, type):
             exit(1)
 
 def send_everything_on_contact(msg):
-    content_type, chat_type, chat_id, msg_date, msg_id = telepot.glance(msg, long=True)
+    content_type, chat_type, chat_id, msg_date, msg_id = amanobot.glance(msg, long=True)
 
     if chat_id != USER_ID:
         print('Unauthorized user:', msg['from']['id'])
@@ -73,20 +73,20 @@ def send_everything_on_contact(msg):
     ##### forwardMessage
 
     r = bot.forwardMessage(chat_id, chat_id, msg_id)
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
 
     ##### sendMessage
 
     r = bot.sendMessage(chat_id, 'Hello, I am going to send you a lot of things.', reply_to_message_id=msg_id)
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     r = bot.sendMessage(chat_id, '中文')
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     r = bot.sendMessage(chat_id, '*bold text*\n_italic text_\n[link](http://www.google.com)', parse_mode='Markdown')
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     bot.sendMessage(chat_id, 'http://www.yahoo.com\nwith web page preview')
@@ -99,9 +99,9 @@ def send_everything_on_contact(msg):
     remove_keyboard = {'remove_keyboard': True}
     force_reply = {'force_reply': True}
 
-    nt_show_keyboard = telepot.namedtuple.ReplyKeyboardMarkup(**show_keyboard)
-    nt_remove_keyboard = telepot.namedtuple.ReplyKeyboardRemove(**remove_keyboard)
-    nt_force_reply = telepot.namedtuple.ForceReply(**force_reply)
+    nt_show_keyboard = amanobot.namedtuple.ReplyKeyboardMarkup(**show_keyboard)
+    nt_remove_keyboard = amanobot.namedtuple.ReplyKeyboardRemove(**remove_keyboard)
+    nt_force_reply = amanobot.namedtuple.ForceReply(**force_reply)
 
     bot.sendMessage(chat_id, 'Here is a custom keyboard', reply_markup=show_keyboard)
     time.sleep(0.5)
@@ -116,7 +116,7 @@ def send_everything_on_contact(msg):
 
     bot.sendChatAction(chat_id, 'upload_photo')
     r = bot.sendPhoto(chat_id, open('lighthouse.jpg', 'rb'))
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     file_id = r['photo'][0]['file_id']
@@ -137,7 +137,7 @@ def send_everything_on_contact(msg):
     ##### getFile
 
     f = bot.getFile(file_id)
-    examine(f, telepot.namedtuple.File)
+    examine(f, amanobot.namedtuple.File)
 
     ##### download_file, smaller than one chunk (65K)
 
@@ -159,7 +159,7 @@ def send_everything_on_contact(msg):
 
     bot.sendChatAction(chat_id, 'upload_audio')
     r = bot.sendAudio(chat_id, open('dgdg.mp3', 'rb'), title='Ringtone')
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     file_id = r['audio']['file_id']
@@ -177,7 +177,7 @@ def send_everything_on_contact(msg):
 
     bot.sendChatAction(chat_id, 'upload_document')
     r = bot.sendDocument(chat_id, open('document.txt', 'rb'))
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     file_id = r['document']['file_id']
@@ -194,7 +194,7 @@ def send_everything_on_contact(msg):
     ##### sendSticker
 
     r = bot.sendSticker(chat_id, open('gandhi.png', 'rb'))
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     file_id = r['sticker']['file_id']
@@ -209,7 +209,7 @@ def send_everything_on_contact(msg):
 
     bot.sendChatAction(chat_id, 'upload_video')
     r = bot.sendVideo(chat_id, open('hktraffic.mp4', 'rb'))
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     try:
@@ -239,7 +239,7 @@ def send_everything_on_contact(msg):
     ##### sendVoice
 
     r = bot.sendVoice(chat_id, open('example.ogg', 'rb'))
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     file_id = r['voice']['file_id']
@@ -258,9 +258,9 @@ def send_everything_on_contact(msg):
 
     with open('lighthouse.jpg', 'rb') as f1, open('gandhi.png', 'rb') as f2, open('bookshelf.jpg', 'rb') as f3, open('saturn.jpg', 'rb') as f4:
         ms = [
-            telepot.namedtuple.InputMediaPhoto(media=f1),
-            telepot.namedtuple.InputMediaPhoto(media=('media2', f2)),
-            telepot.namedtuple.InputMediaPhoto(media='https://telegram.org/file/811140935/175c/FSf2aidnuaY.21715.gif/31dc2dbb6902dcef78'),
+            amanobot.namedtuple.InputMediaPhoto(media=f1),
+            amanobot.namedtuple.InputMediaPhoto(media=('media2', f2)),
+            amanobot.namedtuple.InputMediaPhoto(media='https://telegram.org/file/811140935/175c/FSf2aidnuaY.21715.gif/31dc2dbb6902dcef78'),
             {'type': 'photo', 'media': ('media3', ('books.jpg', f3))},
             {'type': 'photo', 'media': f4},
         ]
@@ -270,7 +270,7 @@ def send_everything_on_contact(msg):
 
     bot.sendChatAction(chat_id, 'find_location')
     r = bot.sendLocation(chat_id, 22.33, 114.18)  # Hong Kong
-    examine(r, telepot.namedtuple.Message)
+    examine(r, amanobot.namedtuple.Message)
     time.sleep(0.5)
 
     bot.sendLocation(chat_id, 49.25, -123.1, reply_to_message_id=msg_id, reply_markup=nt_show_keyboard)  # Vancouver
@@ -282,7 +282,7 @@ def send_everything_on_contact(msg):
     r = bot.sendLocation(chat_id, -37.82, 144.97, live_period=60)  # Melbourne
     time.sleep(3)
 
-    mif = telepot.message_identifier(r)
+    mif = amanobot.message_identifier(r)
     bot.editMessageLiveLocation(mif, -37.819, 144.97)
     time.sleep(1)
 
@@ -296,9 +296,9 @@ def send_everything_on_contact(msg):
     bot.sendGame(chat_id, 'sunchaser')
     time.sleep(0.5)
 
-    game_keyboard = telepot.namedtuple.InlineKeyboardMarkup(inline_keyboard=[[
-                        telepot.namedtuple.InlineKeyboardButton(text='Play now', callback_game=True),
-                        telepot.namedtuple.InlineKeyboardButton(text='How to play?', url='https://mygame.com/howto'),
+    game_keyboard = amanobot.namedtuple.InlineKeyboardMarkup(inline_keyboard=[[
+                        amanobot.namedtuple.InlineKeyboardButton(text='Play now', callback_game=True),
+                        amanobot.namedtuple.InlineKeyboardButton(text='How to play?', url='https://mygame.com/howto'),
                     ]])
     bot.sendGame(chat_id, 'sunchaser', reply_markup=game_keyboard)
     time.sleep(0.5)
@@ -311,7 +311,7 @@ def get_user_profile_photos():
     print('Getting user profile photos ...')
 
     r = bot.getUserProfilePhotos(USER_ID)
-    examine(r, telepot.namedtuple.UserProfilePhotos)
+    examine(r, amanobot.namedtuple.UserProfilePhotos)
 
 expected_content_type = None
 content_type_iterator = iter([
@@ -322,14 +322,14 @@ content_type_iterator = iter([
 def see_every_content_types(msg):
     global expected_content_type, content_type_iterator
 
-    content_type, chat_type, chat_id = telepot.glance(msg)
+    content_type, chat_type, chat_id = amanobot.glance(msg)
     from_id = msg['from']['id']
 
     if chat_id != USER_ID and from_id != USER_ID:
         print('Unauthorized user:', chat_id, from_id)
         return
 
-    examine(msg, telepot.namedtuple.Message)
+    examine(msg, amanobot.namedtuple.Message)
     try:
         if content_type == expected_content_type:
             expected_content_type = next(content_type_iterator)
@@ -354,7 +354,7 @@ def test_webhook_getupdates_exclusive():
 
     try:
         bot.getUpdates()
-    except telepot.exception.TelegramError as e:
+    except amanobot.exception.TelegramError as e:
         print("%d: %s" % (e.error_code, e.description))
         print('As expected, getUpdates() produces an error.')
 
@@ -366,9 +366,9 @@ TOKEN = sys.argv[1]
 USER_ID = int(sys.argv[2])
 
 # Edit /etc/tinyproxy/tinyproxy.conf to allow access
-# telepot.api.set_proxy('http://192.168.0.103:8888')
+# amanobot.api.set_proxy('http://192.168.0.103:8888')
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 
 test_webhook_getupdates_exclusive()
 get_user_profile_photos()

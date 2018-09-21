@@ -5,8 +5,8 @@ import threading
 import pprint
 import sys
 import traceback
-import telepot
-import telepot.namedtuple
+import amanobot
+import amanobot.namedtuple
 
 """
 This script tests:
@@ -66,17 +66,17 @@ content_type_iterator = iter([
 def see_every_content_types(msg):
     global expected_content_type, content_type_iterator
 
-    flavor = telepot.flavor(msg)
+    flavor = amanobot.flavor(msg)
 
     if flavor == 'chat':
-        content_type, chat_type, chat_id = telepot.glance(msg)
+        content_type, chat_type, chat_id = amanobot.glance(msg)
         from_id = msg['from']['id']
 
         if chat_id != USER_ID and from_id != USER_ID:
             print 'Unauthorized user:', chat_id, from_id
             return
 
-        examine(msg, telepot.namedtuple.Message)
+        examine(msg, amanobot.namedtuple.Message)
         try:
             if content_type == expected_content_type:
                 expected_content_type = content_type_iterator.next()
@@ -88,13 +88,13 @@ def see_every_content_types(msg):
             bot.sendMessage(from_id, 'Thank you. I am done.')
 
     else:
-        raise telepot.BadFlavor(msg)
+        raise amanobot.BadFlavor(msg)
 
 
 TOKEN = sys.argv[1]
 USER_ID = long(sys.argv[2])
 
-bot = telepot.Bot(TOKEN)
+bot = amanobot.Bot(TOKEN)
 
 expected_content_type = content_type_iterator.next()
 bot.sendMessage(USER_ID, 'Please give me a %s.' % expected_content_type)

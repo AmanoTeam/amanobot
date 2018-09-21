@@ -1,8 +1,8 @@
 import sys
 import asyncio
 from pprint import pprint
-import telepot.aio
-from telepot.namedtuple import StickerSet
+import amanobot.aio
+from amanobot.namedtuple import StickerSet
 
 async def test_sticker():
     f = await bot.uploadStickerFile(USER_ID, open('gandhi.png', 'rb'))
@@ -29,7 +29,7 @@ TOKEN = sys.argv[1]
 USER_ID = int(sys.argv[2])
 STICKER_SET = sys.argv[3]
 
-bot = telepot.aio.Bot(TOKEN)
+bot = amanobot.aio.Bot(TOKEN)
 loop = asyncio.get_event_loop()
 
 loop.run_until_complete(test_sticker())
