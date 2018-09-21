@@ -190,7 +190,7 @@ class Bot(_BotBase):
         """
         See: https://core.telegram.org/bots/api#sendanimation
 
-        :param video: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
+        :param animation: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['animation'])
         return await self._api_request_with_file('sendAnimation', _rectify(p), 'animation', animation)
