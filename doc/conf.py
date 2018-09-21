@@ -20,8 +20,8 @@ master_doc = 'index'
 
 project = u'amanobot'
 year = datetime.now().year
-copyright = u'%d, Nick Lee' % year
-author = u'Nick Lee'
+copyright = u'%d, Amano Team' % year
+author = u'Amano Team'
 
 
 from amanobot import __version__
@@ -35,7 +35,7 @@ pygments_style = 'sphinx'
 todo_include_todos = False
 
 
-html_theme = 'rtd'
+html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
     'description': 'Python framework for Telegram Bot API based on Telepot',
     'show_powered_by': False,
