@@ -31,19 +31,26 @@ release = __version__
 
 language = None
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-pygments_style = 'sphinx'
+pygments_style = 'tango'
 todo_include_todos = False
 
 
 html_theme = 'sphinx_rtd_theme'
 html_theme_options = {
-    'description': 'Python framework for Telegram Bot API based on Telepot',
+    'description': 'Python framework for Telegram Bot API forked from Telepot',
     'show_powered_by': False,
     'fixed_sidebar': True,
+    'logo_only': True,
+    'display_version': True,
     'github_user': 'AmanoTeam',
     'github_repo': 'amanobot',
     'github_type': 'star',
 }
+
+html_logo = 'https://i.imgur.com/5LlurkQ.png'
+
+html_favicon = 'https://i.imgur.com/HkT9si5.png'
+
 html_static_path = ['_static']
 html_sidebars = {
     '**': [
