@@ -375,5 +375,5 @@ below in async style:
 .. literalinclude:: _code/countera.py
    :emphasize-lines: 4-5,7,12-14,24
 
-`More Examples » <https://github.com/nickoala/amanobot/tree/master/examples>`_
+`More Examples » <https://github.com/AmanoTeam/amanobot/tree/master/examples>`_
 -----------------------------------------------------------------------------
