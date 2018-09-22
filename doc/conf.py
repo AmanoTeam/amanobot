@@ -47,9 +47,9 @@ html_theme_options = {
     'github_type': 'star',
 }
 
-html_logo = 'https://i.imgur.com/5LlurkQ.png'
+html_logo = '_images/amnbot.png'
 
-html_favicon = 'https://i.imgur.com/HkT9si5.png'
+html_favicon = '_images/favicon.png'
 
 html_static_path = ['_static']
 html_sidebars = {
