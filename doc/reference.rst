@@ -101,7 +101,7 @@ want to implement your own ordering logic, :class:`.Webhook` should not be used.
 In async version, a task of :meth:`.run_forever` should be created instead of
 :meth:`.run_as_thread`.
 
-Refer to `webhook examples <https://github.com/nickoala/amanobot/tree/master/examples/webhook>`_
+Refer to `webhook examples <https://github.com/AmanoTeam/amanobot/tree/master/examples/webhook>`_
 for usage.
 
 .. autoclass:: amanobot.loop.OrderedWebhook
