@@ -64,6 +64,7 @@ setup(
     description='Python framework for Telegram Bot API forked from Telepot',
 
     long_description=long_desc,
+    long_description_content_type="text/markdown",
 
     url='https://github.com/AmanoTeam/amanobot',
 
