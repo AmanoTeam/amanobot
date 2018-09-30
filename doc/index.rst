@@ -50,9 +50,9 @@ Test the account
 ::
 
     >>> import amanobot
-    >>> bot = amanobot.Bot('***** PUT YOUR TOKEN HERE *****')
+    >>> bot = amanobot.Bot('PUT YOUR TOKEN HERE')
     >>> bot.getMe()
-    {'first_name': 'Your Bot', 'username': 'YourBot', 'id': 123456789}
+    {'id': 123456789, 'is_bot': True, 'first_name': 'Your Bot', 'username': 'YourBot'}
 
 Receive messages
 ----------------
@@ -63,20 +63,25 @@ Get the message by calling :meth:`.Bot.getUpdates`::
     >>> from pprint import pprint
     >>> response = bot.getUpdates()
     >>> pprint(response)
-    [{'message': {'chat': {'first_name': 'Nick',
-                           'id': 999999999,
-                           'type': 'private'},
-                  'date': 1465283242,
-                  'from': {'first_name': 'Nick', 'id': 999999999},
-                  'message_id': 10772,
-                  'text': 'Hello'},
-      'update_id': 100000000}]
-
-``999999999`` is obviously a fake id. ``Nick`` is my real name, though.
+    [{'message': {'chat': {'first_name': '• Alisson™ •',
+                       'id': 200097591,
+                       'last_name': '🇧🇷',
+                       'type': 'private',
+                       'username': 'marminino'},
+              'date': 1538346501,
+              'from': {'first_name': '• Alisson™ •',
+                       'id': 200097591,
+                       'is_bot': False,
+                       'language_code': 'pt-br',
+                       'last_name': '🇧🇷',
+                       'username': 'marminino'},
+              'message_id': 149,
+              'text': 'Hello'},
+    'update_id': 679701815}]
 
 The ``chat`` field represents the conversation. Its ``type`` can be ``private``,
-``group``, or ``channel`` (whose meanings should be obvious, I hope). Above,
-``Nick`` just sent a ``private`` message to the bot.
+``group``, ``supergroup``, or ``channel`` (whose meanings should be obvious, I hope). Above,
+``• Alisson™ •`` just sent a ``private`` message to the bot.
 
 According to Bot API, the method `getUpdates <https://core.telegram.org/bots/api#getupdates>`_
 returns an array of `Update <https://core.telegram.org/bots/api#update>`_ objects.
@@ -110,10 +115,9 @@ Send a message
 --------------
 
 Sooner or later, your bot will want to send *you* messages. You should have
-discovered your own user id from above interactions. I will keep using my
-fake id of ``999999999``. Remember to substitute your own (real) id::
+discovered your own user id from above interactions. I will use my real id on this example. Remember to substitute your own id::
 
-    >>> bot.sendMessage(999999999, 'Hey!')
+    >>> bot.sendMessage(200097591, 'Hey!')
 
 Quickly ``glance`` a message
 ----------------------------
