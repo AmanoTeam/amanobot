@@ -47,6 +47,8 @@ with open(path.join(here, 'amanobot', '__init__.py')) as f:
     m = re.search('^__version_info__ *= *\(([0-9]+), *([0-9]+)\)', f.read(), re.MULTILINE)
     version = '.'.join(m.groups())
 
+with open("README.md") as f:
+    long_desc = f.read()
 
 setup(
     cmdclass=cmdclass,
@@ -59,9 +61,9 @@ setup(
 
     version=version,
 
-    description='Python framework for Telegram Bot API based on Telepot',
+    description='Python framework for Telegram Bot API forked from Telepot',
 
-    long_description='',
+    long_description=long_desc,
 
     url='https://github.com/AmanoTeam/amanobot',
 
