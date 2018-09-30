@@ -300,6 +300,7 @@ class Bot(_BotBase):
 
     async def sendContact(self, chat_id, phone_number, first_name,
                           last_name=None,
+                          vcard=None,
                           disable_notification=None,
                           reply_to_message_id=None,
                           reply_markup=None):

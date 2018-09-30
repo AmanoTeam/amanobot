@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 0)
+__version_info__ = (1, 1, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -713,6 +713,7 @@ class Bot(_BotBase):
 
     def sendContact(self, chat_id, phone_number, first_name,
                     last_name=None,
+                    vcard=None,
                     disable_notification=None,
                     reply_to_message_id=None,
                     reply_markup=None):

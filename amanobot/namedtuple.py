@@ -224,7 +224,8 @@ Contact = _create_class('Contact', [
               'phone_number',
               'first_name',
               'last_name',
-              'user_id'
+              'user_id',
+              'vcard'
           ])
 
 # incoming
@@ -556,6 +557,7 @@ InputVenueMessageContent = _create_class('InputVenueMessageContent', [
                                'title',
                                'address',
                                'foursquare_id',
+                               'foursquare_type'
                            ])
 
 # outgoing
@@ -563,6 +565,7 @@ InputContactMessageContent = _create_class('InputContactMessageContent', [
                                  'phone_number',
                                  'first_name',
                                  'last_name',
+                                 'vcard'
                              ])
 
 # outgoing
@@ -714,6 +717,7 @@ InlineQueryResultVenue = _create_class('InlineQueryResultVenue', [
                                 'title',
                                 'address',
                                 'foursquare_id',
+                                'foursquare_type',
                                 'reply_markup',
                                 'input_message_content',
                                 'thumb_url',
@@ -728,6 +732,7 @@ InlineQueryResultContact = _create_class('InlineQueryResultContact', [
                                 'phone_number',
                                 'first_name',
                                 'last_name',
+                                'vcard',
                                 'reply_markup',
                                 'input_message_content',
                                 'thumb_url',
@@ -864,12 +869,33 @@ InputMediaVideo = _create_class('InputMediaVideo', [
 InputMediaAnimation = _create_class('InputMediaAnimation', [
                       _Field('type', default='animation'),
                       'media',
+                      'thumb',
                       'caption',
                       'parse_mode',
                       'width',
                       'height',
+                      'duration'
+                  ])
+
+# outgoing
+InputMediaAudio = _create_class('InputMediaAudio', [
+                      _Field('type', default='audio'),
+                      'media',
+                      'thumb',
+                      'caption',
+                      'parse_mode',
                       'duration',
-                      'supports_streaming',
+                      'performer',
+                      'title'
+                  ])
+
+# outgoing
+InputMediaDocument = _create_class('InputMediaDocument', [
+                      _Field('type', default='document'),
+                      'media',
+                      'thumb',
+                      'caption',
+                      'parse_mode'
                   ])
 
 # incoming

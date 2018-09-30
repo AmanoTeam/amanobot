@@ -1,5 +1,13 @@
 # amanobot changelog
 
+## 1.1.0 (2018-09-30)
+
+- Bot API 4.1 (complete)
+- New version model
+- Fix `InputMediaAnimation`
+- Add types `InputMediaAudio` and `ÌnputMediaDocument`
+- Added `vcard` to the objects `Contact`, `InlineQueryResultContact`, `InputContactMessageContent` and the method `sendContact`
+
 ## 1.0 (2018-09-20)
 
 - Bot API 4.1 (partial)
