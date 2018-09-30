@@ -77,7 +77,7 @@ Get the message by calling :meth:`.Bot.getUpdates`::
                        'username': 'marminino'},
               'message_id': 149,
               'text': 'Hello'},
-    'update_id': 679701815}]
+    'update_id': 100000000}]
 
 The ``chat`` field represents the conversation. Its ``type`` can be ``private``,
 ``group``, ``supergroup``, or ``channel`` (whose meanings should be obvious, I hope). Above,
