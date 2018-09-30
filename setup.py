@@ -44,7 +44,7 @@ else:
 
 # Parse version
 with open(path.join(here, 'amanobot', '__init__.py')) as f:
-    m = re.search('^__version_info__ *= *\(([0-9]+), *([0-9]+)\)', f.read(), re.MULTILINE)
+    m = re.search('^__version_info__ *= *\(([0-9]+), *([0-9]+), ([0-9]+)\)', f.read(), re.MULTILINE)
     version = '.'.join(m.groups())
 
 with open("README.md") as f:
