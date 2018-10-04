@@ -1,6 +1,6 @@
 # Examples
 
-They are divided into 6 directories:
+They are divided into 8 directories:
 
 ## Simple
 
