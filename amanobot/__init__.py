@@ -76,6 +76,7 @@ all_content_types = [
     'new_chat_members', 'invoice', 'successful_payment'
 ]
 
+
 def glance(msg, flavor='chat', long=False):
     """
     Extract "headline" info about a message.
@@ -170,7 +171,7 @@ def flance(msg, long=False):
     """
     f = flavor(msg)
     g = glance(msg, flavor=f, long=long)
-    return f,g
+    return f, g
 
 
 def peel(event):
@@ -211,6 +212,7 @@ def origin_identifier(msg):
     else:
         raise ValueError()
 
+
 def message_identifier(msg):
     """
     Extract an identifier for message editing. Useful with :meth:`amanobot.Bot.editMessageText`
@@ -225,6 +227,7 @@ def message_identifier(msg):
     else:
         raise ValueError()
 
+
 def _dismantle_message_identifier(f):
     if isinstance(f, tuple):
         if len(f) == 2:
@@ -235,6 +238,7 @@ def _dismantle_message_identifier(f):
             raise ValueError()
     else:
         return {'inline_message_id': f}
+
 
 def _split_input_media_array(media_array):
     def ensure_dict(input_media):
@@ -265,7 +269,7 @@ def _split_input_media_array(media_array):
 
         # file_id, URL
         if _isstring(file_spec):
-            return (input_media, None)
+            return input_media, None
 
         # file-object
         # (attach-name, file-object)
@@ -344,6 +348,7 @@ def _rectify(params):
 
 
 from . import api
+
 
 class Bot(_BotBase):
     class Scheduler(threading.Thread):
@@ -1121,6 +1126,8 @@ class Bot(_BotBase):
         to handle one flavor of messages. It usually looks like this: ``{'chat': fn1,
         'callback_query': fn2, 'inline_query': fn3, ...}``. Each handler function should take
         one argument (the message).
+
+
 
         :param source:
             Source of updates.

@@ -2,11 +2,13 @@ import collections
 import warnings
 import sys
 
+
 class _Field(object):
     def __init__(self, name, constructor=None, default=None):
         self.name = name
         self.constructor = constructor
         self.default = default
+
 
 # Function to produce namedtuple classes.
 def _create_class(typename, fields):
@@ -48,9 +50,9 @@ def _create_class(typename, fields):
                      ' This version of namedtuple is not able to capture them.'
                      '\n\nPlease upgrade amanobot by:'
                      '\n  sudo pip install amanobot --upgrade'
-                     '\n\nIf you still see this message after upgrade, that means I am still working to bring the code up-to-date.'
-                     ' Please try upgrade again a few days later.'
-                     ' In the meantime, you can access the new fields the old-fashioned way, through the raw dictionary.')
+                     '\n\nIf you still see this message after upgrade, that means I am still working to bring the code'
+                     ' up-to-date. Please try upgrade again a few days later. In the meantime,'
+                     ' you can access the new fields the old-fashioned way, through the raw dictionary.')
 
                 warnings.warn(s, UserWarning)
 
@@ -69,7 +71,7 @@ def _create_class(typename, fields):
     # https://bugs.python.org/issue24931
     # Python 3.4 bug: namedtuple subclass does not inherit __dict__ properly.
     # Fix it manually.
-    if sys.version_info >= (3,4):
+    if sys.version_info >= (3, 4):
         def _asdict(self):
             return collections.OrderedDict(zip(self._fields, self))
         sub._asdict = _asdict
@@ -85,6 +87,7 @@ Different treatments for incoming and outgoing namedtuples:
 - Outgoing ones need no such declarations because users are expected to put the correct object in place.
 """
 
+
 # Namedtuple class will reference other namedtuple classes. Due to circular
 # dependencies, it is impossible to have all class definitions ready at
 # compile time. We have to dynamically obtain class reference at runtime.
@@ -93,6 +96,7 @@ Different treatments for incoming and outgoing namedtuples:
 # namedtuple is defined.
 def _Message(**kwargs):
     return getattr(sys.modules[__name__], 'Message')(**kwargs)
+
 
 # incoming
 User = _create_class('User', [
@@ -104,8 +108,10 @@ User = _create_class('User', [
            'language_code'
        ])
 
+
 def UserArray(data):
     return [User(**p) for p in data]
+
 
 # incoming
 ChatPhoto = _create_class('ChatPhoto', [
@@ -179,8 +185,10 @@ Sticker = _create_class('Sticker', [
               'file_size',
           ])
 
+
 def StickerArray(data):
     return [Sticker(**p) for p in data]
+
 
 # incoming
 StickerSet = _create_class('StickerSet', [
@@ -249,11 +257,14 @@ File = _create_class('File', [
            'file_path'
        ])
 
+
 def PhotoSizeArray(data):
     return [PhotoSize(**p) for p in data]
 
+
 def PhotoSizeArrayArray(data):
     return [[PhotoSize(**p) for p in array] for array in data]
+
 
 # incoming
 UserProfilePhotos = _create_class('UserProfilePhotos', [
@@ -281,8 +292,10 @@ ChatMember = _create_class('ChatMember', [
                  'can_add_web_page_previews',
              ])
 
+
 def ChatMemberArray(data):
     return [ChatMember(**p) for p in data]
+
 
 # outgoing
 ReplyKeyboardMarkup = _create_class('ReplyKeyboardMarkup', [
@@ -336,9 +349,11 @@ MessageEntity = _create_class('MessageEntity', [
                     _Field('user', constructor=User),
                 ])
 
+
 # incoming
 def MessageEntityArray(data):
     return [MessageEntity(**p) for p in data]
+
 
 # incoming
 GameHighScore = _create_class('GameHighScore', [
@@ -523,9 +538,11 @@ Update = _create_class('Update', [
              _Field('callback_query', constructor=CallbackQuery),
          ])
 
+
 # incoming
 def UpdateArray(data):
     return [Update(**u) for u in data]
+
 
 # incoming
 WebhookInfo = _create_class('WebhookInfo', [

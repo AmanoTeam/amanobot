@@ -698,6 +698,19 @@ class Bot(_BotBase):
         'callback_query': fn2, 'inline_query': fn3, ...}``. Each handler function should take
         one argument (the message).
 
+        :param relax:
+            seconds between each ``getUpdates``
+
+        :type timeout: int
+        :param timeout:
+            ``timeout`` parameter supplied to :meth:`amanobot.aio.Bot.getUpdates`,
+            controlling how long to poll in seconds.
+
+        :type allowed_updates: array of string
+        :param allowed_updates:
+            ``allowed_updates`` parameter supplied to :meth:`amanobot.aio.Bot.getUpdates`,
+            controlling which types of updates to receive.
+
         :param source:
             Source of updates.
             If ``None``, ``getUpdates`` is used to obtain new messages from Telegram servers.
@@ -729,15 +742,6 @@ class Bot(_BotBase):
             even if some smaller ``update_id``\s have not yet arrived. If those smaller
             ``update_id``\s arrive at some later time, they are discarded.
 
-        :type timeout: int
-        :param timeout:
-            ``timeout`` parameter supplied to :meth:`amanobot.aio.Bot.getUpdates`,
-            controlling how long to poll in seconds.
-
-        :type allowed_updates: array of string
-        :param allowed_updates:
-            ``allowed_updates`` parameter supplied to :meth:`amanobot.aio.Bot.getUpdates`,
-            controlling which types of updates to receive.
         """
         if handler is None:
             handler = self.handle

@@ -99,6 +99,7 @@ def _dictify27(data):
 
 _dictify = _dictify3 if sys.version_info >= (3,) else _dictify27
 
+
 def _extract_message(update):
     key = _find_first_key(update, ['message',
                                    'edited_message',
@@ -110,6 +111,7 @@ def _extract_message(update):
                                    'shipping_query',
                                    'pre_checkout_query'])
     return key, update[key]
+
 
 def _infer_handler_function(bot, h):
     if h is None:
@@ -277,8 +279,8 @@ class OrderedWebhook(RunForeverAsThread):
         self._bot = bot
         self._collectloop = CollectLoop(_infer_handler_function(bot, handle))
         self._orderer = Orderer(lambda update:
-                                    self._collectloop.input_queue.put(_extract_message(update)[1]))
-                                    # feed messages to collect loop
+                                self._collectloop.input_queue.put(_extract_message(update)[1]))
+                                # feed messages to collect loop
 
     def run_forever(self, *args, **kwargs):
         """
