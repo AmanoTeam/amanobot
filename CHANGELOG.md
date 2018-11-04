@@ -1,5 +1,10 @@
 # amanobot changelog
 
+## 1.1.2 (2018-11-04)
+
+- Re-added `thumb` to `sendAudio` method
+- Some improvments to the code
+
 ## 1.1.0 (2018-09-30)
 
 - Bot API 4.1 (complete)

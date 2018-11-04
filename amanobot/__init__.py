@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 1, 1)
+__version_info__ = (1, 1, 2)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -549,6 +549,7 @@ class Bot(_BotBase):
                   duration=None,
                   performer=None,
                   title=None,
+                  thumb=None,
                   disable_notification=None,
                   reply_to_message_id=None,
                   reply_markup=None):
