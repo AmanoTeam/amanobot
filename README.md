@@ -8,7 +8,7 @@
   <a href="https://core.telegram.org/bots/api"><img src="https://img.shields.io/badge/bot api-v4.1-0688CB.svg" /></a>
 </h6>
 
-### [Introduction »](https://docs.amanobot..ml/en/latest)
+### [Introduction »](https://docs.amanobot.ml/en/latest)
 ### [Reference »](https://docs.amanobot.ml/en/latest/reference.html)
 ### [Examples »](https://github.com/AmanoTeam/amanobot/tree/master/examples)
 ### [Changelog »](https://github.com/AmanoTeam/amanobot/blob/master/CHANGELOG.md)
