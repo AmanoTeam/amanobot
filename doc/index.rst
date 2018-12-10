@@ -16,7 +16,7 @@ For a time, I tried to list the features here like many projects do. Eventually,
 Common and straight-forward features are too trivial to worth listing.
 For more unique and novel features, I cannot find standard terms to describe them.
 The best way to experience amanobot is by reading this page and going through the
-`examples <https://github.com/nickoala/amanobot/tree/master/examples>`_. Let's go.
+`examples <https://github.com/AmanoTeam/amanobot/tree/master/examples>`_. Let's go.
 
 .. contents::
     :local:

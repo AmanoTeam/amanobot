@@ -42,7 +42,7 @@ Some modules do not have async counterparts, e.g. :mod:`amanobot.namedtuple` and
 :mod:`amanobot.exception`, because they are shared.
 
 Try to combine this reading with the provided
-`examples <https://github.com/nickoala/amanobot/tree/master/examples>`_ .
+`examples <https://github.com/AmanoTeam/amanobot/tree/master/examples>`_ .
 One example is worth a thousand words. I hope they make things clear.
 
 Basic Bot
