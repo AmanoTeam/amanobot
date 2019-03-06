@@ -152,7 +152,8 @@ Audio = _create_class('Audio', [
             'performer',
             'title',
             'mime_type',
-            'file_size'
+            'file_size',
+            _Field('thumb', constructor=PhotoSize)
         ])
 
 # incoming
