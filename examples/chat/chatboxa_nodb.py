@@ -6,7 +6,7 @@ from amanobot.aio.delegate import (
     per_chat_id_in, per_application, call, create_open, pave_event_space)
 
 """
-$ python3.5 chatboxa_nodb.py <token> <owner_id>
+$ python3 chatboxa_nodb.py <token> <owner_id>
 
 Chatbox - a mailbox for chats
 

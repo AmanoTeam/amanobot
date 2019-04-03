@@ -5,7 +5,7 @@ from amanobot.loop import MessageLoop
 from amanobot.delegate import per_chat_id, create_open, pave_event_space
 
 """
-$ python2.7 counter.py <token>
+$ python counter.py <token>
 
 Counts number of messages a user has sent. Starts over if silent for 10 seconds.
 Illustrates the basic usage of `DelegateBot` and `ChatHandler`.

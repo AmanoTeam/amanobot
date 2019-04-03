@@ -9,7 +9,7 @@ from amanobot.delegate import (
     per_chat_id, create_open, pave_event_space, include_callback_query_chat_id)
 
 """
-$ python3.5 vote.py <token>
+$ python3 vote.py <token>
 
 Add the bot to a group. Then send a command `/vote` to the group. The bot will
 organize a ballot.

@@ -13,7 +13,7 @@ This script tests:
 - receiving all types of messages, by asking user to produce each
 
 Run it by:
-$ python2.7 test.py <token> <user_id>
+$ python2 test.py <token> <user_id>
 
 It will assume the bot identified by <token>, and only communicate with the user identified by <user_id>.
 

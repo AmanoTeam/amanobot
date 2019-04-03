@@ -1,7 +1,7 @@
 # Deep Linking Examples
 
 ```
-$ python2.7 flask_deeplinking.py <bot_username> <token> <listening_port> https://<domain>/abc
+$ python flask_deeplinking.py <bot_username> <token> <listening_port> https://<domain>/abc
 ```
 
 1. Open browser, visit: `https://<domain>/link`

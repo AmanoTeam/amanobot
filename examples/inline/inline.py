@@ -5,7 +5,7 @@ from amanobot.loop import MessageLoop
 from amanobot.delegate import per_inline_from_id, create_open, pave_event_space
 
 """
-$ python3.5 inline.py <token>
+$ python3 inline.py <token>
 
 It demonstrates answering inline query and getting chosen inline results.
 """

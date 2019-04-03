@@ -6,7 +6,7 @@ from amanobot.aio.helper import InlineUserHandler, AnswererMixin
 from amanobot.aio.delegate import per_inline_from_id, create_open, pave_event_space
 
 """
-$ python3.5 inlinea.py <token>
+$ python3 inlinea.py <token>
 
 It demonstrates answering inline query and getting chosen inline results.
 """

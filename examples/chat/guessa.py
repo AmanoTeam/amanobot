@@ -6,7 +6,7 @@ from amanobot.aio.loop import MessageLoop
 from amanobot.aio.delegate import per_chat_id, create_open, pave_event_space
 
 """
-$ python3.5 guessa.py <token>
+$ python3 guessa.py <token>
 
 Guess a number:
 

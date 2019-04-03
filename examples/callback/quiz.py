@@ -9,7 +9,7 @@ from amanobot.delegate import (
     per_chat_id, per_callback_query_origin, create_open, pave_event_space)
 
 """
-$ python3.5 quiz.py <token>
+$ python3 quiz.py <token>
 
 Send a chat message to the bot. It will give you a math quiz. Stay silent for
 10 seconds to end the quiz.

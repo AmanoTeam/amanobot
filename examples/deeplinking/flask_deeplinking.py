@@ -4,7 +4,7 @@ import amanobot
 from amanobot.loop import OrderedWebhook
 
 """
-$ python2.7 flask_deeplinking.py <bot_username> <token> <listening_port> https://<domain>/webhook
+$ python flask_deeplinking.py <bot_username> <token> <listening_port> https://<domain>/webhook
 
 Webhook path is '/webhook'.
 Initial webpage is '/link'.

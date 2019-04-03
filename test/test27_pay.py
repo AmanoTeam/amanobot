@@ -15,7 +15,7 @@ This script tests the payment process:
 4. Receive a successful payment
 
 Run it by:
-$ python2.7 script.py <bot-token> <payment-provider-token>
+$ python2 script.py <bot-token> <payment-provider-token>
 """
 
 def on_chat_message(msg):

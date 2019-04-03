@@ -16,7 +16,7 @@ from amanobot.aio.delegate import (
     intercept_callback_query_origin)
 
 """
-$ python3.5 datecalca.py <token>
+$ python3 datecalca.py <token>
 
 When pondering the date of an appointment or a gathering, we usually think
 in terms of "this Saturday" or "next Monday", instead of the actual date.

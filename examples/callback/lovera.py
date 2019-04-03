@@ -9,7 +9,7 @@ from amanobot.aio.delegate import (
     per_chat_id, create_open, pave_event_space, include_callback_query_chat_id)
 
 """
-$ python3.5 lovera.py <token>
+$ python3 lovera.py <token>
 
 1. Send him a message
 2. He will ask you to marry him
