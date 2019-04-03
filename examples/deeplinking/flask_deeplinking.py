@@ -20,25 +20,25 @@ key_id_map = { 'ghijk' : 123 }
 
 def handle(msg):
     content_type, chat_type, chat_id = amanobot.glance(msg)
-    print 'Chat Message:', content_type, chat_type, chat_id
+    print('Chat Message:', content_type, chat_type, chat_id)
 
     if content_type == 'text':
         text = msg['text']
-        print 'Text:', text
+        print('Text:', text)
 
         if text.startswith('/start'):
             try:
                 command, payload = text.split(' ')
 
-                print 'Payload:', payload
-                print 'User ID:', key_id_map[payload]
-                print 'chat_id:', chat_id
+                print('Payload:', payload)
+                print('User ID:', key_id_map[payload])
+                print('chat_id:', chat_id)
 
             except ValueError:
-                print 'No payload, or more than one chunk of payload'
+                print('No payload, or more than one chunk of payload')
 
             except KeyError:
-                print 'Invalid key, no corresponding User ID'
+                print('Invalid key, no corresponding User ID')
 
 
 BOT_USERNAME = sys.argv[1]

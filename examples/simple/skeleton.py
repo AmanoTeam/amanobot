@@ -13,14 +13,14 @@ def handle(msg):
     flavor = amanobot.flavor(msg)
 
     summary = amanobot.glance(msg, flavor=flavor)
-    print flavor, summary
+    print(flavor, summary)
 
 
 TOKEN = sys.argv[1]  # get token from command-line
 
 bot = amanobot.Bot(TOKEN)
 MessageLoop(bot, handle).run_as_thread()
-print 'Listening ...'
+print('Listening ...')
 
 # Keep the program running.
 while 1:

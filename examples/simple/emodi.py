@@ -21,10 +21,10 @@ def handle(msg):
 
     if chat_id < 0:
         # group message
-        print 'Received a %s from %s, by %s' % (content_type, m.chat, m.from_)
+        print('Received a %s from %s, by %s' % (content_type, m.chat, m.from_))
     else:
         # private message
-        print 'Received a %s from %s' % (content_type, m.chat)  # m.chat == m.from_
+        print('Received a %s from %s' % (content_type, m.chat))  # m.chat == m.from_
 
     if content_type == 'text':
         reply = ''
@@ -44,7 +44,7 @@ TOKEN = sys.argv[1]  # get token from command-line
 
 bot = amanobot.Bot(TOKEN)
 MessageLoop(bot, handle).run_as_thread()
-print 'Listening ...'
+print('Listening ...')
 
 # Keep the program running.
 while 1:
