@@ -301,6 +301,7 @@ ChatMember = _create_class('ChatMember', [
                  'can_restrict_members',
                  'can_pin_messages',
                  'can_promote_members',
+                 'is_member',
                  'can_send_messages',
                  'can_send_media_messages',
                  'can_send_other_messages',
