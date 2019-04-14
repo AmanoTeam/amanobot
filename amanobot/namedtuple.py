@@ -477,6 +477,7 @@ Message = _create_class('Message', [
               _Field('forward_from_chat', constructor=Chat),
               'forward_from_message_id',
               'forward_signature',
+              'forward_sender_name',
               'forward_date',
               _Field('reply_to_message', constructor=_Message),
               'edit_date',
