@@ -252,6 +252,20 @@ Venue = _create_class('Venue', [
         ])
 
 # incoming
+PollOption = _create_class('PollOption', [
+                 'text',
+                 'voter_count'
+             ])
+
+# incoming
+Poll = _create_class('Poll', [
+           'id',
+           'question',
+           'options',
+           'is_closed'
+       ])
+
+# incoming
 File = _create_class('File', [
            'file_id',
            'file_size',
@@ -482,6 +496,7 @@ Message = _create_class('Message', [
               _Field('contact', constructor=Contact),
               _Field('location', constructor=Location),
               _Field('venue', constructor=Venue),
+              _Field('poll', constructor=Poll),
               _Field('new_chat_member', constructor=User),
               _Field('left_chat_member', constructor=User),
               'new_chat_title',
@@ -537,6 +552,7 @@ Update = _create_class('Update', [
              _Field('inline_query', constructor=InlineQuery),
              _Field('chosen_inline_result', constructor=ChosenInlineResult),
              _Field('callback_query', constructor=CallbackQuery),
+             _Field('poll', constructor=Poll)
          ])
 
 

@@ -308,6 +308,14 @@ class Bot(_BotBase):
         p = _strip(locals())
         return await self._api_request('sendContact', _rectify(p))
 
+    async def sendPoll(self, chat_id, question, options,
+                       disable_notification=None,
+                       reply_to_message_id=None,
+                       reply_markup=None):
+        """ See: https://core.telegram.org/bots/api#sendpoll """
+        p = _strip(locals())
+        return await self._api_request('sendPoll', _rectify(p))
+
     async def sendGame(self, chat_id, game_short_name,
                        disable_notification=None,
                        reply_to_message_id=None,
@@ -531,6 +539,21 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['msg_identifier'])
         p.update(_dismantle_message_identifier(msg_identifier))
         return await self._api_request('editMessageReplyMarkup', _rectify(p))
+
+    async def stopPoll(self, msg_identifier,
+                       reply_markup=None):
+        """
+        See: https://core.telegram.org/bots/api#stoppoll
+
+        :param msg_identifier:
+            a 2-tuple (``chat_id``, ``message_id``),
+            a 1-tuple (``inline_message_id``),
+            or simply ``inline_message_id``.
+            You may extract this value easily with :meth:`amanobot.message_identifier`
+        """
+        p = _strip(locals(), more=['msg_identifier'])
+        p.update(_dismantle_message_identifier(msg_identifier))
+        return await self._api_request('stopPoll', _rectify(p))
 
     async def deleteMessage(self, msg_identifier):
         """
