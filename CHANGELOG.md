@@ -1,5 +1,13 @@
 # amanobot changelog
 
+## 1.2.0 (2019-04-14)
+
+- Added the `sendPoll` method
+- Added the `stopPoll` method
+- Added the field `forward_sender_name` and `poll` to the `Message` object
+- Added the field `poll` to the `Update` object
+- Added the field `is_member` to the `ChatMember` object
+
 ## 1.1.2 (2018-11-04)
 
 - Re-added `thumb` to `sendAudio` method
