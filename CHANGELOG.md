@@ -2,6 +2,7 @@
 
 ## 1.3.0 (2019-06-01)
 - Bot API 4.3
+- Added missing Passport related methods and objects 
 - Added the `LoginUrl` object
 - Added the `login_url` field to the `InlineKeyboardButton` object
 

@@ -894,12 +894,16 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('answerCallbackQuery', _rectify(p))
 
-    def answerShippingQuery(self, shipping_query_id, ok,
-                            shipping_options=None,
-                            error_message=None):
-        """ See: https://core.telegram.org/bots/api#answershippingquery """
+    def setPassportDataErrors(self, user_id, errors):
+        """ See: https://core.telegram.org/bots/api#setpassportdataerrors """
         p = _strip(locals())
-        return self._api_request('answerShippingQuery', _rectify(p))
+        return self._api_request('setPassportDataErrors', _rectify(p))
+
+    def answerPreCheckoutQuery(self, pre_checkout_query_id, ok,
+                               error_message=None):
+        """ See: https://core.telegram.org/bots/api#answerprecheckoutquery """
+        p = _strip(locals())
+        return self._api_request('answerPreCheckoutQuery', _rectify(p))
 
     def answerPreCheckoutQuery(self, pre_checkout_query_id, ok,
                                error_message=None):

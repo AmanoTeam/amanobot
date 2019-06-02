@@ -488,6 +488,11 @@ class Bot(_BotBase):
         p = _strip(locals())
         return await self._api_request('answerPreCheckoutQuery', _rectify(p))
 
+    async def setPassportDataErrors(self, user_id, errors):
+        """ See: https://core.telegram.org/bots/api#setpassportdataerrors """
+        p = _strip(locals())
+        return await self._api_request('setPassportDataErrors', _rectify(p))
+
     async def editMessageText(self, msg_identifier, text,
                               parse_mode=None,
                               disable_web_page_preview=None,

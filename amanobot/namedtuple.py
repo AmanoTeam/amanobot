@@ -476,6 +476,40 @@ SuccessfulPayment = _create_class('SuccessfulPayment', [
                         'provider_payment_charge_id',
                     ])
 
+# outgoing
+PassportFile = _create_class('PassportFile', [
+                   'file_id',
+                   'file_size',
+                   'file_date'
+               ])
+
+# outgoing
+EncryptedPassportElement = _create_class('EncryptedPassportElement', [
+                               'type',
+                               'data',
+                               'phone_number',
+                               'email',
+                               'files',
+                               _Field('front_side', constructor=PassportFile),
+                               _Field('reverse_side', constructor=PassportFile),
+                               _Field('selfie', constructor=PassportFile),
+                               'translation',
+                               'hash'
+                           ])
+
+# outgoing
+EncryptedCredentials = _create_class('EncryptedCredentials', [
+                           'data',
+                           'hash',
+                           'secret'
+                       ])
+
+# outgoing
+PassportData = _create_class('PassportData', [
+                   'data',
+                   _Field('credentials', constructor=EncryptedCredentials)
+               ])
+
 # incoming
 Message = _create_class('Message', [
               'message_id',
@@ -522,6 +556,7 @@ Message = _create_class('Message', [
               _Field('invoice', constructor=Invoice),
               _Field('successful_payment', constructor=SuccessfulPayment),
               'connected_website',
+              _Field('passport_data', constructor=PassportData),
               _Field('reply_markup', constructor=InlineKeyboardMarkup)
           ])
 
