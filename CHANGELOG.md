@@ -1,7 +1,13 @@
 # amanobot changelog
 
+## 1.3.0 (2019-06-01)
+- Bot API 4.3
+- Added the `LoginUrl` object
+- Added the `login_url` field to the `InlineKeyboardButton` object
+
 ## 1.2.0 (2019-04-14)
 
+- Bot API 4.2
 - Added the `sendPoll` method
 - Added the `stopPoll` method
 - Added the field `forward_sender_name` and `poll` to the `Message` object
@@ -16,7 +22,6 @@
 ## 1.1.0 (2018-09-30)
 
 - Bot API 4.1 (complete)
-- New version model
 - Fix `InputMediaAnimation`
 - Add types `InputMediaAudio` and `ÌnputMediaDocument`
 - Added `vcard` to the objects `Contact`, `InlineQueryResultContact`, `InputContactMessageContent` and the method `sendContact`

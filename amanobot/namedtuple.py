@@ -329,6 +329,14 @@ KeyboardButton = _create_class('KeyboardButton', [
                  ])
 
 # outgoing
+LoginUrl = _create_class('LoginUrl', [
+               'url',
+               'forward_text',
+               'bot_username',
+               'request_write_access'
+           ])
+
+# outgoing
 ReplyKeyboardRemove = _create_class('ReplyKeyboardRemove', [
                           _Field('remove_keyboard', default=True),
                           'selective',
@@ -344,6 +352,7 @@ ForceReply = _create_class('ForceReply', [
 InlineKeyboardButton = _create_class('InlineKeyboardButton', [
                            'text',
                            'url',
+                           _Field('login_url', constructor=LoginUrl),
                            'callback_data',
                            'switch_inline_query',
                            'switch_inline_query_current_chat',
@@ -513,6 +522,7 @@ Message = _create_class('Message', [
               _Field('invoice', constructor=Invoice),
               _Field('successful_payment', constructor=SuccessfulPayment),
               'connected_website',
+              _Field('reply_markup', constructor=InlineKeyboardMarkup)
           ])
 
 # incoming
