@@ -5,7 +5,7 @@
 </h6>
 <h6 align="center">
   <a href="https://pypi.org/project/amanobot"><img src="https://img.shields.io/pypi/v/amanobot.svg" /></a>
-  <a href="https://core.telegram.org/bots/api"><img src="https://img.shields.io/badge/bot api-v4.3-0688CB.svg" /></a>
+  <a href="https://core.telegram.org/bots/api"><img src="https://img.shields.io/badge/bot api-v4.4-0688CB.svg" /></a>
 </h6>
 
 ### [Migrating from Telepot »](https://docs.amanobot.ml/en/latest/migrating-from-telepot.html)
