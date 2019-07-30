@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 3, 0)
+__version_info__ = (1, 4, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -794,9 +794,23 @@ class Bot(_BotBase):
                            until_date=None,
                            can_send_messages=None,
                            can_send_media_messages=None,
+                           can_send_polls=None,
                            can_send_other_messages=None,
-                           can_add_web_page_previews=None):
+                           can_add_web_page_previews=None,
+                           can_change_info=None,
+                           can_invite_users=None,
+                           can_pin_messages=None,
+                           permissions=None):
         """ See: https://core.telegram.org/bots/api#restrictchatmember """
+        if not isinstance(permissions, dict):
+            permissions = dict(can_send_messages=can_send_messages,
+                               can_send_media_messages=can_send_media_messages,
+                               can_send_polls=can_send_polls,
+                               can_send_other_messages=can_send_other_messages,
+                               can_add_web_page_previews=can_add_web_page_previews,
+                               can_change_info=can_change_info,
+                               can_invite_users=can_invite_users,
+                               can_pin_messages=can_pin_messages)
         p = _strip(locals())
         return self._api_request('restrictChatMember', _rectify(p))
 
@@ -812,6 +826,29 @@ class Bot(_BotBase):
         """ See: https://core.telegram.org/bots/api#promotechatmember """
         p = _strip(locals())
         return self._api_request('promoteChatMember', _rectify(p))
+
+    def setChatPermissions(self, chat_id,
+                           can_send_messages=None,
+                           can_send_media_messages=None,
+                           can_send_polls=None,
+                           can_send_other_messages=None,
+                           can_add_web_page_previews=None,
+                           can_change_info=None,
+                           can_invite_users=None,
+                           can_pin_messages=None,
+                           permissions=None):
+        """ See: https://core.telegram.org/bots/api#setchatpermissions """
+        if not isinstance(permissions, dict):
+            permissions = dict(can_send_messages=can_send_messages,
+                               can_send_media_messages=can_send_media_messages,
+                               can_send_polls=can_send_polls,
+                               can_send_other_messages=can_send_other_messages,
+                               can_add_web_page_previews=can_add_web_page_previews,
+                               can_change_info=can_change_info,
+                               can_invite_users=can_invite_users,
+                               can_pin_messages=can_pin_messages)
+        p = _strip(locals())
+        return self._api_request('setChatPermissions', _rectify(p))
 
     def exportChatInviteLink(self, chat_id):
         """ See: https://core.telegram.org/bots/api#exportchatinvitelink """

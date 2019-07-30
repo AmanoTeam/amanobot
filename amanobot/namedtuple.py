@@ -120,6 +120,18 @@ ChatPhoto = _create_class('ChatPhoto', [
             ])
 
 # incoming
+ChatPermissions = _create_class('ChatPermissions', [
+                      'can_send_messages',
+                      'can_send_media_messages',
+                      'can_send_polls',
+                      'can_send_other_messages',
+                      'can_add_web_page_previews',
+                      'can_change_info',
+                      'can_invite_users',
+                      'can_pin_messages'
+])
+
+# incoming
 Chat = _create_class('Chat', [
            'id',
            'type',
@@ -127,11 +139,11 @@ Chat = _create_class('Chat', [
            'username',
            'first_name',
            'last_name',
-           'all_members_are_administrators',
            _Field('photo', constructor=ChatPhoto),
            'description',
            'invite_link',
            _Field('pinned_message', constructor=_Message),
+           _Field('permissions', constructor=ChatPermissions),
            'sticker_set_name',
            'can_set_sticker_set',
        ])
@@ -179,6 +191,7 @@ Sticker = _create_class('Sticker', [
               'file_id',
               'width',
               'height',
+              'is_animated',
               _Field('thumb', constructor=PhotoSize),
               'emoji',
               'set_name',
@@ -195,6 +208,7 @@ def StickerArray(data):
 StickerSet = _create_class('StickerSet', [
                  'name',
                  'title',
+                 'is_animated',
                  'contains_masks',
                  _Field('stickers', constructor=StickerArray),
              ])
@@ -293,17 +307,18 @@ ChatMember = _create_class('ChatMember', [
                  'status',
                  'until_date',
                  'can_be_edited',
-                 'can_change_info',
                  'can_post_messages',
                  'can_edit_messages',
                  'can_delete_messages',
-                 'can_invite_users',
                  'can_restrict_members',
-                 'can_pin_messages',
                  'can_promote_members',
+                 'can_change_info',
+                 'can_invite_users',
+                 'can_pin_messages',
                  'is_member',
                  'can_send_messages',
                  'can_send_media_messages',
+                 'can_send_polls',
                  'can_send_other_messages',
                  'can_add_web_page_previews',
              ])

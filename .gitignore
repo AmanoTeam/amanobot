@@ -1,5 +1,6 @@
 *.pyc
 .idea/
+.eggs/
 amanobot.egg-info/
 build/
 dist/
