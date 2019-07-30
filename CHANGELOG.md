@@ -6,6 +6,7 @@
 - Added the fields `can_send_polls`, `can_change_info`, `can_invite_users`, `can_pin_messages` and `permissions` to the `restrictChatMember` method.
 - Added the `ChatPermissions` object.
 - Removed the `all_members_are_administrators` field from the `Chat` object.
+- Added the `permissions` field tp the `Chat` object
 - Added the `is_animated` field to the `Sticker` and `StickerSet` objects.
 
 ## 1.3.0 (2019-06-01)
