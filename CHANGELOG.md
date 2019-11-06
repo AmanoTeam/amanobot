@@ -1,5 +1,9 @@
 # amanobot changelog
 
+## 1.4.1 (2019-11-05)
+- Add missing permissions to restrictChatMember on the asyncio variant
+- Now we offer wheel releases too
+
 ## 1.4.0 (2019-07-29)
 - Bot API 4.4
 - Added the `setChatDescription` method.
