@@ -375,8 +375,13 @@ class Bot(_BotBase):
                                  until_date=None,
                                  can_send_messages=None,
                                  can_send_media_messages=None,
+                                 can_send_polls=None,
                                  can_send_other_messages=None,
-                                 can_add_web_page_previews=None):
+                                 can_add_web_page_previews=None,
+                                 can_change_info=None,
+                                 can_invite_users=None,
+                                 can_pin_messages=None,
+                                 permissions=None):
         """ See: https://core.telegram.org/bots/api#restrictchatmember """
         if not isinstance(permissions, dict):
             permissions = dict(can_send_messages=can_send_messages,

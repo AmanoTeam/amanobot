@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 4, 0)
+__version_info__ = (1, 4, 1)
 __version__ = '.'.join(map(str, __version_info__))
 
 
