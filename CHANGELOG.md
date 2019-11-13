@@ -1,5 +1,8 @@
 # amanobot changelog
 
+## 1.4.2 (2019-11-13)
+- Allow raising KeyboardInterrupt on `run_forever()` (aka blocking loop)
+
 ## 1.4.1 (2019-11-05)
 - Add missing permissions to restrictChatMember on the asyncio variant
 - Now we offer wheel releases too

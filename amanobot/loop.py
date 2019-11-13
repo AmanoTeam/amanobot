@@ -35,6 +35,8 @@ class CollectLoop(RunForeverAsThread):
             try:
                 msg = self._inqueue.get(block=True)
                 self._handle(msg)
+            except KeyboardInterrupt:
+                raise
             except:
                 traceback.print_exc()
 
