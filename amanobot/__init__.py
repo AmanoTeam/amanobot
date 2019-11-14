@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 4, 2)
+__version_info__ = (1, 4, 4)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -990,9 +990,13 @@ class Bot(_BotBase):
 
         :param msg_identifier: Same as ``msg_identifier`` in :meth:`amanobot.Bot.editMessageText`
         """
-        p = _strip(locals(), more=['msg_identifier'])
+        p = _strip(locals(), more=['msg_identifier', 'media'])
         p.update(_dismantle_message_identifier(msg_identifier))
-        return self._api_request('editMessageMedia', _rectify(p))
+
+        legal_media, files_to_attach = _split_input_media_array([media])
+        p['media'] = legal_media[0]
+
+        return self._api_request('editMessageMedia', _rectify(p), files_to_attach)
 
     def editMessageReplyMarkup(self, msg_identifier,
                                reply_markup=None):

@@ -77,7 +77,7 @@ class Bot(_BotBase):
     async def _api_request(self, method, params=None, files=None, **kwargs):
         return await api.request((self._token, method, params, files), **kwargs)
 
-    def _api_request_with_file(self, method, params, files, **kwargs):
+    async def _api_request_with_file(self, method, params, files, **kwargs):
         params.update({
             k: v for k, v in files.items() if _isstring(v)})
 

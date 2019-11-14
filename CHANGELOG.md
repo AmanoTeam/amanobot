@@ -1,10 +1,17 @@
 # amanobot changelog
 
+## 1.4.4 (2019-11-13)
+- Hotfix for asyncio version failing to start
+
+## 1.4.3 (2019-11-13) - Removed
+- Added support for the `thumb` parameter in media Senders (`sendAudio`, `sendDocument`, etc)
+- Added support for media editing using the `editMessageMedia` method
+
 ## 1.4.2 (2019-11-13)
 - Allow raising KeyboardInterrupt on `run_forever()` (aka blocking loop)
 
 ## 1.4.1 (2019-11-05)
-- Add missing permissions to restrictChatMember on the asyncio variant
+- Add missing permissions to restrictChatMember on the asyncio variant.
 - Now we offer wheel releases too
 
 ## 1.4.0 (2019-07-29)
@@ -14,7 +21,7 @@
 - Added the `ChatPermissions` object.
 - Removed the `all_members_are_administrators` field from the `Chat` object.
 - Added the `permissions` field tp the `Chat` object
-- Added the `is_animated` field to the `Sticker` and `StickerSet` objects.
+- Added the `is_animated` field to the `Sticker` and `StickerSet` objects
 
 ## 1.3.0 (2019-06-01)
 - Bot API 4.3
@@ -40,7 +47,7 @@
 
 - Bot API 4.1 (complete)
 - Fix `InputMediaAnimation`
-- Add types `InputMediaAudio` and `ÌnputMediaDocument`
+- Add types `InputMediaAudio` and `InputMediaDocument`
 - Added `vcard` to the objects `Contact`, `InlineQueryResultContact`, `InputContactMessageContent` and the method `sendContact`
 
 ## 1.0 (2018-09-20)
