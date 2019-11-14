@@ -77,13 +77,14 @@ class Bot(_BotBase):
     async def _api_request(self, method, params=None, files=None, **kwargs):
         return await api.request((self._token, method, params, files), **kwargs)
 
-    async def _api_request_with_file(self, method, params, file_key, file_value, **kwargs):
-        if _isstring(file_value):
-            params[file_key] = file_value
-            return await self._api_request(method, _rectify(params), **kwargs)
-        else:
-            files = {file_key: file_value}
-            return await self._api_request(method, _rectify(params), files, **kwargs)
+    def _api_request_with_file(self, method, params, files, **kwargs):
+        params.update({
+            k: v for k, v in files.items() if _isstring(v)})
+
+        files = {
+            k: v for k, v in files.items() if v is not None and not _isstring(v)}
+
+        return await self._api_request(method, _rectify(params), files, **kwargs)
 
     async def getMe(self):
         """ See: https://core.telegram.org/bots/api#getme """
@@ -123,7 +124,7 @@ class Bot(_BotBase):
               filename is a unicode string.
         """
         p = _strip(locals(), more=['photo'])
-        return await self._api_request_with_file('sendPhoto', _rectify(p), 'photo', photo)
+        return await self._api_request_with_file('sendPhoto', _rectify(p), {'photo': photo})
 
     async def sendAudio(self, chat_id, audio,
                         caption=None,
@@ -140,8 +141,8 @@ class Bot(_BotBase):
 
         :param audio: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
         """
-        p = _strip(locals(), more=['audio'])
-        return await self._api_request_with_file('sendAudio', _rectify(p), 'audio', audio)
+        p = _strip(locals(), more=['audio', 'thumb'])
+        return await self._api_request_with_file('sendAudio', _rectify(p), {'audio': audio, 'thumb': thumb})
 
     async def sendDocument(self, chat_id, document,
                            thumb=None,
@@ -155,8 +156,8 @@ class Bot(_BotBase):
 
         :param document: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
         """
-        p = _strip(locals(), more=['document'])
-        return await self._api_request_with_file('sendDocument', _rectify(p), 'document', document)
+        p = _strip(locals(), more=['document', 'thumb'])
+        return await self._api_request_with_file('sendDocument', _rectify(p), {'document': document, 'thumb': thumb})
 
     async def sendVideo(self, chat_id, video,
                         duration=None,
@@ -174,8 +175,8 @@ class Bot(_BotBase):
 
         :param video: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
         """
-        p = _strip(locals(), more=['video'])
-        return await self._api_request_with_file('sendVideo', _rectify(p), 'video', video)
+        p = _strip(locals(), more=['video', 'thumb'])
+        return await self._api_request_with_file('sendVideo', _rectify(p), {'video': video, 'thumb': thumb})
 
     async def sendAnimation(self, chat_id, animation,
                             duration=None,
@@ -192,8 +193,8 @@ class Bot(_BotBase):
 
         :param animation: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
         """
-        p = _strip(locals(), more=['animation'])
-        return await self._api_request_with_file('sendAnimation', _rectify(p), 'animation', animation)
+        p = _strip(locals(), more=['animation', 'thumb'])
+        return await self._api_request_with_file('sendAnimation', _rectify(p), {'animation': animation, 'thumb': thumb})
 
     async def sendVoice(self, chat_id, voice,
                         caption=None,
@@ -208,26 +209,27 @@ class Bot(_BotBase):
         :param voice: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['voice'])
-        return await self._api_request_with_file('sendVoice', _rectify(p), 'voice', voice)
+        return await self._api_request_with_file('sendVoice', _rectify(p), {'voice': voice})
 
     async def sendVideoNote(self, chat_id, video_note,
                             duration=None,
                             length=None,
+                            thumb=None,
                             disable_notification=None,
                             reply_to_message_id=None,
                             reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendvideonote
 
-        :param voice: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
+        :param video_note: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
 
         :param length:
             Although marked as optional, this method does not seem to work without
             it being specified. Supply any integer you want. It seems to have no effect
             on the video note's display size.
         """
-        p = _strip(locals(), more=['video_note'])
-        return await self._api_request_with_file('sendVideoNote', _rectify(p), 'video_note', video_note)
+        p = _strip(locals(), more=['video_note', 'thumb'])
+        return await self._api_request_with_file('sendVideoNote', _rectify(p), {'video_note': video_note, 'thumb': thumb})
 
     async def sendMediaGroup(self, chat_id, media,
                              disable_notification=None,
@@ -439,7 +441,7 @@ class Bot(_BotBase):
     async def setChatPhoto(self, chat_id, photo):
         """ See: https://core.telegram.org/bots/api#setchatphoto """
         p = _strip(locals(), more=['photo'])
-        return await self._api_request_with_file('setChatPhoto', _rectify(p), 'photo', photo)
+        return await self._api_request_with_file('setChatPhoto', _rectify(p), {'photo': photo})
 
     async def deleteChatPhoto(self, chat_id):
         """ See: https://core.telegram.org/bots/api#deletechatphoto """
@@ -619,7 +621,7 @@ class Bot(_BotBase):
         :param sticker: Same as ``photo`` in :meth:`amanobot.aio.Bot.sendPhoto`
         """
         p = _strip(locals(), more=['sticker'])
-        return await self._api_request_with_file('sendSticker', _rectify(p), 'sticker', sticker)
+        return await self._api_request_with_file('sendSticker', _rectify(p), {'sticker': sticker})
 
     async def getStickerSet(self, name):
         """
@@ -633,7 +635,7 @@ class Bot(_BotBase):
         See: https://core.telegram.org/bots/api#uploadstickerfile
         """
         p = _strip(locals(), more=['png_sticker'])
-        return await self._api_request_with_file('uploadStickerFile', _rectify(p), 'png_sticker', png_sticker)
+        return await self._api_request_with_file('uploadStickerFile', _rectify(p), {'png_sticker': png_sticker})
 
     async def createNewStickerSet(self, user_id, name, title, png_sticker, emojis,
                                   contains_masks=None,
@@ -642,7 +644,7 @@ class Bot(_BotBase):
         See: https://core.telegram.org/bots/api#createnewstickerset
         """
         p = _strip(locals(), more=['png_sticker'])
-        return await self._api_request_with_file('createNewStickerSet', _rectify(p), 'png_sticker', png_sticker)
+        return await self._api_request_with_file('createNewStickerSet', _rectify(p), {'png_sticker': png_sticker})
 
     async def addStickerToSet(self, user_id, name, png_sticker, emojis,
                               mask_position=None):
@@ -650,7 +652,7 @@ class Bot(_BotBase):
         See: https://core.telegram.org/bots/api#addstickertoset
         """
         p = _strip(locals(), more=['png_sticker'])
-        return await self._api_request_with_file('addStickerToSet', _rectify(p), 'png_sticker', png_sticker)
+        return await self._api_request_with_file('addStickerToSet', _rectify(p), {'png_sticker': png_sticker})
 
     async def setStickerPositionInSet(self, sticker, position):
         """
