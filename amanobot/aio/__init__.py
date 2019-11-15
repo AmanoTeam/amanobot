@@ -46,8 +46,8 @@ class Bot(_BotBase):
         def cancel(self, event):
             return event.cancel()
 
-    def __init__(self, token, loop=None):
-        super(Bot, self).__init__(token)
+    def __init__(self, token, loop=None, raise_errors=True):
+        super(Bot, self).__init__(token, raise_errors)
 
         self._loop = loop or asyncio.get_event_loop()
         api._loop = self._loop  # sync loop with api module
@@ -74,8 +74,9 @@ class Bot(_BotBase):
     async def handle(self, msg):
         await self._router.route(msg)
 
-    async def _api_request(self, method, params=None, files=None, **kwargs):
-        return await api.request((self._token, method, params, files), **kwargs)
+    async def _api_request(self, method, params=None, files=None, raise_errors=None, **kwargs):
+        return await api.request((self._token, method, params, files), **kwargs,
+                                 raise_errors=raise_errors if raise_errors is not None else self._raise_errors)
 
     async def _api_request_with_file(self, method, params, files, **kwargs):
         params.update({
@@ -682,10 +683,13 @@ class Bot(_BotBase):
                          offset=None,
                          limit=None,
                          timeout=None,
-                         allowed_updates=None):
+                         allowed_updates=None,
+                         _raise_errors=None):
         """ See: https://core.telegram.org/bots/api#getupdates """
+        if _raise_errors is None:
+            _raise_errors = self._raise_errors
         p = _strip(locals())
-        return await self._api_request('getUpdates', _rectify(p))
+        return await self._api_request('getUpdates', _rectify(p), raise_errors=_raise_errors)
 
     async def setWebhook(self,
                          url=None,
@@ -849,7 +853,8 @@ class Bot(_BotBase):
                 try:
                     result = await self.getUpdates(offset=offset,
                                                    timeout=timeout,
-                                                   allowed_updates=allowed_upd)
+                                                   allowed_updates=allowed_upd,
+                                                   _raise_errors=True)
 
                     # Once passed, this parameter is no longer needed.
                     allowed_upd = None

@@ -117,7 +117,7 @@ def _transform(req, **user_kw):
     return session.post, (url,), kwargs, timeout, cleanup
 
 
-async def _parse(response):
+async def _parse(response, raise_errors):
     try:
         data = await response.json()
         if data is None:
@@ -128,6 +128,8 @@ async def _parse(response):
 
     if data['ok']:
         return data['result']
+    elif not raise_errors:
+        return data
     else:
         description, error_code = data['description'], data['error_code']
 
@@ -141,19 +143,19 @@ async def _parse(response):
         raise exception.TelegramError(description, error_code, data)
 
 
-async def request(req, **user_kw):
+async def request(req, raise_errors, **user_kw):
     fn, args, kwargs, timeout, cleanup = _transform(req, **user_kw)
 
     kwargs.update(_proxy_kwargs())
     try:
         if timeout is None:
             async with fn(*args, **kwargs) as r:
-                return await _parse(r)
+                return await _parse(r, raise_errors)
         else:
             try:
                 with async_timeout.timeout(timeout):
                     async with fn(*args, **kwargs) as r:
-                        return await _parse(r)
+                        return await _parse(r, raise_errors)
 
             except asyncio.TimeoutError:
                 raise exception.TelegramError('Response timeout', 504, {})

@@ -140,7 +140,7 @@ def _transform(req, **user_kw):
     return pool.request_encode_body, ('POST', url, fields), kwargs
 
 
-def _parse(response):
+def _parse(response, raise_errors):
     try:
         text = response.data.decode('utf-8')
         data = json.loads(text)
@@ -149,6 +149,8 @@ def _parse(response):
 
     if data['ok']:
         return data['result']
+    elif not raise_errors:
+        return data
     else:
         description, error_code = data['description'], data['error_code']
 
@@ -162,10 +164,10 @@ def _parse(response):
         raise exception.TelegramError(description, error_code, data)
 
 
-def request(req, **user_kw):
+def request(req, raise_errors, **user_kw):
     fn, args, kwargs = _transform(req, **user_kw)
     r = fn(*args, **kwargs)  # `fn` must be thread-safe
-    return _parse(r)
+    return _parse(r, raise_errors)
 
 
 def _fileurl(req):

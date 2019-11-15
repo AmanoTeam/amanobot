@@ -59,7 +59,8 @@ class GetUpdatesLoop(RunForeverAsThread):
             try:
                 result = self._bot.getUpdates(offset=offset,
                                               timeout=timeout,
-                                              allowed_updates=allowed_updates)
+                                              allowed_updates=allowed_updates,
+                                              _raise_errors=True)
 
                 # Once passed, this parameter is no longer needed.
                 allowed_updates = None

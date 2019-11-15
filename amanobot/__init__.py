@@ -319,8 +319,9 @@ def flavor_router(routing_table):
 
 
 class _BotBase(object):
-    def __init__(self, token):
+    def __init__(self, token, raise_errors):
         self._token = token
+        self._raise_errors = raise_errors
         self._file_chunk_size = 65536
 
 
@@ -473,8 +474,8 @@ class Bot(_BotBase):
         def on_event(self, fn):
             self._event_handler = fn
 
-    def __init__(self, token):
-        super(Bot, self).__init__(token)
+    def __init__(self, token, raise_errors=True):
+        super(Bot, self).__init__(token, raise_errors)
 
         self._scheduler = self.Scheduler()
 
@@ -496,8 +497,9 @@ class Bot(_BotBase):
     def handle(self, msg):
         self._router.route(msg)
 
-    def _api_request(self, method, params=None, files=None, **kwargs):
-        return api.request((self._token, method, params, files), **kwargs)
+    def _api_request(self, method, params=None, files=None, raise_errors=None, **kwargs):
+        return api.request((self._token, method, params, files),
+                           raise_errors=raise_errors if raise_errors is not None else self._raise_errors, **kwargs)
 
     def _api_request_with_file(self, method, params, files, **kwargs):
         params.update({
@@ -1107,10 +1109,13 @@ class Bot(_BotBase):
                    offset=None,
                    limit=None,
                    timeout=None,
-                   allowed_updates=None):
+                   allowed_updates=None,
+                   _raise_errors=None):
         """ See: https://core.telegram.org/bots/api#getupdates """
+        if _raise_errors is None:
+            _raise_errors = self._raise_errors
         p = _strip(locals())
-        return self._api_request('getUpdates', _rectify(p))
+        return self._api_request('getUpdates', _rectify(p), raise_errors=_raise_errors)
 
     def setWebhook(self,
                    url=None,
@@ -1296,7 +1301,8 @@ class Bot(_BotBase):
                 try:
                     result = self.getUpdates(offset=offset,
                                              timeout=timeout,
-                                             allowed_updates=allowed_upd)
+                                             allowed_updates=allowed_upd,
+                                             _raise_errors=True)
 
                     # Once passed, this parameter is no longer needed.
                     allowed_upd = None
