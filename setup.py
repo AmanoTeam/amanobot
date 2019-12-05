@@ -27,7 +27,7 @@ class nocompile_async(install_lib):
         install_lib.byte_compile(self, files)
 
 
-PY_35 = sys.version_info >= (3,5)
+PY_35 = sys.version_info >= (3, 5, 3)
 
 here = path.abspath(path.dirname(__file__))
 
