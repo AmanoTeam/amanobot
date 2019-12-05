@@ -1,5 +1,9 @@
 # amanobot changelog
 
+## 1.4.5 (2019-12-04)
+- Add the `raise_errors` to the Bot class
+- Require at least Python 3.5.3 for the asyncio variant (Fixes installation on Python 3.5.2)
+
 ## 1.4.4 (2019-11-13)
 - Hotfix for asyncio version failing to start
 
