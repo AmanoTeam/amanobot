@@ -1017,9 +1017,7 @@ class Bot(_BotBase):
         See: https://core.telegram.org/bots/api#stoppoll
 
         :param msg_identifier:
-            a 2-tuple (``chat_id``, ``message_id``),
-            a 1-tuple (``inline_message_id``),
-            or simply ``inline_message_id``.
+            a 2-tuple (``chat_id``, ``message_id``).
             You may extract this value easily with :meth:`amanobot.message_identifier`
         """
         p = _strip(locals(), more=['msg_identifier'])
