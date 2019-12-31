@@ -1,5 +1,14 @@
 # amanobot changelog
 
+## 1.5.0 (2019-12-31)
+- Bot API 4.5
+- Added the `setChatAdministratorCustomTitle` method
+- Added the `file_unique_id` field to the objects `Animation`, `Audio`, `Document`, `PassportFile`, `PhotoSize`, `Sticker`, `Video`, `VideoNote`, `Voice` and `File`
+- Added the `small_file_unique_id` and `big_file_unique_id` fields to the object `ChatPhoto`
+- Added the `slow_mode_delay` field to the `Chat` object
+- Added the `custom_title` field to the `ChatMember` object
+- Note: If you want to use the new entity fields (such as underlined and strikethrough text) in markdown, you need to pass `MarkdownV2` to the `parse_mode` parameter
+
 ## 1.4.5 (2019-12-04)
 - Add the `raise_errors` to the Bot class
 - Require at least Python 3.5.3 for the asyncio variant (Fixes installation on Python 3.5.2)
@@ -16,7 +25,6 @@
 
 ## 1.4.1 (2019-11-05)
 - Add missing permissions to restrictChatMember on the asyncio variant.
-- Now we offer wheel releases too
 
 ## 1.4.0 (2019-07-29)
 - Bot API 4.4
