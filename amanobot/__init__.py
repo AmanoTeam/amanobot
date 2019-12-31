@@ -8,9 +8,9 @@ import collections
 import bisect
 
 try:
-    import Queue as queue
-except ImportError:
     import queue
+except ImportError:
+    import Queue as queue
 
 # Patch urllib3 for sending unicode filename
 from . import hack
