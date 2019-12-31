@@ -116,7 +116,9 @@ def UserArray(data):
 # incoming
 ChatPhoto = _create_class('ChatPhoto', [
                 'small_file_id',
+                'small_file_unique_id',
                 'big_file_id',
+                'big_file_unique_id',
             ])
 
 # incoming
@@ -144,6 +146,7 @@ Chat = _create_class('Chat', [
            'invite_link',
            _Field('pinned_message', constructor=_Message),
            _Field('permissions', constructor=ChatPermissions),
+           'slow_mode_delay',
            'sticker_set_name',
            'can_set_sticker_set',
        ])
@@ -151,6 +154,7 @@ Chat = _create_class('Chat', [
 # incoming
 PhotoSize = _create_class('PhotoSize', [
                 'file_id',
+                'file_unique_id'
                 'width',
                 'height',
                 'file_size',
@@ -160,6 +164,7 @@ PhotoSize = _create_class('PhotoSize', [
 # incoming
 Audio = _create_class('Audio', [
             'file_id',
+            'file_unique_id',
             'duration',
             'performer',
             'title',
@@ -171,6 +176,7 @@ Audio = _create_class('Audio', [
 # incoming
 Document = _create_class('Document', [
                'file_id',
+               'file_unique_id',
                _Field('thumb', constructor=PhotoSize),
                'file_name',
                'mime_type',
@@ -189,6 +195,7 @@ MaskPosition = _create_class('MaskPosition', [
 # incoming
 Sticker = _create_class('Sticker', [
               'file_id',
+              'file_unique_id',
               'width',
               'height',
               'is_animated',
@@ -216,6 +223,7 @@ StickerSet = _create_class('StickerSet', [
 # incoming
 Video = _create_class('Video', [
             'file_id',
+            'file_unique_id',
             'width',
             'height',
             'duration',
@@ -228,6 +236,7 @@ Video = _create_class('Video', [
 # incoming
 Voice = _create_class('Voice', [
             'file_id',
+            'file_unique_id',
             'duration',
             'mime_type',
             'file_size'
@@ -236,6 +245,7 @@ Voice = _create_class('Voice', [
 # incoming
 VideoNote = _create_class('VideoNote', [
                 'file_id',
+                'file_unique_id',
                 'length',
                 'duration',
                 _Field('thumb', constructor=PhotoSize),
@@ -282,6 +292,7 @@ Poll = _create_class('Poll', [
 # incoming
 File = _create_class('File', [
            'file_id',
+           'file_unique_id',
            'file_size',
            'file_path'
        ])
@@ -305,6 +316,7 @@ UserProfilePhotos = _create_class('UserProfilePhotos', [
 ChatMember = _create_class('ChatMember', [
                  _Field('user', constructor=User),
                  'status',
+                 'custom_title',
                  'until_date',
                  'can_be_edited',
                  'can_post_messages',
@@ -405,6 +417,7 @@ GameHighScore = _create_class('GameHighScore', [
 # incoming
 Animation = _create_class('Animation', [
                 'file_id',
+                'file_unique_id',
                 _Field('thumb', constructor=PhotoSize),
                 'file_name',
                 'mime_type',
@@ -494,6 +507,7 @@ SuccessfulPayment = _create_class('SuccessfulPayment', [
 # outgoing
 PassportFile = _create_class('PassportFile', [
                    'file_id',
+                   'file_unique_id',
                    'file_size',
                    'file_date'
                ])
