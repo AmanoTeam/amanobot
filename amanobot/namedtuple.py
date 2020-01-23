@@ -105,7 +105,10 @@ User = _create_class('User', [
            'first_name',
            'last_name',
            'username',
-           'language_code'
+           'language_code',
+           'can_join_groups',
+           'can_read_all_group_messages',
+           'supports_inline_queries'
        ])
 
 
@@ -282,11 +285,22 @@ PollOption = _create_class('PollOption', [
              ])
 
 # incoming
+PollAnswer = _create_class('PollAnswer', [
+                 'poll_id',
+                 _Field('user', constructor=User),
+                 'option_ids'
+             ])
+
+# incoming
 Poll = _create_class('Poll', [
            'id',
            'question',
            'options',
-           'is_closed'
+           'total_voter_count',
+           'is_closed',
+           'type',
+           'allows_multiple_answers',
+           'correct_option_id'
        ])
 
 # incoming
@@ -349,10 +363,16 @@ ReplyKeyboardMarkup = _create_class('ReplyKeyboardMarkup', [
                       ])
 
 # outgoing
+KeyboardButtonPollType = _create_class('KeyboardButtonPollType', [
+                             'type',
+                         ])
+
+# outgoing
 KeyboardButton = _create_class('KeyboardButton', [
                      'text',
                      'request_contact',
                      'request_location',
+                     _Field('request_poll', constructor=KeyboardButtonPollType)
                  ])
 
 # outgoing
@@ -399,6 +419,7 @@ MessageEntity = _create_class('MessageEntity', [
                     'length',
                     'url',
                     _Field('user', constructor=User),
+                    'language'
                 ])
 
 
@@ -628,7 +649,8 @@ Update = _create_class('Update', [
              _Field('inline_query', constructor=InlineQuery),
              _Field('chosen_inline_result', constructor=ChosenInlineResult),
              _Field('callback_query', constructor=CallbackQuery),
-             _Field('poll', constructor=Poll)
+             _Field('poll', constructor=Poll),
+             _Field('poll_answer', constructor=PollAnswer)
          ])
 
 

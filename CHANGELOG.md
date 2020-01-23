@@ -1,5 +1,15 @@
 # amanobot changelog
 
+## 1.6.0 (2020-01-23)
+- Bot API 4.6
+- Added the ability to send non-anonymous, multiple answer, and quiz-style polls: added the parameters `is_anonymous`, `type`, `allows_multiple_answers`, `correct_option_id`, `is_closed` options to the method `sendPoll`
+- Added the object `KeyboardButtonPollType` and the field `request_poll` to the object `KeyboardButton`
+- Added the field `poll_answer` in the `Update` object
+- Added the fields `total_voter_count`, `is_anonymous`, `type`, `allows_multiple_answers`, `correct_option_id` to the `Poll` object
+- Bots can now send polls to private chats
+- Added the fields `can_join_groups`, `can_read_all_group_messages` and `supports_inline_queries` to the `User` object
+- Added the optional field `language` to the `MessageEntity` object
+
 ## 1.5.0 (2019-12-31)
 - Bot API 4.5
 - Added the `setChatAdministratorCustomTitle` method

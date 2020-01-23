@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 5, 0)
+__version_info__ = (1, 6, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -735,6 +735,11 @@ class Bot(_BotBase):
         return self._api_request('sendContact', _rectify(p))
 
     def sendPoll(self, chat_id, question, options,
+                 is_anonymous=None,
+                 type=None,
+                 allows_multiple_answers=None,
+                 correct_option_id=None,
+                 is_closed=None,
                  disable_notification=None,
                  reply_to_message_id=None,
                  reply_markup=None):

@@ -312,6 +312,11 @@ class Bot(_BotBase):
         return await self._api_request('sendContact', _rectify(p))
 
     async def sendPoll(self, chat_id, question, options,
+                       is_anonymous=None,
+                       type=None,
+                       allows_multiple_answers=None,
+                       correct_option_id=None,
+                       is_closed=None,
                        disable_notification=None,
                        reply_to_message_id=None,
                        reply_markup=None):
