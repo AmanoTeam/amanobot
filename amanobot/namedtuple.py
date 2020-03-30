@@ -137,6 +137,12 @@ ChatPermissions = _create_class('ChatPermissions', [
 ])
 
 # incoming
+BotCommand = _create_class('BotCommand', [
+                 'command',
+                 'description'
+])
+
+# incoming
 Chat = _create_class('Chat', [
            'id',
            'type',
@@ -221,6 +227,7 @@ StickerSet = _create_class('StickerSet', [
                  'is_animated',
                  'contains_masks',
                  _Field('stickers', constructor=StickerArray),
+                 _Field('thumb', constructor=PhotoSize)
              ])
 
 # incoming
@@ -301,6 +308,11 @@ Poll = _create_class('Poll', [
            'type',
            'allows_multiple_answers',
            'correct_option_id'
+       ])
+
+# incoming
+Dice = _create_class('Dice', [
+           'value'
        ])
 
 # incoming
@@ -592,6 +604,7 @@ Message = _create_class('Message', [
               _Field('location', constructor=Location),
               _Field('venue', constructor=Venue),
               _Field('poll', constructor=Poll),
+              _Field('dice', constructor=Dice),
               _Field('new_chat_member', constructor=User),
               _Field('left_chat_member', constructor=User),
               'new_chat_title',

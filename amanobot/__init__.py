@@ -18,7 +18,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 6, 0)
+__version_info__ = (1, 7, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 
@@ -747,6 +747,14 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('sendPoll', _rectify(p))
 
+    def sendDice(self, chat_id,
+                 disable_notification=None,
+                 reply_to_message_id=None,
+                 reply_markup=None):
+        """ See: https://core.telegram.org/bots/api#senddice """
+        p = _strip(locals())
+        return self._api_request('sendDice', _rectify(p))
+
     def sendGame(self, chat_id, game_short_name,
                  disable_notification=None,
                  reply_to_message_id=None,
@@ -949,6 +957,15 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('answerCallbackQuery', _rectify(p))
 
+    def setMyCommands(self, commands=[]):
+        """ See: https://core.telegram.org/bots/api#setmycommands """
+        p = _strip(locals())
+        return self._api_request('setMyCommands', _rectify(p))
+
+    def getMyCommands(self):
+        """ See: https://core.telegram.org/bots/api#getmycommands """
+        return self._api_request('getMyCommands')
+
     def setPassportDataErrors(self, user_id, errors):
         """ See: https://core.telegram.org/bots/api#setpassportdataerrors """
         p = _strip(locals())
@@ -1073,22 +1090,26 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['png_sticker'])
         return self._api_request_with_file('uploadStickerFile', _rectify(p), {'png_sticker': png_sticker})
 
-    def createNewStickerSet(self, user_id, name, title, png_sticker, emojis,
+    def createNewStickerSet(self, user_id, name, title, emojis,
+                            png_sticker=None,
+                            tgs_sticker=None,
                             contains_masks=None,
                             mask_position=None):
         """
         See: https://core.telegram.org/bots/api#createnewstickerset
         """
-        p = _strip(locals(), more=['png_sticker'])
-        return self._api_request_with_file('createNewStickerSet', _rectify(p), {'png_sticker': png_sticker})
+        p = _strip(locals(), more=['png_sticker', 'tgs_sticker'])
+        return self._api_request_with_file('createNewStickerSet', _rectify(p), {'png_sticker': png_sticker, 'tgs_sticker': tgs_sticker})
 
-    def addStickerToSet(self, user_id, name, png_sticker, emojis,
-                        mask_position=None):
+    def addStickerToSet(self, user_id, name, emojis,
+                              png_sticker=None,
+                              tgs_sticker=None,
+                              mask_position=None):
         """
         See: https://core.telegram.org/bots/api#addstickertoset
         """
-        p = _strip(locals(), more=['png_sticker'])
-        return self._api_request_with_file('addStickerToSet', _rectify(p), {'png_sticker': png_sticker})
+        p = _strip(locals(), more=['png_sticker', 'tgs_sticker'])
+        return self._api_request_with_file('addStickerToSet', _rectify(p), {'png_sticker': png_sticker, 'tgs_sticker': tgs_sticker})
 
     def setStickerPositionInSet(self, sticker, position):
         """
@@ -1103,6 +1124,14 @@ class Bot(_BotBase):
         """
         p = _strip(locals())
         return self._api_request('deleteStickerFromSet', _rectify(p))
+
+    def setStickerSetThumb(self, name, user_id,
+                           thumb=None):
+        """
+        See: https://core.telegram.org/bots/api#setstickersetthumb
+        """
+        p = _strip(locals(), more=['thumb'])
+        return self._api_request_with_file('setStickerSetThumb', _rectify(p), {'thumb': thumb})
 
     def answerInlineQuery(self, inline_query_id, results,
                           cache_time=None,

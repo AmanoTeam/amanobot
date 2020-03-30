@@ -1,5 +1,16 @@
 # amanobot changelog
 
+## 1.7.0 (2020-03-30)
+- Bot API 4.7
+- Added the method `sendDice` for sending a dice message, which will have a random value from 1 to 6
+- Added the field `dice` to the `Message` object
+- Added the method `getMyCommands` for getting the current list of the bot's commands
+- Added the method `setMyCommands` for changing the list of the bot's commands through the Bot API instead of @BotFather
+- Added the ability to create animated sticker sets by specifying the parameter `tgs_sticker` instead of `png_sticker` in the method `createNewStickerSet`
+- Added the ability to add animated stickers to sets created by the bot by specifying the parameter `tgs_sticker` instead of `png_sticker` in the method `addStickerToSet`
+- Added the field `thumb` to the `StickerSet` object
+- Added the ability to change thumbnails of sticker sets created by the bot using the method `setStickerSetThumb`
+
 ## 1.6.0 (2020-01-23)
 - Bot API 4.6
 - Added the ability to send non-anonymous, multiple answer, and quiz-style polls: added the parameters `is_anonymous`, `type`, `allows_multiple_answers`, `correct_option_id`, `is_closed` options to the method `sendPoll`
