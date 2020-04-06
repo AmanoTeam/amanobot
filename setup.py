@@ -8,7 +8,7 @@ import re
 def _not_async(filepath):
     return filepath.find('aio/') < 0
 
-# Do not copy async module for Python 3.3 or below.
+# Do not copy async module for Python 3.4 or below.
 class nocopy_async(build_py):
     def find_all_modules(self):
         modules = build_py.find_all_modules(self)
@@ -20,7 +20,7 @@ class nocopy_async(build_py):
         modules = list(filter(lambda m: _not_async(m[-1]), modules))
         return modules
 
-# Do not compile async.py for Python 3.3 or below.
+# Do not compile async.py for Python 3.4 or below.
 class nocompile_async(install_lib):
     def byte_compile(self, files):
         files = list(filter(_not_async, files))
@@ -47,7 +47,7 @@ with open(path.join(here, 'amanobot', '__init__.py')) as f:
     m = re.search('^__version_info__ *= *\(([0-9]+), *([0-9]+), ([0-9]+)\)', f.read(), re.MULTILINE)
     version = '.'.join(m.groups())
 
-with open("README.md") as f:
+with open('README.md') as f:
     long_desc = f.read()
 
 setup(
@@ -58,22 +58,23 @@ setup(
     # Do not filter out packages because we need the whole thing during `sdist`.
 
     install_requires=install_requires,
+    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
 
     version=version,
 
     description='Python framework for Telegram Bot API forked from Telepot',
 
     long_description=long_desc,
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
 
     url='https://github.com/AmanoTeam/amanobot',
 
-    author='Amano Team',
-    author_email='contact@amanoteam.ml',
+    author='AmanoTeam',
+    author_email='contact@amanoteam.com',
 
     license='MIT',
 
-    # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
+    # See https://pypi.org/classifiers
     classifiers=[
         'Development Status :: 5 - Production/Stable',
 

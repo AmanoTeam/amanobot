@@ -1,3 +1,4 @@
+from __future__ import print_function
 import sys
 import io
 import time
@@ -18,8 +19,11 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 7, 0)
+__version_info__ = (1, 7, 1)
 __version__ = '.'.join(map(str, __version_info__))
+
+if sys.version_info <= (3, 4):
+    print("\x1b[33mDEPRECATION: Python 2 and 3.4 support will be dropped in amanobot 2.0.0. Consider updating your Python installation to at least version 3.5.\x1b[39m", file=sys.stderr)
 
 
 def flavor(msg):

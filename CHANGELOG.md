@@ -1,5 +1,10 @@
 # amanobot changelog
 
+## 1.7.1 (2020-04-06)
+- Updated setup.py to include a Python version check
+- Added a deprecation warning for users in Python 2 and <=3.4
+- This update has no visible improvments. You can ignore this update if you want
+
 ## 1.7.0 (2020-03-30)
 - Bot API 4.7
 - Added the method `sendDice` for sending a dice message, which will have a random value from 1 to 6
