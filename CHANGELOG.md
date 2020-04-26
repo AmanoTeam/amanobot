@@ -1,5 +1,8 @@
 # amanobot changelog
 
+## 1.8.1 (2020-04-26)
+- Hotfix for a bug that prevented amanobot from working
+
 ## 1.8.0 (2020-04-26)
 - Bot API 4.8
 - Supported explanations for Quizzes 2.0. Add explanations by specifying the parameters `explanation` and `explanation_parse_mode` in the method `sendPoll`

@@ -299,23 +299,6 @@ PollAnswer = _create_class('PollAnswer', [
              ])
 
 # incoming
-Poll = _create_class('Poll', [
-           'id',
-           'question',
-           'options',
-           'total_voter_count',
-           'is_closed',
-           'is_anonymous',
-           'type',
-           'allows_multiple_answers',
-           'correct_option_id',
-           'explanation',
-           _Field('explanation_entities', constructor=MessageEntityArray),
-           'open_period',
-           'close_date'
-       ])
-
-# incoming
 Dice = _create_class('Dice', [
            'emoji',
            'value'
@@ -445,6 +428,22 @@ MessageEntity = _create_class('MessageEntity', [
 def MessageEntityArray(data):
     return [MessageEntity(**p) for p in data]
 
+# incoming
+Poll = _create_class('Poll', [
+           'id',
+           'question',
+           'options',
+           'total_voter_count',
+           'is_closed',
+           'is_anonymous',
+           'type',
+           'allows_multiple_answers',
+           'correct_option_id',
+           'explanation',
+           _Field('explanation_entities', constructor=MessageEntityArray),
+           'open_period',
+           'close_date'
+       ])
 
 # incoming
 GameHighScore = _create_class('GameHighScore', [
