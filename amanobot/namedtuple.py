@@ -305,13 +305,19 @@ Poll = _create_class('Poll', [
            'options',
            'total_voter_count',
            'is_closed',
+           'is_anonymous',
            'type',
            'allows_multiple_answers',
-           'correct_option_id'
+           'correct_option_id',
+           'explanation',
+           _Field('explanation_entities', constructor=MessageEntityArray),
+           'open_period',
+           'close_date'
        ])
 
 # incoming
 Dice = _create_class('Dice', [
+           'emoji',
            'value'
        ])
 

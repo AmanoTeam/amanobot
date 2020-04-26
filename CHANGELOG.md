@@ -1,5 +1,14 @@
 # amanobot changelog
 
+## 1.8.0 (2020-04-26)
+- Bot API 4.8
+- Supported explanations for Quizzes 2.0. Add explanations by specifying the parameters `explanation` and `explanation_parse_mode` in the method `sendPoll`
+- Supported the new darts animation for the dice mini-game. Choose between the default dice animation and darts animation by specifying the parameter `emoji` in the method `sendDice`
+- Added the fields `explanation` and `explanation_entities` to the `Poll` object
+- Supported timed polls that automatically close at a certain date and time. Set up by specifying the parameter `open_period` or `close_date` in the method `sendPoll`
+- Added the fields `open_period` and `close_date` to the `Poll` object
+- Added the missing `is_anonymous` field to the `Poll` object
+
 ## 1.7.1 (2020-04-06)
 - Updated setup.py to include a Python version check
 - Added a deprecation warning for users in Python 2 and <=3.4

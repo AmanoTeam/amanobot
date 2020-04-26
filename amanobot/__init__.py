@@ -19,7 +19,7 @@ from . import hack
 from . import exception
 
 
-__version_info__ = (1, 7, 1)
+__version_info__ = (1, 8, 0)
 __version__ = '.'.join(map(str, __version_info__))
 
 if sys.version_info <= (3, 4):
@@ -743,6 +743,9 @@ class Bot(_BotBase):
                  type=None,
                  allows_multiple_answers=None,
                  correct_option_id=None,
+                 explanation=None,
+                 explanation_parse_mode=None,
+                 open_period=None,
                  is_closed=None,
                  disable_notification=None,
                  reply_to_message_id=None,
@@ -752,6 +755,7 @@ class Bot(_BotBase):
         return self._api_request('sendPoll', _rectify(p))
 
     def sendDice(self, chat_id,
+                 emoji=None,
                  disable_notification=None,
                  reply_to_message_id=None,
                  reply_markup=None):
