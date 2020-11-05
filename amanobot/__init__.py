@@ -568,6 +568,7 @@ class Bot(_BotBase):
                      thumb=None,
                      caption=None,
                      parse_mode=None,
+                     disable_content_type_detection=None,
                      disable_notification=None,
                      reply_to_message_id=None,
                      reply_markup=None):

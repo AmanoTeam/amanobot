@@ -1059,7 +1059,9 @@ InputMediaDocument = _create_class('InputMediaDocument', [
                       'media',
                       'thumb',
                       'caption',
-                      'parse_mode'
+                      'parse_mode',
+                      _Field('caption_entities', constructor=MessageEntity),
+                      'disable_content_type_detection'
                   ])
 
 # incoming
