@@ -192,8 +192,7 @@ class OrderedWebhook(object):
                 try:
                     # don't wait longer than next expiry time
                     qwait = buffer[0] - time.time()
-                    if qwait < 0:
-                        qwait = 0
+                    qwait = max(qwait, 0)
                 except IndexError:
                     # buffer empty, can wait forever
                     qwait = None
