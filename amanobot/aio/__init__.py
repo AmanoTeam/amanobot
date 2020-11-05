@@ -117,9 +117,7 @@ class Bot(_BotBase):
             - string: ``file_id`` for a photo existing on Telegram servers
             - string: HTTP URL of a photo from the Internet
             - file-like object: obtained by ``open(path, 'rb')``
-            - tuple: (filename, file-like object). If the filename contains
-              non-ASCII characters and you are using Python 2.7, make sure the
-              filename is a unicode string.
+            - tuple: (filename, file-like object).
         """
         p = _strip(locals(), more=['photo'])
         return await self._api_request_with_file('sendPhoto', _rectify(p), {'photo': photo})

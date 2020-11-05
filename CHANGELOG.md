@@ -2,6 +2,7 @@
 
 ## 2.0.0 (2020-11-05)
 - Bot API 5.0
+- Bump aiohttp to 3.7.2 and urllib3 to 1.25.11
 - Dropped Python support below 3.5.3
 
 ## 1.8.1 (2020-04-26)

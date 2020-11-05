@@ -533,9 +533,7 @@ class Bot(_BotBase):
             - string: ``file_id`` for a photo existing on Telegram servers
             - string: HTTP URL of a photo from the Internet
             - file-like object: obtained by ``open(path, 'rb')``
-            - tuple: (filename, file-like object). If the filename contains
-              non-ASCII characters and you are using Python 2.7, make sure the
-              filename is a unicode string.
+            - tuple: (filename, file-like object).
         """
         p = _strip(locals(), more=['photo'])
         return self._api_request_with_file('sendPhoto', _rectify(p), {'photo': photo})
@@ -1245,14 +1243,13 @@ class Bot(_BotBase):
         :param source:
             Source of updates.
             If ``None``, ``getUpdates`` is used to obtain new messages from Telegram servers.
-            If it is a synchronized queue (``Queue.Queue`` in Python 2.7 or
-            ``queue.Queue`` in Python 3), new messages are pulled from the queue.
+            If it is a synchronized queue, new messages are pulled from the queue.
             A web application implementing a webhook can dump updates into the queue,
             while the bot pulls from it. This is how amanobot can be integrated with webhooks.
 
         Acceptable contents in queue:
 
-        - ``str``, ``unicode`` (Python 2.7), or ``bytes`` (Python 3, decoded using UTF-8)
+        - ``str`` or ``bytes`` (decoded using UTF-8)
           representing a JSON-serialized `Update <https://core.telegram.org/bots/api#update>`_ object.
         - a ``dict`` representing an Update object.
 

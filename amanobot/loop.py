@@ -298,7 +298,7 @@ class OrderedWebhook(RunForeverAsThread):
         :param data:
             One of these:
 
-            - ``str``, ``unicode`` (Python 2.7), or ``bytes`` (Python 3, decoded using UTF-8)
+            - ``str`` or ``bytes`` (decoded using UTF-8)
               representing a JSON-serialized `Update <https://core.telegram.org/bots/api#update>`_ object.
             - a ``dict`` representing an Update object.
         """
