@@ -135,6 +135,22 @@ BotCommand = _create_class('BotCommand', [
 ])
 
 # incoming
+Location = _create_class('Location', [
+               'longitude',
+               'latitude',
+               'horizontal_accuracy',
+               'live_period',
+               'heading',
+               'proximity_alert_radius',
+           ])
+
+# incoming
+ChatLocation = _create_class('ChatLocation', [
+                   _Field('location', constructor=Location),
+                   'address',
+])
+
+# incoming
 Chat = _create_class('Chat', [
            'id',
            'type',
@@ -269,16 +285,6 @@ Contact = _create_class('Contact', [
           ])
 
 # incoming
-Location = _create_class('Location', [
-               'longitude',
-               'latitude',
-               'horizontal_accuracy',
-               'live_period',
-               'heading',
-               'proximity_alert_radius',
-           ])
-
-# incoming
 Venue = _create_class('Venue', [
             _Field('location', constructor=Location),
             'title',
@@ -288,12 +294,6 @@ Venue = _create_class('Venue', [
             'google_place_id',
             'google_place_type',
         ])
-
-# incoming
-ChatLocation = _create_class('ChatLocation', [
-                   _Field('location', constructor=Location),
-                   'address',
-])
 
 # incoming
 PollOption = _create_class('PollOption', [
