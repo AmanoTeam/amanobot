@@ -517,6 +517,7 @@ class Bot(_BotBase):
                     disable_web_page_preview=None,
                     disable_notification=None,
                     reply_to_message_id=None,
+                    allow_sending_without_reply=None,
                     reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendmessage """
         p = _strip(locals())
@@ -533,6 +534,7 @@ class Bot(_BotBase):
                   parse_mode=None,
                   disable_notification=None,
                   reply_to_message_id=None,
+                  allow_sending_without_reply=None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendphoto
@@ -555,6 +557,7 @@ class Bot(_BotBase):
                   thumb=None,
                   disable_notification=None,
                   reply_to_message_id=None,
+                  allow_sending_without_reply=None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendaudio
@@ -571,6 +574,7 @@ class Bot(_BotBase):
                      disable_content_type_detection=None,
                      disable_notification=None,
                      reply_to_message_id=None,
+                     allow_sending_without_reply=None,
                      reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#senddocument
@@ -590,6 +594,7 @@ class Bot(_BotBase):
                   supports_streaming=None,
                   disable_notification=None,
                   reply_to_message_id=None,
+                  allow_sending_without_reply=None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendvideo
@@ -608,6 +613,7 @@ class Bot(_BotBase):
                       parse_mode=None,
                       disable_notification=None,
                       reply_to_message_id=None,
+                      allow_sending_without_reply=None,
                       reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendanimation
@@ -623,6 +629,7 @@ class Bot(_BotBase):
                   duration=None,
                   disable_notification=None,
                   reply_to_message_id=None,
+                  allow_sending_without_reply=None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendvoice
@@ -638,6 +645,7 @@ class Bot(_BotBase):
                       thumb=None,
                       disable_notification=None,
                       reply_to_message_id=None,
+                      allow_sending_without_reply=None,
                       reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendvideonote
@@ -654,7 +662,8 @@ class Bot(_BotBase):
 
     def sendMediaGroup(self, chat_id, media,
                        disable_notification=None,
-                       reply_to_message_id=None):
+                       reply_to_message_id=None,
+                       allow_sending_without_reply=None):
         """
         See: https://core.telegram.org/bots/api#sendmediagroup
 
@@ -687,6 +696,7 @@ class Bot(_BotBase):
                      proximity_alert_radius=None,
                      disable_notification=None,
                      reply_to_message_id=None,
+                     allow_sending_without_reply=None,
                      reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendlocation """
         p = _strip(locals())
@@ -719,6 +729,7 @@ class Bot(_BotBase):
                   foursquare_type=None,
                   disable_notification=None,
                   reply_to_message_id=None,
+                  allow_sending_without_reply=None,
                   reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendvenue """
         p = _strip(locals())
@@ -729,6 +740,7 @@ class Bot(_BotBase):
                     vcard=None,
                     disable_notification=None,
                     reply_to_message_id=None,
+                    allow_sending_without_reply=None,
                     reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendcontact """
         p = _strip(locals())
@@ -745,6 +757,7 @@ class Bot(_BotBase):
                  is_closed=None,
                  disable_notification=None,
                  reply_to_message_id=None,
+                 allow_sending_without_reply=None,
                  reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendpoll """
         p = _strip(locals())
@@ -754,6 +767,7 @@ class Bot(_BotBase):
                  emoji=None,
                  disable_notification=None,
                  reply_to_message_id=None,
+                 allow_sending_without_reply=None,
                  reply_markup=None):
         """ See: https://core.telegram.org/bots/api#senddice """
         p = _strip(locals())
@@ -762,6 +776,7 @@ class Bot(_BotBase):
     def sendGame(self, chat_id, game_short_name,
                  disable_notification=None,
                  reply_to_message_id=None,
+                 allow_sending_without_reply=None,
                  reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendgame """
         p = _strip(locals())
@@ -781,6 +796,7 @@ class Bot(_BotBase):
                     is_flexible=None,
                     disable_notification=None,
                     reply_to_message_id=None,
+                    allow_sending_without_reply=None,
                     reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendinvoice """
         p = _strip(locals())
@@ -1078,6 +1094,7 @@ class Bot(_BotBase):
     def sendSticker(self, chat_id, sticker,
                     disable_notification=None,
                     reply_to_message_id=None,
+                    allow_sending_without_reply=None,
                     reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendsticker
