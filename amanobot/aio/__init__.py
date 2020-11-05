@@ -11,9 +11,6 @@ from .. import (
     _dismantle_message_identifier, _split_input_media_array
 )
 
-# Patch aiohttp for sending unicode filename
-from . import hack
-
 from .. import exception
 
 

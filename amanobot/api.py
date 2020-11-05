@@ -1,6 +1,4 @@
 import urllib3
-import logging
-import sys
 import json
 import re
 import os
@@ -10,8 +8,6 @@ from . import exception, _isstring
 # Suppress InsecurePlatformWarning
 urllib3.disable_warnings()
 
-
-PY_3 = sys.version_info.major >= 3
 
 _default_pool_params = dict(num_pools=3, maxsize=10, retries=3, timeout=30)
 _onetime_pool_params = dict(num_pools=1, maxsize=1, retries=3, timeout=30)
@@ -78,7 +74,7 @@ def _filetuple(key, f):
 
 
 def _fix_type(v):
-    if isinstance(v, float if PY_3 else (long, float)):
+    if isinstance(v, float):
         return str(v)
     else:
         return v

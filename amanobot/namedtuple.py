@@ -68,14 +68,6 @@ def _create_class(typename, fields):
 
             return super(sub, cls).__new__(cls, **kwargs)
 
-    # https://bugs.python.org/issue24931
-    # Python 3.4 bug: namedtuple subclass does not inherit __dict__ properly.
-    # Fix it manually.
-    if sys.version_info >= (3, 4):
-        def _asdict(self):
-            return collections.OrderedDict(zip(self._fields, self))
-        sub._asdict = _asdict
-
     sub.__name__ = typename
 
     return sub

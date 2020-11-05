@@ -1,29 +1,18 @@
-from __future__ import print_function
-import sys
 import io
 import time
 import json
+import inspect
 import threading
 import traceback
 import collections
 import bisect
 
-try:
-    import queue
-except ImportError:
-    import Queue as queue
-
-# Patch urllib3 for sending unicode filename
-from . import hack
+import queue
 
 from . import exception
 
-
-__version_info__ = (1, 8, 1)
+__version_info__ = (2, 0, 0)
 __version__ = '.'.join(map(str, __version_info__))
-
-if sys.version_info <= (3, 4):
-    print("\x1b[33mDEPRECATION: Python 2 and 3.4 support will be dropped in amanobot 2.0.0. Consider updating your Python installation to at least version 3.5.\x1b[39m", file=sys.stderr)
 
 
 def flavor(msg):
@@ -75,7 +64,7 @@ def _find_first_key(d, keys):
 all_content_types = [
     'text', 'audio', 'animation', 'document', 'game', 'photo', 'sticker', 'video', 'voice',
     'video_note', 'contact', 'poll', 'location', 'venue', 'new_chat_member', 'left_chat_member',
-    'new_chat_title', 'new_chat_photo',  'delete_chat_photo', 'group_chat_created', 'supergroup_chat_created',
+    'new_chat_title', 'new_chat_photo', 'delete_chat_photo', 'group_chat_created', 'supergroup_chat_created',
     'channel_chat_created', 'migrate_to_chat_id', 'migrate_from_chat_id', 'pinned_message',
     'new_chat_members', 'invoice', 'successful_payment'
 ]
@@ -125,6 +114,7 @@ def glance(msg, flavor='chat', long=False):
     - short: (``msg['id']``, ``msg['from']['id']``, ``msg['invoice_payload']``)
     - long: (``msg['id']``, ``msg['from']['id']``, ``msg['invoice_payload']``, ``msg['currency']``, ``msg['total_amount']``)
     """
+
     def gl_chat():
         content_type = _find_first_key(msg, all_content_types)
 
@@ -265,7 +255,7 @@ def _split_input_media_array(media_array):
             x += 1
             name = 'media' + str(x)
             if name in used_names:
-                continue;
+                continue
             yield name
 
     def split_media(input_media, name_generator):
@@ -301,17 +291,12 @@ def _split_input_media_array(media_array):
     return legal_media, files_to_attach
 
 
-PY_3 = sys.version_info.major >= 3
-_string_type = str if PY_3 else basestring
-_file_type = io.IOBase if PY_3 else file
-
-
 def _isstring(s):
-    return isinstance(s, _string_type)
+    return isinstance(s, str)
 
 
 def _isfile(f):
-    return isinstance(f, _file_type)
+    return isinstance(f, io.IOBase)
 
 
 from . import helper
@@ -330,7 +315,7 @@ class _BotBase(object):
 
 
 def _strip(params, more=[]):
-    return {key: value for key,value in params.items() if key not in ['self']+more}
+    return {key: value for key, value in params.items() if key not in ['self'] + more}
 
 
 def _rectify(params):
@@ -338,9 +323,9 @@ def _rectify(params):
         if isinstance(value, list):
             return [make_jsonable(v) for v in value]
         elif isinstance(value, dict):
-            return {k:make_jsonable(v) for k,v in value.items() if v is not None}
+            return {k: make_jsonable(v) for k, v in value.items() if v is not None}
         elif isinstance(value, tuple) and hasattr(value, '_asdict'):
-            return {k:make_jsonable(v) for k,v in value._asdict().items() if v is not None}
+            return {k: make_jsonable(v) for k, v in value._asdict().items() if v is not None}
         else:
             return value
 
@@ -348,12 +333,12 @@ def _rectify(params):
         v = make_jsonable(value)
 
         if isinstance(v, (dict, list)):
-            return json.dumps(v, separators=(',',':'))
+            return json.dumps(v, separators=(',', ':'))
         else:
             return v
 
     # remove None, then json-serialize if needed
-    return {k: flatten(v) for k,v in params.items() if v is not None}
+    return {k: flatten(v) for k, v in params.items() if v is not None}
 
 
 from . import api
@@ -380,6 +365,7 @@ class Bot(_BotBase):
             def k(self, *args, **kwargs):
                 with self._lock:
                     return fn(self, *args, **kwargs)
+
             return k
 
         @_locked
@@ -438,7 +424,7 @@ class Bot(_BotBase):
             :type data: dictionary
             :return: an internal Event object
             """
-            return self._insert_event(data, time.time()+delay)
+            return self._insert_event(data, time.time() + delay)
 
         def event_now(self, data):
             """
@@ -487,8 +473,8 @@ class Bot(_BotBase):
                                               'callback_query': lambda msg: self.on_callback_query(msg),
                                               'inline_query': lambda msg: self.on_inline_query(msg),
                                               'chosen_inline_result': lambda msg: self.on_chosen_inline_result(msg)})
-                                              # use lambda to delay evaluation of self.on_ZZZ to runtime because
-                                              # I don't want to require defining all methods right here.
+        # use lambda to delay evaluation of self.on_ZZZ to runtime because
+        # I don't want to require defining all methods right here.
 
     @property
     def scheduler(self):
@@ -1107,17 +1093,19 @@ class Bot(_BotBase):
         See: https://core.telegram.org/bots/api#createnewstickerset
         """
         p = _strip(locals(), more=['png_sticker', 'tgs_sticker'])
-        return self._api_request_with_file('createNewStickerSet', _rectify(p), {'png_sticker': png_sticker, 'tgs_sticker': tgs_sticker})
+        return self._api_request_with_file('createNewStickerSet', _rectify(p),
+                                           {'png_sticker': png_sticker, 'tgs_sticker': tgs_sticker})
 
     def addStickerToSet(self, user_id, name, emojis,
-                              png_sticker=None,
-                              tgs_sticker=None,
-                              mask_position=None):
+                        png_sticker=None,
+                        tgs_sticker=None,
+                        mask_position=None):
         """
         See: https://core.telegram.org/bots/api#addstickertoset
         """
         p = _strip(locals(), more=['png_sticker', 'tgs_sticker'])
-        return self._api_request_with_file('addStickerToSet', _rectify(p), {'png_sticker': png_sticker, 'tgs_sticker': tgs_sticker})
+        return self._api_request_with_file('addStickerToSet', _rectify(p),
+                                           {'png_sticker': png_sticker, 'tgs_sticker': tgs_sticker})
 
     def setStickerPositionInSet(self, sticker, position):
         """
@@ -1369,7 +1357,7 @@ class Bot(_BotBase):
                 finally:
                     time.sleep(relax)
 
-        def dictify3(data):
+        def dictify(data):
             if type(data) is bytes:
                 return json.loads(data.decode('utf-8'))
             elif type(data) is str:
@@ -1379,16 +1367,7 @@ class Bot(_BotBase):
             else:
                 raise ValueError()
 
-        def dictify27(data):
-            if type(data) in [str, unicode]:
-                return json.loads(data)
-            elif type(data) is dict:
-                return data
-            else:
-                raise ValueError()
-
         def get_from_queue_unordered(qu):
-            dictify = dictify3 if sys.version_info >= (3,) else dictify27
             while 1:
                 try:
                     data = qu.get(block=True)
@@ -1398,13 +1377,11 @@ class Bot(_BotBase):
                     traceback.print_exc()
 
         def get_from_queue(qu):
-            dictify = dictify3 if sys.version_info >= (3,) else dictify27
-
             # Here is the re-ordering mechanism, ensuring in-order delivery of updates.
-            max_id = None                 # max update_id passed to callback
+            max_id = None  # max update_id passed to callback
             buffer = collections.deque()  # keep those updates which skip some update_id
-            qwait = None                  # how long to wait for updates,
-                                          # because buffer's content has to be returned in time.
+            qwait = None  # how long to wait for updates,
+            # because buffer's content has to be returned in time.
 
             while 1:
                 try:
@@ -1425,7 +1402,8 @@ class Bot(_BotBase):
                             while 1:
                                 try:
                                     if type(buffer[0]) is dict:
-                                        max_id = relay_to_collector(buffer.popleft())  # updates that arrived earlier, handle them.
+                                        max_id = relay_to_collector(
+                                            buffer.popleft())  # updates that arrived earlier, handle them.
                                     else:
                                         break  # gap, no more contagious updates
                                 except IndexError:
@@ -1440,7 +1418,7 @@ class Bot(_BotBase):
                         else:
                             # buffer too short, lengthen it
                             expire = time.time() + maxhold
-                            for a in range(nbuf, update['update_id']-max_id-1):
+                            for a in range(nbuf, update['update_id'] - max_id - 1):
                                 buffer.append(expire)  # put expiry time in gaps
                             buffer.append(update)
 
@@ -1508,8 +1486,6 @@ class Bot(_BotBase):
                 time.sleep(10)
 
 
-import inspect
-
 class SpeakerBot(Bot):
     def __init__(self, token):
         super(SpeakerBot, self).__init__(token)
@@ -1532,7 +1508,7 @@ class DelegatorBot(SpeakerBot):
         :param delegation_patterns: a list of (seeder, delegator) tuples.
         """
         super(DelegatorBot, self).__init__(token)
-        self._delegate_records = [p+({},) for p in delegation_patterns]
+        self._delegate_records = [p + ({},) for p in delegation_patterns]
 
     def _startable(self, delegate):
         return ((hasattr(delegate, 'start') and inspect.ismethod(delegate.start)) and
@@ -1550,7 +1526,8 @@ class DelegatorBot(SpeakerBot):
             func, args, kwargs = delegate
             return threading.Thread(target=func, args=args, kwargs=kwargs)
         else:
-            raise RuntimeError('Delegate does not have the required methods, is not callable, and is not a valid tuple.')
+            raise RuntimeError(
+                'Delegate does not have the required methods, is not callable, and is not a valid tuple.')
 
     def handle(self, msg):
         self._mic.send(msg)

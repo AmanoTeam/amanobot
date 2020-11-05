@@ -1,5 +1,3 @@
-import sys
-
 class AmanobotException(Exception):
     """ Base class of following exceptions. """
     pass
@@ -12,7 +10,6 @@ class BadFlavor(AmanobotException):
     def offender(self):
         return self.args[0]
 
-PY_3 = sys.version_info.major >= 3
 
 class BadHTTPResponse(AmanobotException):
     """

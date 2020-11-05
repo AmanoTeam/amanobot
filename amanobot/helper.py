@@ -11,10 +11,7 @@ from . import (
     flavor, chat_flavors, inline_flavors, is_event,
     message_identifier, origin_identifier)
 
-try:
-    import Queue as queue
-except ImportError:
-    import queue
+import queue
 
 
 class Microphone(object):

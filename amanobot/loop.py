@@ -5,10 +5,7 @@ import threading
 import traceback
 import collections
 
-try:
-    import Queue as queue
-except ImportError:
-    import queue
+import queue
 
 from . import exception
 from . import _find_first_key, flavor_router
@@ -82,7 +79,7 @@ class GetUpdatesLoop(RunForeverAsThread):
                 time.sleep(relax)
 
 
-def _dictify3(data):
+def _dictify(data):
     if type(data) is bytes:
         return json.loads(data.decode('utf-8'))
     elif type(data) is str:
@@ -91,16 +88,6 @@ def _dictify3(data):
         return data
     else:
         raise ValueError()
-
-def _dictify27(data):
-    if type(data) in [str, unicode]:
-        return json.loads(data)
-    elif type(data) is dict:
-        return data
-    else:
-        raise ValueError()
-
-_dictify = _dictify3 if sys.version_info >= (3,) else _dictify27
 
 
 def _extract_message(update):

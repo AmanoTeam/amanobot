@@ -1,5 +1,9 @@
 # amanobot changelog
 
+## 2.0.0 (2020-11-05)
+- Bot API 5.0
+- Dropped Python support below 3.5.3
+
 ## 1.8.1 (2020-04-26)
 - Hotfix for a bug that prevented amanobot from working
 
