@@ -585,6 +585,7 @@ Message = _create_class('Message', [
               'edit_date',
               'author_signature',
               'text',
+              'via_bot',
               _Field('entities', constructor=MessageEntityArray),
               _Field('caption_entities', constructor=MessageEntityArray),
               _Field('audio', constructor=Audio),
