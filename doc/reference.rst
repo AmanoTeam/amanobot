@@ -3,10 +3,10 @@ amanobot reference
 
 Amanobot has two versions:
 
-- **Traditional version works on Python 2.7 and Python 3.** It uses
+- **Traditional version** uses
   `urllib3 <https://urllib3.readthedocs.io/en/latest/>`_ to make HTTP requests,
   and uses threads to achieve delegation by default.
-- **Async version works on Python 3.5 or above.** It is based on
+- **Async version** is based on
   `asyncio <https://docs.python.org/3/library/asyncio.html>`_, uses
   `aiohttp <http://aiohttp.readthedocs.io/en/stable/>`_ to make asynchronous
   HTTP requests, and uses asyncio tasks to achieve delegation.

@@ -8,7 +8,7 @@ Introduction
    reference
 
 Amanobot helps you build applications for `Telegram Bot API <https://core.telegram.org/bots>`_.
-It works on Python 2.7 and Python 3. For Python 3.5+, it also has an `async version <#async-version-python-3-5>`_
+It works on Python 3.5+ and it also has an `async version <#async-version-python-3-5>`_
 based on `asyncio <https://docs.python.org/3/library/asyncio.html>`_.
 
 For a time, I tried to list the features here like many projects do. Eventually, I gave up.
@@ -27,12 +27,7 @@ Installation
 pip::
 
     $ pip install amanobot
-    $ pip install amanobot --upgrade  # UPGRADE
-
-easy_install::
-
-    $ easy_install amanobot
-    $ easy_install --upgrade amanobot  # UPGRADE
+    $ pip install -U amanobot  # UPGRADE
 
 Get a token
 -----------
@@ -52,7 +47,7 @@ Test the account
     >>> import amanobot
     >>> bot = amanobot.Bot('PUT YOUR TOKEN HERE')
     >>> bot.getMe()
-    {'id': 123456789, 'is_bot': True, 'first_name': 'Your Bot', 'username': 'YourBot'}
+    {'id': 123456789, 'is_bot': True, 'first_name': 'Your Bot', 'username': 'YourBot', 'can_join_groups': True, 'can_read_all_group_messages': False, 'supports_inline_queries': False}
 
 Receive messages
 ----------------
@@ -63,25 +58,25 @@ Get the message by calling :meth:`.Bot.getUpdates`::
     >>> from pprint import pprint
     >>> response = bot.getUpdates()
     >>> pprint(response)
-    [{'message': {'chat': {'first_name': '• Alisson™ •',
+    [{'message': {'chat': {'first_name': 'Alisson',
                        'id': 200097591,
-                       'last_name': '🇧🇷',
+                       'last_name': 'L.',
                        'type': 'private',
-                       'username': 'marminino'},
+                       'username': 'alissonlauffer'},
               'date': 1538346501,
-              'from': {'first_name': '• Alisson™ •',
+              'from': {'first_name': 'Alisson',
                        'id': 200097591,
                        'is_bot': False,
-                       'language_code': 'pt-br',
-                       'last_name': '🇧🇷',
-                       'username': 'marminino'},
+                       'language_code': 'en',
+                       'last_name': 'L.',
+                       'username': 'alissonlauffer'},
               'message_id': 149,
               'text': 'Hello'},
     'update_id': 100000000}]
 
 The ``chat`` field represents the conversation. Its ``type`` can be ``private``,
 ``group``, ``supergroup``, or ``channel`` (whose meanings should be obvious, I hope). Above,
-``• Alisson™ •`` just sent a ``private`` message to the bot.
+``Alisson`` just sent a ``private`` message to the bot.
 
 According to Bot API, the method `getUpdates <https://core.telegram.org/bots/api#getupdates>`_
 returns an array of `Update <https://core.telegram.org/bots/api#update>`_ objects.
@@ -314,7 +309,7 @@ In the code sample below, pay attention to these things:
 .. literalinclude:: _code/inline_per_user.py
    :emphasize-lines: 8,31,41
 
-Async Version (Python 3.5+)
+Async Version
 ---------------------------
 
 Everything discussed so far assumes traditional Python. That is, network operations are blocking;
@@ -322,23 +317,6 @@ if you want to serve many users at the same time, some kind of threads are usual
 Another option is to use an asynchronous or event-driven framework, such as `Twisted <http://twistedmatrix.com/>`_.
 
 Python 3.5+ has its own ``asyncio`` module. Amanobot supports that, too.
-
-Here is how to compile and install Python 3.6, if your O/S does not have it built in::
-
-    $ sudo apt-get update
-    $ sudo apt-get upgrade
-    $ sudo apt-get install libssl-dev openssl libreadline-dev
-    $ cd ~
-    $ wget https://www.python.org/ftp/python/3.6.6/Python-3.6.6.tgz
-    $ tar zxf Python-3.6.6.tgz
-    $ cd Python-3.6.6
-    $ ./configure
-    $ make
-    $ sudo make install
-
-Finally::
-
-    $ pip3.6 install amanobot
 
 In case you are not familiar with asynchronous programming, let's start by learning about generators and coroutines:
 
