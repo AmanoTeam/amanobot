@@ -274,7 +274,10 @@ class Bot(_BotBase):
         return await self._api_request('sendMediaGroup', _rectify(p), files_to_attach)
 
     async def sendLocation(self, chat_id, latitude, longitude,
+                           horizontal_accuracy=None,
                            live_period=None,
+                           heading=None,
+                           proximity_alert_radius=None,
                            disable_notification=None,
                            reply_to_message_id=None,
                            allow_sending_without_reply=None,
