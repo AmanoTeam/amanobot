@@ -759,6 +759,7 @@ InlineQueryResultPhoto = _create_class('InlineQueryResultPhoto', [
                              'description',
                              'caption',
                              'parse_mode',
+                             _Field('caption_entities', constructor=MessageEntityArray),
                              'reply_markup',
                              'input_message_content',
                          ])
@@ -775,6 +776,7 @@ InlineQueryResultGif = _create_class('InlineQueryResultGif', [
                            'title',
                            'caption',
                            'parse_mode',
+                           _Field('caption_entities', constructor=MessageEntityArray),
                            'reply_markup',
                            'input_message_content',
                        ])
@@ -791,6 +793,7 @@ InlineQueryResultMpeg4Gif = _create_class('InlineQueryResultMpeg4Gif', [
                                 'title',
                                 'caption',
                                 'parse_mode',
+                                _Field('caption_entities', constructor=MessageEntityArray),
                                 'reply_markup',
                                 'input_message_content',
                             ])
@@ -805,6 +808,7 @@ InlineQueryResultVideo = _create_class('InlineQueryResultVideo', [
                              'title',
                              'caption',
                              'parse_mode',
+                             _Field('caption_entities', constructor=MessageEntityArray),
                              'video_width',
                              'video_height',
                              'video_duration',
@@ -821,6 +825,7 @@ InlineQueryResultAudio = _create_class('InlineQueryResultAudio', [
                              'title',
                              'caption',
                              'parse_mode',
+                             _Field('caption_entities', constructor=MessageEntityArray),
                              'performer',
                              'audio_duration',
                              'reply_markup',
@@ -835,6 +840,7 @@ InlineQueryResultVoice = _create_class('InlineQueryResultVoice', [
                              'title',
                              'caption',
                              'parse_mode',
+                             _Field('caption_entities', constructor=MessageEntityArray),
                              'voice_duration',
                              'reply_markup',
                              'input_message_content',
@@ -847,6 +853,7 @@ InlineQueryResultDocument = _create_class('InlineQueryResultDocument', [
                                 'title',
                                 'caption',
                                 'parse_mode',
+                                _Field('caption_entities', constructor=MessageEntityArray),
                                 'document_url',
                                 'mime_type',
                                 'description',
@@ -921,6 +928,7 @@ InlineQueryResultCachedPhoto = _create_class('InlineQueryResultCachedPhoto', [
                                    'description',
                                    'caption',
                                    'parse_mode',
+                                   _Field('caption_entities', constructor=MessageEntityArray),
                                    'reply_markup',
                                    'input_message_content',
                                ])
@@ -933,6 +941,7 @@ InlineQueryResultCachedGif = _create_class('InlineQueryResultCachedGif', [
                                  'title',
                                  'caption',
                                  'parse_mode',
+                                 _Field('caption_entities', constructor=MessageEntityArray),
                                  'reply_markup',
                                  'input_message_content',
                              ])
@@ -945,6 +954,7 @@ InlineQueryResultCachedMpeg4Gif = _create_class('InlineQueryResultCachedMpeg4Gif
                                       'title',
                                       'caption',
                                       'parse_mode',
+                                      _Field('caption_entities', constructor=MessageEntityArray),
                                       'reply_markup',
                                       'input_message_content',
                                   ])
@@ -967,6 +977,7 @@ InlineQueryResultCachedDocument = _create_class('InlineQueryResultCachedDocument
                                       'description',
                                       'caption',
                                       'parse_mode',
+                                      _Field('caption_entities', constructor=MessageEntityArray),
                                       'reply_markup',
                                       'input_message_content',
                                   ])
@@ -980,6 +991,7 @@ InlineQueryResultCachedVideo = _create_class('InlineQueryResultCachedVideo', [
                                    'description',
                                    'caption',
                                    'parse_mode',
+                                   _Field('caption_entities', constructor=MessageEntityArray),
                                    'reply_markup',
                                    'input_message_content',
                                ])
@@ -992,6 +1004,7 @@ InlineQueryResultCachedVoice = _create_class('InlineQueryResultCachedVoice', [
                                    'title',
                                    'caption',
                                    'parse_mode',
+                                   _Field('caption_entities', constructor=MessageEntityArray),
                                    'reply_markup',
                                    'input_message_content',
                                ])
@@ -1003,6 +1016,7 @@ InlineQueryResultCachedAudio = _create_class('InlineQueryResultCachedAudio', [
                                    'audio_file_id',
                                    'caption',
                                    'parse_mode',
+                                   _Field('caption_entities', constructor=MessageEntityArray),
                                    'reply_markup',
                                    'input_message_content',
                                ])
@@ -1014,6 +1028,7 @@ InputMediaPhoto = _create_class('InputMediaPhoto', [
                       'thumb',
                       'caption',
                       'parse_mode',
+                      _Field('caption_entities', constructor=MessageEntityArray),
                   ])
 
 # outgoing
@@ -1023,6 +1038,7 @@ InputMediaVideo = _create_class('InputMediaVideo', [
                       'thumb',
                       'caption',
                       'parse_mode',
+                      _Field('caption_entities', constructor=MessageEntityArray),
                       'width',
                       'height',
                       'duration',
@@ -1036,6 +1052,7 @@ InputMediaAnimation = _create_class('InputMediaAnimation', [
                       'thumb',
                       'caption',
                       'parse_mode',
+                      _Field('caption_entities', constructor=MessageEntityArray),
                       'width',
                       'height',
                       'duration'
@@ -1048,6 +1065,7 @@ InputMediaAudio = _create_class('InputMediaAudio', [
                       'thumb',
                       'caption',
                       'parse_mode',
+                      _Field('caption_entities', constructor=MessageEntityArray),
                       'duration',
                       'performer',
                       'title'
