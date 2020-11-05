@@ -529,6 +529,18 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('forwardMessage', _rectify(p))
 
+    def copyMessage(self, chat_id, from_chat_id, message_id,
+                    caption=None,
+                    parse_mode=None,
+                    caption_entities=None,
+                    disable_notification=None,
+                    reply_to_message_id=None,
+                    allow_sending_without_reply=None,
+                    reply_markup=None):
+        """ See: https://core.telegram.org/bots/api#copymessage """
+        p = _strip(locals())
+        return self._api_request('copyMessage', _rectify(p))
+
     def sendPhoto(self, chat_id, photo,
                   caption=None,
                   parse_mode=None,
