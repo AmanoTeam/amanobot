@@ -1160,8 +1160,10 @@ class Bot(_BotBase):
     def setWebhook(self,
                    url=None,
                    certificate=None,
+                   ip_address=None,
                    max_connections=None,
-                   allowed_updates=None):
+                   allowed_updates=None,
+                   drop_pending_updates=None):
         """ See: https://core.telegram.org/bots/api#setwebhook """
         p = _strip(locals(), more=['certificate'])
 
