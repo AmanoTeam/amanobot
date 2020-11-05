@@ -14,8 +14,7 @@ from ..helper import (
 async def _invoke(fn, *args, **kwargs):
     if asyncio.iscoroutinefunction(fn):
         return await fn(*args, **kwargs)
-    else:
-        return fn(*args, **kwargs)
+    return fn(*args, **kwargs)
 
 
 def _create_invoker(obj, method_name):

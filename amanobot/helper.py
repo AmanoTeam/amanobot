@@ -350,12 +350,11 @@ class CallbackQueryCoordinator():
         def dissolve(enable):
             if not enable:
                 return False, None
-            elif enable is True:
+            if enable is True:
                 return True, None
-            elif callable(enable):
+            if callable(enable):
                 return True, enable
-            else:
-                raise ValueError()
+            raise ValueError()
 
         self._enable_chat, self._chat_notify = dissolve(enable_chat)
         self._enable_inline, self._inline_notify = dissolve(enable_inline)
@@ -387,10 +386,9 @@ class CallbackQueryCoordinator():
         if isinstance(msg_identifier, tuple):
             if len(msg_identifier) == 2:
                 return msg_identifier, self._chat_notify
-            elif len(msg_identifier) == 1:
+            if len(msg_identifier) == 1:
                 return msg_identifier, self._inline_notify
-            else:
-                raise ValueError()
+            raise ValueError()
         else:
             return (msg_identifier,), self._inline_notify
 
@@ -408,8 +406,7 @@ class CallbackQueryCoordinator():
         def contains(obj, key):
             if isinstance(obj, dict):
                 return key in obj
-            else:
-                return hasattr(obj, key)
+            return hasattr(obj, key)
 
         if contains(message_kw, 'reply_markup'):
             reply_markup = filtering.pick(message_kw, 'reply_markup')

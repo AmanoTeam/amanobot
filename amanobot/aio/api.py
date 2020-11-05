@@ -30,12 +30,11 @@ def set_proxy(url, basic_auth=None):
 def _proxy_kwargs():
     if _proxy is None or len(_proxy) == 0:
         return {}
-    elif len(_proxy) == 1:
+    if len(_proxy) == 1:
         return {'proxy': _proxy[0]}
-    elif len(_proxy) == 2:
+    if len(_proxy) == 2:
         return {'proxy': _proxy[0], 'proxy_auth': aiohttp.BasicAuth(*_proxy[1])}
-    else:
-        raise RuntimeError("_proxy has invalid length")
+    raise RuntimeError("_proxy has invalid length")
 
 
 async def _close_pools():
@@ -62,13 +61,12 @@ def _compose_timeout(req, **user_kw):
     if method == 'getUpdates' and params and 'timeout' in params:
         # Ensure HTTP timeout is longer than getUpdates timeout
         return params['timeout'] + _default_timeout(req, **user_kw)
-    elif files:
+    if files:
         # Disable timeout if uploading files. For some reason, the larger the file,
         # the longer it takes for the server to respond (after upload is finished).
         # It is unclear how long timeout should be.
         return None
-    else:
-        return _default_timeout(req, **user_kw)
+    return _default_timeout(req, **user_kw)
 
 
 def _compose_data(req, **user_kw):
@@ -128,19 +126,18 @@ async def _parse(response, raise_errors):
 
     if data['ok']:
         return data['result']
-    elif not raise_errors:
+    if not raise_errors:
         return data
-    else:
-        description, error_code = data['description'], data['error_code']
+    description, error_code = data['description'], data['error_code']
 
-        # Look for specific error ...
-        for e in exception.TelegramError.__subclasses__():
-            n = len(e.DESCRIPTION_PATTERNS)
-            if any(map(re.search, e.DESCRIPTION_PATTERNS, n*[description], n*[re.IGNORECASE])):
-                raise e(description, error_code, data)
+    # Look for specific error ...
+    for e in exception.TelegramError.__subclasses__():
+        n = len(e.DESCRIPTION_PATTERNS)
+        if any(map(re.search, e.DESCRIPTION_PATTERNS, n*[description], n*[re.IGNORECASE])):
+            raise e(description, error_code, data)
 
-        # ... or raise generic error
-        raise exception.TelegramError(description, error_code, data)
+            # ... or raise generic error
+    raise exception.TelegramError(description, error_code, data)
 
 
 async def request(req, raise_errors, **user_kw):
