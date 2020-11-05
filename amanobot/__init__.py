@@ -10,7 +10,6 @@ import traceback
 from typing import Union
 
 from . import exception
-from . import helper
 
 __version_info__ = (2, 0, 0)
 __version__ = '.'.join(map(str, __version_info__))
@@ -289,6 +288,9 @@ def _isstring(s):
 
 def _isfile(f):
     return isinstance(f, io.IOBase)
+
+
+from . import helper
 
 
 def flavor_router(routing_table):
