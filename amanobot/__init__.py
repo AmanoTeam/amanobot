@@ -514,6 +514,7 @@ class Bot(_BotBase):
 
     def sendMessage(self, chat_id, text,
                     parse_mode=None,
+                    entities=None,
                     disable_web_page_preview=None,
                     disable_notification=None,
                     reply_to_message_id=None,
@@ -544,6 +545,7 @@ class Bot(_BotBase):
     def sendPhoto(self, chat_id, photo,
                   caption=None,
                   parse_mode=None,
+                  caption_entities=None,
                   disable_notification=None,
                   reply_to_message_id=None,
                   allow_sending_without_reply=None,
@@ -563,6 +565,7 @@ class Bot(_BotBase):
     def sendAudio(self, chat_id, audio,
                   caption=None,
                   parse_mode=None,
+                  caption_entities=None,
                   duration=None,
                   performer=None,
                   title=None,
@@ -583,6 +586,7 @@ class Bot(_BotBase):
                      thumb=None,
                      caption=None,
                      parse_mode=None,
+                     caption_entities=None,
                      disable_content_type_detection=None,
                      disable_notification=None,
                      reply_to_message_id=None,
@@ -603,6 +607,7 @@ class Bot(_BotBase):
                   thumb=None,
                   caption=None,
                   parse_mode=None,
+                  caption_entities=None,
                   supports_streaming=None,
                   disable_notification=None,
                   reply_to_message_id=None,
@@ -623,6 +628,7 @@ class Bot(_BotBase):
                       thumb=None,
                       caption=None,
                       parse_mode=None,
+                      caption_entities=None,
                       disable_notification=None,
                       reply_to_message_id=None,
                       allow_sending_without_reply=None,
@@ -638,6 +644,7 @@ class Bot(_BotBase):
     def sendVoice(self, chat_id, voice,
                   caption=None,
                   parse_mode=None,
+                  caption_entities=None,
                   duration=None,
                   disable_notification=None,
                   reply_to_message_id=None,
@@ -1027,6 +1034,7 @@ class Bot(_BotBase):
 
     def editMessageText(self, msg_identifier, text,
                         parse_mode=None,
+                        entities=None,
                         disable_web_page_preview=None,
                         reply_markup=None):
         """
@@ -1045,6 +1053,7 @@ class Bot(_BotBase):
     def editMessageCaption(self, msg_identifier,
                            caption=None,
                            parse_mode=None,
+                           caption_entities=None,
                            reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#editmessagecaption
