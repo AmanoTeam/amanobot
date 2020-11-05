@@ -172,6 +172,7 @@ Audio = _create_class('Audio', [
             'duration',
             'performer',
             'title',
+            'file_name',
             'mime_type',
             'file_size',
             _Field('thumb', constructor=PhotoSize)
@@ -233,6 +234,7 @@ Video = _create_class('Video', [
             'height',
             'duration',
             _Field('thumb', constructor=PhotoSize),
+            'file_name',
             'mime_type',
             'file_size',
             'file_path',  # undocumented
