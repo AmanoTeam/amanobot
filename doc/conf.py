@@ -196,4 +196,5 @@ texinfo_documents = [
 intersphinx_mapping = {'https://docs.python.org/': None}
 
 autodoc_member_order = 'bysource'
+autodoc_typehints = 'description'
 autoclass_content = 'both'
