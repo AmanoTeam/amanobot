@@ -493,7 +493,8 @@ class Bot(_BotBase):
         p = _strip(locals())
         return await self._api_request('pinChatMessage', _rectify(p))
 
-    async def unpinChatMessage(self, chat_id):
+    async def unpinChatMessage(self, chat_id,
+                               message_id=None):
         """ See: https://core.telegram.org/bots/api#unpinchatmessage """
         p = _strip(locals())
         return await self._api_request('unpinChatMessage', _rectify(p))
