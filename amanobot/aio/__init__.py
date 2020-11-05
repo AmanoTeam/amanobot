@@ -287,6 +287,9 @@ class Bot(_BotBase):
         return await self._api_request('sendLocation', _rectify(p))
 
     async def editMessageLiveLocation(self, msg_identifier, latitude, longitude,
+                                      horizontal_accuracy=None,
+                                      heading=None,
+                                      proximity_alert_radius=None,
                                       reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#editmessagelivelocation
