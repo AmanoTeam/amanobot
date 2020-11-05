@@ -22,7 +22,8 @@ class Player(amanobot.aio.helper.ChatHandler):
         super(Player, self).__init__(*args, **kwargs)
         self._answer = random.randint(0,99)
 
-    def _hint(self, answer, guess):
+    @staticmethod
+    def _hint(answer, guess):
         if answer > guess:
             return 'larger'
         return 'smaller'

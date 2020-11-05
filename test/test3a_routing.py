@@ -48,10 +48,12 @@ async def fake0():
 
 
 class ContentTypeHandler():
-    def on_text(self, msg, text):
+    @staticmethod
+    def on_text(msg, text):
         print('Text', msg, text)
 
-    def on_photo(self, msg, photo):
+    @staticmethod
+    def on_photo(msg, photo):
         print('Photo', msg, photo)
 
 def make_message_like(mm):
@@ -75,16 +77,20 @@ async def fake1():
 
 
 class CommandHandler():
-    def on_start(self, msg):
+    @staticmethod
+    def on_start(msg):
         print('Command: start', msg)
 
-    def on_settings(self, msg):
+    @staticmethod
+    def on_settings(msg):
         print('Command: settings', msg)
 
-    def on_invalid_text(self, msg):
+    @staticmethod
+    def on_invalid_text(msg):
         print('Invalid text', msg)
 
-    def on_invalid_command(self, msg):
+    @staticmethod
+    def on_invalid_command(msg):
         print('Invalid command', msg)
 
 command_handler = CommandHandler()
@@ -113,16 +119,20 @@ async def fake2():
 
 
 class RegexHandler():
-    def on_CS101(self, msg, match):
+    @staticmethod
+    def on_CS101(msg, match):
         print('Someone mentioned CS101 !!!', msg, match.groups())
 
-    def on_CS202(self, msg, match):
+    @staticmethod
+    def on_CS202(msg, match):
         print('Someone mentioned CS202 !!!', msg, match.groups())
 
-    def no_cs_courses_mentioned(self, msg):
+    @staticmethod
+    def no_cs_courses_mentioned(msg):
         print('No CS courses mentioned ...', msg)
 
-    def course_not_exist(self, msg, match):
+    @staticmethod
+    def course_not_exist(msg, match):
         print('%s does not exist' % match.group(1), msg)
 
 regex_handler = RegexHandler()

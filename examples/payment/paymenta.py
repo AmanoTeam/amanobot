@@ -42,7 +42,8 @@ class OrderProcessor(amanobot.aio.helper.InvoiceHandler):
 
         await bot.answerPreCheckoutQuery(query_id, True)
 
-    def on_chat_message(self, msg):
+    @staticmethod
+    def on_chat_message(msg):
         content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if content_type == 'successful_payment':

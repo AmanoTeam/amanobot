@@ -1556,11 +1556,13 @@ class DelegatorBot(SpeakerBot):
         super(DelegatorBot, self).__init__(token)
         self._delegate_records = [p + ({},) for p in delegation_patterns]
 
-    def _startable(self, delegate):
+    @staticmethod
+    def _startable(delegate):
         return ((hasattr(delegate, 'start') and inspect.ismethod(delegate.start)) and
                 (hasattr(delegate, 'is_alive') and inspect.ismethod(delegate.is_alive)))
 
-    def _tuple_is_valid(self, t):
+    @staticmethod
+    def _tuple_is_valid(t):
         return len(t) == 3 and callable(t[0]) and type(t[1]) in [list, tuple] and type(t[2]) is dict
 
     def _ensure_startable(self, delegate):
