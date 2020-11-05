@@ -88,6 +88,14 @@ class Bot(_BotBase):
         """ See: https://core.telegram.org/bots/api#getme """
         return await self._api_request('getMe')
 
+    async def logOut(self):
+        """ See: https://core.telegram.org/bots/api#logout """
+        return await self._api_request('logOut')
+
+    async def close(self):
+        """ See: https://core.telegram.org/bots/api#close """
+        return await self._api_request('close')
+
     async def sendMessage(self, chat_id, text,
                           parse_mode=None,
                           disable_web_page_preview=None,
