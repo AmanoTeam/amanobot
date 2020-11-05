@@ -389,7 +389,8 @@ class Bot(_BotBase):
         p = _strip(locals())
         return await self._api_request('kickChatMember', _rectify(p))
 
-    async def unbanChatMember(self, chat_id, user_id):
+    async def unbanChatMember(self, chat_id, user_id,
+                              only_if_banned=None):
         """ See: https://core.telegram.org/bots/api#unbanchatmember """
         p = _strip(locals())
         return await self._api_request('unbanChatMember', _rectify(p))
