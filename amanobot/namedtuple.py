@@ -131,7 +131,7 @@ ChatPermissions = _create_class('ChatPermissions', [
 # incoming
 BotCommand = _create_class('BotCommand', [
                  'command',
-                 'description'
+                 'description',
 ])
 
 # incoming
@@ -143,6 +143,7 @@ Chat = _create_class('Chat', [
            'first_name',
            'last_name',
            _Field('photo', constructor=ChatPhoto),
+           'bio',
            'description',
            'invite_link',
            _Field('pinned_message', constructor=_Message),
@@ -150,6 +151,8 @@ Chat = _create_class('Chat', [
            'slow_mode_delay',
            'sticker_set_name',
            'can_set_sticker_set',
+           'linked_chat_id',
+           _Field('location', constructor=ChatLocation),
        ])
 
 # incoming
@@ -266,7 +269,11 @@ Contact = _create_class('Contact', [
 # incoming
 Location = _create_class('Location', [
                'longitude',
-               'latitude'
+               'latitude',
+               'horizontal_accuracy',
+               'live_period',
+               'heading',
+               'proximity_alert_radius',
            ])
 
 # incoming
@@ -275,7 +282,16 @@ Venue = _create_class('Venue', [
             'title',
             'address',
             'foursquare_id',
+            'foursquare_type',
+            'google_place_id',
+            'google_place_type',
         ])
+
+# incoming
+ChatLocation = _create_class('ChatLocation', [
+                   _Field('location', constructor=Location),
+                   'address',
+])
 
 # incoming
 PollOption = _create_class('PollOption', [
