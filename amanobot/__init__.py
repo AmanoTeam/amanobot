@@ -1173,9 +1173,11 @@ class Bot(_BotBase):
         else:
             return self._api_request('setWebhook', _rectify(p))
 
-    def deleteWebhook(self):
+    def deleteWebhook(self,
+                      drop_pending_updates=None):
+        p = _strip(locals())
         """ See: https://core.telegram.org/bots/api#deletewebhook """
-        return self._api_request('deleteWebhook')
+        return self._api_request('deleteWebhook', _rectify(p))
 
     def getWebhookInfo(self):
         """ See: https://core.telegram.org/bots/api#getwebhookinfo """
