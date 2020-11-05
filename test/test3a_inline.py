@@ -22,7 +22,7 @@ def equivalent(data, nt):
             return False
 
         # map `from` to `from_`
-        fields = list([k+'_' if k in ['from'] else k for k in keys])
+        fields = [k+'_' if k in ['from'] else k for k in keys]
 
         return all(map(equivalent, [data[k] for k in keys], [getattr(nt, f) for f in fields]))
     if type(data) is list:
