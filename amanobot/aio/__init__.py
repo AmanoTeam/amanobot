@@ -40,7 +40,8 @@ class Bot(_BotBase):
         def event_now(self, data):
             return self._loop.call_soon(self._callback, data)
 
-        def cancel(self, event):
+        @staticmethod
+        def cancel(event):
             return event.cancel()
 
     def __init__(self, token, loop=None, raise_errors=True):

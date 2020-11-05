@@ -125,7 +125,8 @@ class DateCalculator(amanobot.helper.InlineUserHandler,
                 self.bot.answerCallbackQuery(query_id, text='Ok')
                 ballot[from_id] = query_data
 
-    def _count(self, ballot):
+    @staticmethod
+    def _count(ballot):
         yes = reduce(lambda a,b: a+(1 if b=='yes' else 0), ballot.values(), 0)
         no = reduce(lambda a,b: a+(1 if b=='no' else 0), ballot.values(), 0)
         return yes, no

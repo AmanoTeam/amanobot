@@ -402,7 +402,8 @@ class CallbackQueryCoordinator():
         self._origin_set.discard(msg_identifier)
         notify and notifier and notifier(msg_identifier, self._id, False)
 
-    def _contains_callback_data(self, message_kw):
+    @staticmethod
+    def _contains_callback_data(message_kw):
         def contains(obj, key):
             if isinstance(obj, dict):
                 return key in obj
@@ -720,7 +721,8 @@ class IdleTerminateMixin():
     def idle_event_coordinator(self):
         return self._idle_event_coordinator
 
-    def on__idle(self, event):
+    @staticmethod
+    def on__idle(event):
         """
         Raise an :class:`.IdleTerminate` to close the delegate.
         """

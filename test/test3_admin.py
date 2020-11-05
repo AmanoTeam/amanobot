@@ -64,7 +64,8 @@ class AdminBot(amanobot.Bot):
 
         print('I am done. Remove me from the group.')
 
-    def on_left_chat_member(self, msg, left_chat_member):
+    @staticmethod
+    def on_left_chat_member(msg, left_chat_member):
         print('I see that I have left.')
 
 

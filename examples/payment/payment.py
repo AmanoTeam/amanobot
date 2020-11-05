@@ -17,7 +17,8 @@ class OrderProcessor(amanobot.helper.InvoiceHandler):
     def __init__(self, *args, **kwargs):
         super(OrderProcessor, self).__init__(*args, **kwargs)
 
-    def on_shipping_query(self, msg):
+    @staticmethod
+    def on_shipping_query(msg):
         query_id, from_id, invoice_payload = amanobot.glance(msg, flavor='shipping_query')
 
         print('Shipping query:')
@@ -33,7 +34,8 @@ class OrderProcessor(amanobot.helper.InvoiceHandler):
                     LabeledPrice(label='Local', amount=342),
                     LabeledPrice(label='International', amount=1234)])])
 
-    def on_pre_checkout_query(self, msg):
+    @staticmethod
+    def on_pre_checkout_query(msg):
         query_id, from_id, invoice_payload = amanobot.glance(msg, flavor='pre_checkout_query')
 
         print('Pre-Checkout query:')
@@ -41,7 +43,8 @@ class OrderProcessor(amanobot.helper.InvoiceHandler):
 
         bot.answerPreCheckoutQuery(query_id, True)
 
-    def on_chat_message(self, msg):
+    @staticmethod
+    def on_chat_message(msg):
         content_type, chat_type, chat_id = amanobot.glance(msg)
 
         if content_type == 'successful_payment':
