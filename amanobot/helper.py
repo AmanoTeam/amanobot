@@ -14,7 +14,7 @@ from . import (
 import queue
 
 
-class Microphone(object):
+class Microphone():
     def __init__(self):
         self._queues = set()
         self._lock = threading.Lock()
@@ -42,7 +42,7 @@ class Microphone(object):
                 traceback.print_exc()
 
 
-class Listener(object):
+class Listener():
     def __init__(self, mic, q):
         self._mic = mic
         self._queue = q
@@ -85,7 +85,7 @@ class Listener(object):
                 return msg
 
 
-class Sender(object):
+class Sender():
     """
     When you are dealing with a particular chat, it is tedious to have to supply
     the same ``chat_id`` every time to send a message, or to send anything.
@@ -133,7 +133,7 @@ class Sender(object):
             #   self.sendMessage = partial(bot.sendMessage, chat_id)
 
 
-class Administrator(object):
+class Administrator():
     """
     When you are dealing with a particular chat, it is tedious to have to supply
     the same ``chat_id`` every time to get a chat's info or to perform administrative
@@ -186,7 +186,7 @@ class Administrator(object):
             setattr(self, method, partial(getattr(bot, method), chat_id))
 
 
-class Editor(object):
+class Editor():
     """
     If you want to edit a message over and over, it is tedious to have to supply
     the same ``msg_identifier`` every time.
@@ -225,7 +225,7 @@ class Editor(object):
             setattr(self, method, partial(getattr(bot, method), msg_identifier))
 
 
-class Answerer(object):
+class Answerer():
     """
     When processing inline queries, ensure **at most one active thread** per user id.
     """
@@ -308,7 +308,7 @@ class Answerer(object):
             outerself._workers[from_id].start()
 
 
-class AnswererMixin(object):
+class AnswererMixin():
     """
     Install an :class:`.Answerer` to handle inline query.
     """
@@ -323,7 +323,7 @@ class AnswererMixin(object):
         return self._answerer
 
 
-class CallbackQueryCoordinator(object):
+class CallbackQueryCoordinator():
     def __init__(self, id, origin_set, enable_chat, enable_inline):
         """
         :param origin_set:
@@ -512,7 +512,7 @@ class CallbackQueryCoordinator(object):
             - all other public methods, including properties, copied unchanged
         """
         # Because a plain object cannot be set attributes, we need a class.
-        class BotProxy(object):
+        class BotProxy():
             pass
 
         proxy = BotProxy()
@@ -594,7 +594,7 @@ class SafeDict(dict):
 
 _cqc_origins = SafeDict()
 
-class InterceptCallbackQueryMixin(object):
+class InterceptCallbackQueryMixin():
     """
     Install a :class:`.CallbackQueryCoordinator` to capture callback query
     dynamically.
@@ -647,7 +647,7 @@ class InterceptCallbackQueryMixin(object):
         return self._callback_query_coordinator
 
 
-class IdleEventCoordinator(object):
+class IdleEventCoordinator():
     def __init__(self, scheduler, timeout):
         self._scheduler = scheduler
         self._timeout_seconds = timeout
@@ -704,7 +704,7 @@ class IdleEventCoordinator(object):
         return augmented
 
 
-class IdleTerminateMixin(object):
+class IdleTerminateMixin():
     """
     Install an :class:`.IdleEventCoordinator` to manage idle timeout. Also define
     instance method ``on__idle()`` to handle idle timeout events.
@@ -730,7 +730,7 @@ class IdleTerminateMixin(object):
         raise exception.IdleTerminate(event['_idle']['seconds'])
 
 
-class StandardEventScheduler(object):
+class StandardEventScheduler():
     """
     A proxy to the underlying :class:`.Bot`\'s scheduler, this object implements
     the *standard event format*. A standard event looks like this::
@@ -813,7 +813,7 @@ class StandardEventScheduler(object):
         return self._base.cancel(event)
 
 
-class StandardEventMixin(object):
+class StandardEventMixin():
     """
     Install a :class:`.StandardEventScheduler`.
     """
@@ -829,7 +829,7 @@ class StandardEventMixin(object):
         return self._scheduler
 
 
-class ListenerContext(object):
+class ListenerContext():
     def __init__(self, bot, context_id, *args, **kwargs):
         # Initialize members before super() so mixin could use them.
         self._bot = bot
@@ -964,7 +964,7 @@ def openable(cls):
     return cls
 
 
-class Router(object):
+class Router():
     """
     Map a message to a handler function, using a **key function** and
     a **routing table** (dictionary).
@@ -1038,7 +1038,7 @@ class Router(object):
         return fn(msg, *args, **kwargs)
 
 
-class DefaultRouterMixin(object):
+class DefaultRouterMixin():
     """
     Install a default :class:`.Router` and the instance method ``on_message()``.
     """

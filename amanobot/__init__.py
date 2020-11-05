@@ -307,7 +307,7 @@ def flavor_router(routing_table):
     return router.route
 
 
-class _BotBase(object):
+class _BotBase():
     def __init__(self, token, raise_errors):
         self._token = token
         self._raise_errors = raise_errors

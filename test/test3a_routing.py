@@ -47,7 +47,7 @@ async def fake0():
     print()
 
 
-class ContentTypeHandler(object):
+class ContentTypeHandler():
     def on_text(self, msg, text):
         print('Text', msg, text)
 
@@ -74,7 +74,7 @@ async def fake1():
     print()
 
 
-class CommandHandler(object):
+class CommandHandler():
     def on_start(self, msg):
         print('Command: start', msg)
 
@@ -112,7 +112,7 @@ async def fake2():
     print()
 
 
-class RegexHandler(object):
+class RegexHandler():
     def on_CS101(self, msg, match):
         print('Someone mentioned CS101 !!!', msg, match.groups())
 
