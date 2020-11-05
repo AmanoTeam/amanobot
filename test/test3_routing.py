@@ -46,7 +46,7 @@ for i in range(0,20):
 print()
 
 
-class ContentTypeHandler(object):
+class ContentTypeHandler():
     def on_text(self, msg, text):
         print('Text', msg, text)
 
@@ -72,7 +72,7 @@ for i in range(0,10):
 print()
 
 
-class CommandHandler(object):
+class CommandHandler():
     def on_start(self, msg):
         print('Command: start', msg)
 
@@ -109,7 +109,7 @@ for i in range(0,20):
 print()
 
 
-class RegexHandler(object):
+class RegexHandler():
     def on_CS101(self, msg, match):
         print('Someone mentioned CS101 !!!', msg, match.groups())
 

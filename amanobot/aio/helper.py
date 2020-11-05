@@ -25,7 +25,7 @@ def _create_invoker(obj, method_name):
     return d
 
 
-class Microphone(object):
+class Microphone():
     def __init__(self):
         self._queues = set()
 
@@ -61,7 +61,7 @@ class Listener(helper.Listener):
 
 from concurrent.futures._base import CancelledError
 
-class Answerer(object):
+class Answerer():
     """
     When processing inline queries, ensures **at most one active task** per user id.
     """
@@ -244,7 +244,7 @@ class Router(helper.Router):
         return await _invoke(fn, msg, *args, **kwargs)
 
 
-class DefaultRouterMixin(object):
+class DefaultRouterMixin():
     def __init__(self, *args, **kwargs):
         self._router = Router(flavor, {'chat': _create_invoker(self, 'on_chat_message'),
                                        'callback_query': _create_invoker(self, 'on_callback_query'),

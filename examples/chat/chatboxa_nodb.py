@@ -31,7 +31,7 @@ If the bot is killed, all messages are lost. It is an *example* after all.
 """
 
 # Simulate a database to store unread messages
-class UnreadStore(object):
+class UnreadStore():
     def __init__(self):
         self._db = {}
 

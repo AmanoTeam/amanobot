@@ -3,7 +3,7 @@ import warnings
 import sys
 
 
-class _Field(object):
+class _Field():
     def __init__(self, name, constructor=None, default=None):
         self.name = name
         self.constructor = constructor

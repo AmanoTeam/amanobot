@@ -11,7 +11,7 @@ from . import exception
 from . import _find_first_key, flavor_router
 
 
-class RunForeverAsThread(object):
+class RunForeverAsThread():
     def run_as_thread(self, *args, **kwargs):
         t = threading.Thread(target=self.run_forever, args=args, kwargs=kwargs)
         t.daemon = True

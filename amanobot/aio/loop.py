@@ -10,7 +10,7 @@ from ..loop import _extract_message, _dictify
 from .. import exception
 
 
-class GetUpdatesLoop(object):
+class GetUpdatesLoop():
     def __init__(self, bot, on_update):
         self._bot = bot
         self._update_handler = on_update
@@ -71,7 +71,7 @@ def _infer_handler_function(bot, h):
         return handler
 
 
-class MessageLoop(object):
+class MessageLoop():
     def __init__(self, bot, handle=None):
         self._bot = bot
         self._handle = _infer_handler_function(bot, handle)
@@ -90,7 +90,7 @@ class MessageLoop(object):
         self._task.cancel()
 
 
-class Webhook(object):
+class Webhook():
     def __init__(self, bot, handle=None):
         self._bot = bot
         self._handle = _infer_handler_function(bot, handle)
@@ -103,7 +103,7 @@ class Webhook(object):
         self._handle(_extract_message(update)[1])
 
 
-class OrderedWebhook(object):
+class OrderedWebhook():
     def __init__(self, bot, handle=None):
         self._bot = bot
         self._handle = _infer_handler_function(bot, handle)
