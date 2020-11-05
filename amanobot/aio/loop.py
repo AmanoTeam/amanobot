@@ -1,13 +1,12 @@
 import asyncio
+import collections
 import time
 import traceback
-import collections
 from concurrent.futures._base import CancelledError
 
 from . import flavor_router
-
-from ..loop import _extract_message, _dictify
 from .. import exception
+from ..loop import _extract_message, _dictify
 
 
 class GetUpdatesLoop():

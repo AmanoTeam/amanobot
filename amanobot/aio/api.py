@@ -1,9 +1,11 @@
 import asyncio
+import atexit
+import json
+import re
+
 import aiohttp
 import async_timeout
-import atexit
-import re
-import json
+
 from .. import exception
 from ..api import _methodurl, _which_pool, _fileurl, _guess_filename
 

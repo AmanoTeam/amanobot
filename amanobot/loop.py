@@ -1,14 +1,12 @@
-import sys
-import time
-import json
-import threading
-import traceback
 import collections
-
+import json
 import queue
+import threading
+import time
+import traceback
 
-from . import exception
 from . import _find_first_key, flavor_router
+from . import exception
 
 
 class RunForeverAsThread():

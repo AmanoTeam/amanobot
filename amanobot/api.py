@@ -1,7 +1,8 @@
-import urllib3
 import json
-import re
 import os
+import re
+
+import urllib3
 
 from . import exception, _isstring
 

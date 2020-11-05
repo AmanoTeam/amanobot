@@ -1,6 +1,6 @@
 import collections
-import warnings
 import sys
+import warnings
 
 
 class _Field():

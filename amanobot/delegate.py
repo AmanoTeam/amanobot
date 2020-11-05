@@ -1,7 +1,9 @@
 import traceback
 from functools import wraps
+
 from . import exception
 from . import flavor, peel, is_event, chat_flavors, inline_flavors
+
 
 def _wrap_none(fn):
     def w(*args, **kwargs):

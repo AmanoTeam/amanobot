@@ -1,13 +1,12 @@
-import io
-import time
-import json
-import inspect
-import threading
-import traceback
-import collections
 import bisect
-
+import collections
+import inspect
+import io
+import json
 import queue
+import threading
+import time
+import traceback
 
 from . import exception
 

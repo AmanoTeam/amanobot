@@ -1,17 +1,15 @@
-import time
-import traceback
-import threading
-import logging
-import collections
-import re
 import inspect
+import logging
+import queue
+import re
+import threading
+import traceback
 from functools import partial
+
 from . import filtering, exception
 from . import (
     flavor, chat_flavors, inline_flavors, is_event,
     message_identifier, origin_identifier)
-
-import queue
 
 
 class Microphone():

@@ -12,7 +12,9 @@ Things to remember:
 """
 
 import re
+
 from . import glance, _isstring, all_content_types
+
 
 def by_content_type():
     """

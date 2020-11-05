@@ -1,16 +1,16 @@
+import asyncio
+import collections
 import io
 import json
 import time
-import asyncio
 import traceback
-import collections
 from concurrent.futures._base import CancelledError
+
 from . import helper, api
 from .. import (
     _BotBase, flavor, _find_first_key, _isstring, _strip, _rectify,
     _dismantle_message_identifier, _split_input_media_array
 )
-
 from .. import exception
 
 
