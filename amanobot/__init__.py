@@ -298,10 +298,11 @@ def flavor_router(routing_table):
     return router.route
 
 
-class _BotBase():
-    def __init__(self, token, raise_errors):
+class _BotBase:
+    def __init__(self, token: str, raise_errors: bool, api_endpoint: str):
         self._token = token
         self._raise_errors = raise_errors
+        self._base_url = api_endpoint
         self._file_chunk_size = 65536
 
 
@@ -452,8 +453,8 @@ class Bot(_BotBase):
         def on_event(self, fn):
             self._event_handler = fn
 
-    def __init__(self, token, raise_errors=True):
-        super(Bot, self).__init__(token, raise_errors)
+    def __init__(self, token: str, raise_errors: bool = True, api_endpoint: str = "https://api.telegram.org"):
+        super(Bot, self).__init__(token, raise_errors, api_endpoint)
 
         self._scheduler = self.Scheduler()
 
@@ -476,7 +477,7 @@ class Bot(_BotBase):
         self._router.route(msg)
 
     def _api_request(self, method, params=None, files=None, raise_errors=None, **kwargs):
-        return api.request((self._token, method, params, files),
+        return api.request((self._base_url, self._token, method, params, files),
                            raise_errors=raise_errors if raise_errors is not None else self._raise_errors, **kwargs)
 
     def _api_request_with_file(self, method, params, files, **kwargs):

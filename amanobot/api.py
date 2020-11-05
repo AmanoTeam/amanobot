@@ -46,12 +46,12 @@ def _create_onetime_pool():
 
 
 def _methodurl(req, **user_kw):
-    token, method, params, files = req
-    return 'https://api.telegram.org/bot%s/%s' % (token, method)
+    base_url, token, method, params, files = req
+    return '%s/bot%s/%s' % (base_url, token, method)
 
 
 def _which_pool(req, **user_kw):
-    token, method, params, files = req
+    base_url, token, method, params, files = req
     return None if files else 'default'
 
 
@@ -80,7 +80,7 @@ def _fix_type(v):
 
 
 def _compose_fields(req, **user_kw):
-    token, method, params, files = req
+    base_url, token, method, params, files = req
 
     fields = {k:_fix_type(v) for k,v in params.items()} if params is not None else {}
     if files:
@@ -97,7 +97,7 @@ def _default_timeout(req, **user_kw):
 
 
 def _compose_kwargs(req, **user_kw):
-    token, method, params, files = req
+    base_url, token, method, params, files = req
     kw = {}
 
     if not params and not files:
@@ -164,8 +164,8 @@ def request(req, raise_errors, **user_kw):
 
 
 def _fileurl(req):
-    token, path = req
-    return 'https://api.telegram.org/file/bot%s/%s' % (token, path)
+    base_url, token, path = req
+    return '%s/file/bot%s/%s' % (base_url, token, path)
 
 
 def download(req, **user_kw):

@@ -58,7 +58,7 @@ def _default_timeout(req, **user_kw):
 
 
 def _compose_timeout(req, **user_kw):
-    token, method, params, files = req
+    base_url, token, method, params, files = req
 
     if method == 'getUpdates' and params and 'timeout' in params:
         # Ensure HTTP timeout is longer than getUpdates timeout
@@ -72,7 +72,7 @@ def _compose_timeout(req, **user_kw):
 
 
 def _compose_data(req, **user_kw):
-    token, method, params, files = req
+    base_url, token, method, params, files = req
 
     data = aiohttp.FormData()
 

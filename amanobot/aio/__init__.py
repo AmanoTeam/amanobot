@@ -45,8 +45,8 @@ class Bot(_BotBase):
         def cancel(event):
             return event.cancel()
 
-    def __init__(self, token, loop=None, raise_errors=True):
-        super(Bot, self).__init__(token, raise_errors)
+    def __init__(self, token: str, loop=None, raise_errors: bool = True, api_endpoint: str = "https://api.telegram.org"):
+        super(Bot, self).__init__(token, raise_errors, api_endpoint)
 
         self._loop = loop or asyncio.get_event_loop()
         api._loop = self._loop  # sync loop with api module
@@ -74,7 +74,7 @@ class Bot(_BotBase):
         await self._router.route(msg)
 
     async def _api_request(self, method, params=None, files=None, raise_errors=None, **kwargs):
-        return await api.request((self._token, method, params, files), **kwargs,
+        return await api.request((self._base_url, self._token, method, params, files), **kwargs,
                                  raise_errors=raise_errors if raise_errors is not None else self._raise_errors)
 
     async def _api_request_with_file(self, method, params, files, **kwargs):
@@ -840,7 +840,7 @@ class Bot(_BotBase):
         try:
             d = dest if isinstance(dest, io.IOBase) else open(dest, 'wb')
 
-            session, request = api.download((self._token, f['file_path']))
+            session, request = api.download((self._base_url, self._token, f['file_path']))
 
             async with session:
                 async with request as r:
