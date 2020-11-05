@@ -7,6 +7,7 @@ import queue
 import threading
 import time
 import traceback
+from typing import Union
 
 from . import exception
 from . import helper
@@ -497,43 +498,43 @@ class Bot(_BotBase):
         """ See: https://core.telegram.org/bots/api#close """
         return self._api_request('close')
 
-    def sendMessage(self, chat_id, text,
-                    parse_mode=None,
+    def sendMessage(self, chat_id: Union[int, str], text: str,
+                    parse_mode: str = None,
                     entities=None,
-                    disable_web_page_preview=None,
-                    disable_notification=None,
-                    reply_to_message_id=None,
-                    allow_sending_without_reply=None,
+                    disable_web_page_preview: bool = None,
+                    disable_notification: bool = None,
+                    reply_to_message_id: int = None,
+                    allow_sending_without_reply: bool = None,
                     reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendmessage """
         p = _strip(locals())
         return self._api_request('sendMessage', _rectify(p))
 
-    def forwardMessage(self, chat_id, from_chat_id, message_id,
-                       disable_notification=None):
+    def forwardMessage(self, chat_id: Union[int, str], from_chat_id: Union[int, str], message_id: int,
+                       disable_notification: bool = None):
         """ See: https://core.telegram.org/bots/api#forwardmessage """
         p = _strip(locals())
         return self._api_request('forwardMessage', _rectify(p))
 
-    def copyMessage(self, chat_id, from_chat_id, message_id,
-                    caption=None,
-                    parse_mode=None,
+    def copyMessage(self, chat_id: Union[int, str], from_chat_id: Union[int, str], message_id: int,
+                    caption: str = None,
+                    parse_mode: str = None,
                     caption_entities=None,
-                    disable_notification=None,
-                    reply_to_message_id=None,
-                    allow_sending_without_reply=None,
+                    disable_notification: bool = None,
+                    reply_to_message_id: int = None,
+                    allow_sending_without_reply: bool = None,
                     reply_markup=None):
         """ See: https://core.telegram.org/bots/api#copymessage """
         p = _strip(locals())
         return self._api_request('copyMessage', _rectify(p))
 
-    def sendPhoto(self, chat_id, photo,
-                  caption=None,
-                  parse_mode=None,
+    def sendPhoto(self, chat_id: Union[int, str], photo,
+                  caption: str = None,
+                  parse_mode: str = None,
                   caption_entities=None,
-                  disable_notification=None,
-                  reply_to_message_id=None,
-                  allow_sending_without_reply=None,
+                  disable_notification: bool = None,
+                  reply_to_message_id: int = None,
+                  allow_sending_without_reply: bool = None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendphoto
@@ -547,17 +548,17 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['photo'])
         return self._api_request_with_file('sendPhoto', _rectify(p), {'photo': photo})
 
-    def sendAudio(self, chat_id, audio,
-                  caption=None,
-                  parse_mode=None,
+    def sendAudio(self, chat_id: Union[int, str], audio,
+                  caption: str = None,
+                  parse_mode: str = None,
                   caption_entities=None,
                   duration=None,
                   performer=None,
                   title=None,
                   thumb=None,
-                  disable_notification=None,
-                  reply_to_message_id=None,
-                  allow_sending_without_reply=None,
+                  disable_notification: bool = None,
+                  reply_to_message_id: int = None,
+                  allow_sending_without_reply: bool = None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendaudio
@@ -567,15 +568,15 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['audio', 'thumb'])
         return self._api_request_with_file('sendAudio', _rectify(p), {'audio': audio, 'thumb': thumb})
 
-    def sendDocument(self, chat_id, document,
+    def sendDocument(self, chat_id: Union[int, str], document,
                      thumb=None,
-                     caption=None,
-                     parse_mode=None,
+                     caption: str = None,
+                     parse_mode: str = None,
                      caption_entities=None,
                      disable_content_type_detection=None,
-                     disable_notification=None,
-                     reply_to_message_id=None,
-                     allow_sending_without_reply=None,
+                     disable_notification: bool = None,
+                     reply_to_message_id: int = None,
+                     allow_sending_without_reply: bool = None,
                      reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#senddocument
@@ -585,18 +586,18 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['document', 'thumb'])
         return self._api_request_with_file('sendDocument', _rectify(p), {'document': document, 'thumb': thumb})
 
-    def sendVideo(self, chat_id, video,
+    def sendVideo(self, chat_id: Union[int, str], video,
                   duration=None,
                   width=None,
                   height=None,
                   thumb=None,
-                  caption=None,
-                  parse_mode=None,
+                  caption: str = None,
+                  parse_mode: str = None,
                   caption_entities=None,
                   supports_streaming=None,
-                  disable_notification=None,
-                  reply_to_message_id=None,
-                  allow_sending_without_reply=None,
+                  disable_notification: bool = None,
+                  reply_to_message_id: int = None,
+                  allow_sending_without_reply: bool = None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendvideo
@@ -606,17 +607,17 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['video', 'thumb'])
         return self._api_request_with_file('sendVideo', _rectify(p), {'video': video, 'thumb': thumb})
 
-    def sendAnimation(self, chat_id, animation,
+    def sendAnimation(self, chat_id: Union[int, str], animation,
                       duration=None,
                       width=None,
                       height=None,
                       thumb=None,
-                      caption=None,
-                      parse_mode=None,
+                      caption: str = None,
+                      parse_mode: str = None,
                       caption_entities=None,
-                      disable_notification=None,
-                      reply_to_message_id=None,
-                      allow_sending_without_reply=None,
+                      disable_notification: bool = None,
+                      reply_to_message_id: int = None,
+                      allow_sending_without_reply: bool = None,
                       reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendanimation
@@ -626,14 +627,14 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['animation', 'thumb'])
         return self._api_request_with_file('sendAnimation', _rectify(p), {'animation': animation, 'thumb': thumb})
 
-    def sendVoice(self, chat_id, voice,
-                  caption=None,
-                  parse_mode=None,
+    def sendVoice(self, chat_id: Union[int, str], voice,
+                  caption: str = None,
+                  parse_mode: str = None,
                   caption_entities=None,
                   duration=None,
-                  disable_notification=None,
-                  reply_to_message_id=None,
-                  allow_sending_without_reply=None,
+                  disable_notification: bool = None,
+                  reply_to_message_id: int = None,
+                  allow_sending_without_reply: bool = None,
                   reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendvoice
@@ -643,13 +644,13 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['voice'])
         return self._api_request_with_file('sendVoice', _rectify(p), {'voice': voice})
 
-    def sendVideoNote(self, chat_id, video_note,
+    def sendVideoNote(self, chat_id: Union[int, str], video_note,
                       duration=None,
                       length=None,
                       thumb=None,
-                      disable_notification=None,
-                      reply_to_message_id=None,
-                      allow_sending_without_reply=None,
+                      disable_notification: bool = None,
+                      reply_to_message_id: int = None,
+                      allow_sending_without_reply: bool = None,
                       reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendvideonote
@@ -664,10 +665,10 @@ class Bot(_BotBase):
         p = _strip(locals(), more=['video_note', 'thumb'])
         return self._api_request_with_file('sendVideoNote', _rectify(p), {'video_note': video_note, 'thumb': thumb})
 
-    def sendMediaGroup(self, chat_id, media,
-                       disable_notification=None,
-                       reply_to_message_id=None,
-                       allow_sending_without_reply=None):
+    def sendMediaGroup(self, chat_id: Union[int, str], media,
+                       disable_notification: bool = None,
+                       reply_to_message_id: int = None,
+                       allow_sending_without_reply: bool = None):
         """
         See: https://core.telegram.org/bots/api#sendmediagroup
 
@@ -693,14 +694,14 @@ class Bot(_BotBase):
         p['media'] = legal_media
         return self._api_request('sendMediaGroup', _rectify(p), files_to_attach)
 
-    def sendLocation(self, chat_id, latitude, longitude,
+    def sendLocation(self, chat_id: Union[int, str], latitude, longitude,
                      horizontal_accuracy=None,
                      live_period=None,
                      heading=None,
                      proximity_alert_radius=None,
-                     disable_notification=None,
-                     reply_to_message_id=None,
-                     allow_sending_without_reply=None,
+                     disable_notification: bool = None,
+                     reply_to_message_id: int = None,
+                     allow_sending_without_reply: bool = None,
                      reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendlocation """
         p = _strip(locals())
@@ -731,65 +732,65 @@ class Bot(_BotBase):
         p.update(_dismantle_message_identifier(msg_identifier))
         return self._api_request('stopMessageLiveLocation', _rectify(p))
 
-    def sendVenue(self, chat_id, latitude, longitude, title, address,
+    def sendVenue(self, chat_id: Union[int, str], latitude, longitude, title, address,
                   foursquare_id=None,
                   foursquare_type=None,
-                  disable_notification=None,
-                  reply_to_message_id=None,
-                  allow_sending_without_reply=None,
+                  disable_notification: bool = None,
+                  reply_to_message_id: int = None,
+                  allow_sending_without_reply: bool = None,
                   reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendvenue """
         p = _strip(locals())
         return self._api_request('sendVenue', _rectify(p))
 
-    def sendContact(self, chat_id, phone_number, first_name,
+    def sendContact(self, chat_id: Union[int, str], phone_number, first_name,
                     last_name=None,
                     vcard=None,
-                    disable_notification=None,
-                    reply_to_message_id=None,
-                    allow_sending_without_reply=None,
+                    disable_notification: bool = None,
+                    reply_to_message_id: int = None,
+                    allow_sending_without_reply: bool = None,
                     reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendcontact """
         p = _strip(locals())
         return self._api_request('sendContact', _rectify(p))
 
-    def sendPoll(self, chat_id, question, options,
+    def sendPoll(self, chat_id: Union[int, str], question, options,
                  is_anonymous=None,
                  type=None,
                  allows_multiple_answers=None,
                  correct_option_id=None,
                  explanation=None,
-                 explanation_parse_mode=None,
+                 explanation_parse_mode: str = None,
                  open_period=None,
                  is_closed=None,
-                 disable_notification=None,
-                 reply_to_message_id=None,
-                 allow_sending_without_reply=None,
+                 disable_notification: bool = None,
+                 reply_to_message_id: int = None,
+                 allow_sending_without_reply: bool = None,
                  reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendpoll """
         p = _strip(locals())
         return self._api_request('sendPoll', _rectify(p))
 
-    def sendDice(self, chat_id,
+    def sendDice(self, chat_id: Union[int, str],
                  emoji=None,
-                 disable_notification=None,
-                 reply_to_message_id=None,
-                 allow_sending_without_reply=None,
+                 disable_notification: bool = None,
+                 reply_to_message_id: int = None,
+                 allow_sending_without_reply: bool = None,
                  reply_markup=None):
         """ See: https://core.telegram.org/bots/api#senddice """
         p = _strip(locals())
         return self._api_request('sendDice', _rectify(p))
 
-    def sendGame(self, chat_id, game_short_name,
-                 disable_notification=None,
-                 reply_to_message_id=None,
-                 allow_sending_without_reply=None,
+    def sendGame(self, chat_id: Union[int, str], game_short_name,
+                 disable_notification: bool = None,
+                 reply_to_message_id: int = None,
+                 allow_sending_without_reply: bool = None,
                  reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendgame """
         p = _strip(locals())
         return self._api_request('sendGame', _rectify(p))
 
-    def sendInvoice(self, chat_id, title, description, payload,
+    def sendInvoice(self, chat_id: Union[int, str], title, description, payload,
                     provider_token, start_parameter, currency, prices,
                     provider_data=None,
                     photo_url=None,
@@ -801,15 +802,15 @@ class Bot(_BotBase):
                     need_email=None,
                     need_shipping_address=None,
                     is_flexible=None,
-                    disable_notification=None,
-                    reply_to_message_id=None,
-                    allow_sending_without_reply=None,
+                    disable_notification: bool = None,
+                    reply_to_message_id: int = None,
+                    allow_sending_without_reply: bool = None,
                     reply_markup=None):
         """ See: https://core.telegram.org/bots/api#sendinvoice """
         p = _strip(locals())
         return self._api_request('sendInvoice', _rectify(p))
 
-    def sendChatAction(self, chat_id, action):
+    def sendChatAction(self, chat_id: Union[int, str], action):
         """ See: https://core.telegram.org/bots/api#sendchataction """
         p = _strip(locals())
         return self._api_request('sendChatAction', _rectify(p))
@@ -826,19 +827,19 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('getFile', _rectify(p))
 
-    def kickChatMember(self, chat_id, user_id,
+    def kickChatMember(self, chat_id: Union[int, str], user_id,
                        until_date=None):
         """ See: https://core.telegram.org/bots/api#kickchatmember """
         p = _strip(locals())
         return self._api_request('kickChatMember', _rectify(p))
 
-    def unbanChatMember(self, chat_id, user_id,
+    def unbanChatMember(self, chat_id: Union[int, str], user_id,
                         only_if_banned=None):
         """ See: https://core.telegram.org/bots/api#unbanchatmember """
         p = _strip(locals())
         return self._api_request('unbanChatMember', _rectify(p))
 
-    def restrictChatMember(self, chat_id, user_id,
+    def restrictChatMember(self, chat_id: Union[int, str], user_id,
                            until_date=None,
                            can_send_messages=None,
                            can_send_media_messages=None,
@@ -862,7 +863,7 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('restrictChatMember', _rectify(p))
 
-    def promoteChatMember(self, chat_id, user_id,
+    def promoteChatMember(self, chat_id: Union[int, str], user_id,
                           can_change_info=None,
                           can_post_messages=None,
                           can_edit_messages=None,
@@ -875,13 +876,13 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('promoteChatMember', _rectify(p))
 
-    def setChatAdministratorCustomTitle(self, chat_id, user_id,
+    def setChatAdministratorCustomTitle(self, chat_id: Union[int, str], user_id,
                                         custom_title):
         """ See: https://core.telegram.org/bots/api#setchatadministratorcustomtitle """
         p = _strip(locals())
         return self._api_request('setChatAdministratorCustomTitle', _rectify(p))
 
-    def setChatPermissions(self, chat_id,
+    def setChatPermissions(self, chat_id: Union[int, str],
                            can_send_messages=None,
                            can_send_media_messages=None,
                            can_send_polls=None,
@@ -909,7 +910,7 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('exportChatInviteLink', _rectify(p))
 
-    def setChatPhoto(self, chat_id, photo):
+    def setChatPhoto(self, chat_id: Union[int, str], photo):
         """ See: https://core.telegram.org/bots/api#setchatphoto """
         p = _strip(locals(), more=['photo'])
         return self._api_request_with_file('setChatPhoto', _rectify(p), {'photo': photo})
@@ -919,24 +920,24 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('deleteChatPhoto', _rectify(p))
 
-    def setChatTitle(self, chat_id, title):
+    def setChatTitle(self, chat_id: Union[int, str], title):
         """ See: https://core.telegram.org/bots/api#setchattitle """
         p = _strip(locals())
         return self._api_request('setChatTitle', _rectify(p))
 
-    def setChatDescription(self, chat_id,
+    def setChatDescription(self, chat_id: Union[int, str],
                            description=None):
         """ See: https://core.telegram.org/bots/api#setchatdescription """
         p = _strip(locals())
         return self._api_request('setChatDescription', _rectify(p))
 
-    def pinChatMessage(self, chat_id, message_id,
-                       disable_notification=None):
+    def pinChatMessage(self, chat_id: Union[int, str], message_id: int,
+                       disable_notification: bool = None):
         """ See: https://core.telegram.org/bots/api#pinchatmessage """
         p = _strip(locals())
         return self._api_request('pinChatMessage', _rectify(p))
 
-    def unpinChatMessage(self, chat_id,
+    def unpinChatMessage(self, chat_id: Union[int, str],
                          message_id=None):
         """ See: https://core.telegram.org/bots/api#unpinchatmessage """
         p = _strip(locals())
@@ -967,12 +968,12 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('getChatMembersCount', _rectify(p))
 
-    def getChatMember(self, chat_id, user_id):
+    def getChatMember(self, chat_id: Union[int, str], user_id):
         """ See: https://core.telegram.org/bots/api#getchatmember """
         p = _strip(locals())
         return self._api_request('getChatMember', _rectify(p))
 
-    def setChatStickerSet(self, chat_id, sticker_set_name):
+    def setChatStickerSet(self, chat_id: Union[int, str], sticker_set_name):
         """ See: https://core.telegram.org/bots/api#setchatstickerset """
         p = _strip(locals())
         return self._api_request('setChatStickerSet', _rectify(p))
@@ -1017,10 +1018,10 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('answerPreCheckoutQuery', _rectify(p))
 
-    def editMessageText(self, msg_identifier, text,
-                        parse_mode=None,
+    def editMessageText(self, msg_identifier, text: str,
+                        parse_mode: str = None,
                         entities=None,
-                        disable_web_page_preview=None,
+                        disable_web_page_preview: bool = None,
                         reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#editmessagetext
@@ -1036,8 +1037,8 @@ class Bot(_BotBase):
         return self._api_request('editMessageText', _rectify(p))
 
     def editMessageCaption(self, msg_identifier,
-                           caption=None,
-                           parse_mode=None,
+                           caption: str = None,
+                           parse_mode: str = None,
                            caption_entities=None,
                            reply_markup=None):
         """
@@ -1100,10 +1101,10 @@ class Bot(_BotBase):
         p.update(_dismantle_message_identifier(msg_identifier))
         return self._api_request('deleteMessage', _rectify(p))
 
-    def sendSticker(self, chat_id, sticker,
-                    disable_notification=None,
-                    reply_to_message_id=None,
-                    allow_sending_without_reply=None,
+    def sendSticker(self, chat_id: Union[int, str], sticker,
+                    disable_notification: bool = None,
+                    reply_to_message_id: int = None,
+                    allow_sending_without_reply: bool = None,
                     reply_markup=None):
         """
         See: https://core.telegram.org/bots/api#sendsticker
