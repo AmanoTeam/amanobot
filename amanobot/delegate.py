@@ -160,8 +160,7 @@ def per_event_source_id(event_space):
             v = peel(event)
             if v['source']['space'] == event_space:
                 return v['source']['id']
-            else:
-                return None
+            return None
         else:
             return None
     return _wrap_none(f)
@@ -179,8 +178,7 @@ def per_callback_query_chat_id(types='all'):
         if (flavor(msg) == 'callback_query' and 'message' in msg
             and (types == 'all' or msg['message']['chat']['type'] in types)):
             return msg['message']['chat']['id']
-        else:
-            return None
+        return None
     return f
 
 def per_callback_query_origin(origins='all'):
@@ -202,8 +200,7 @@ def per_callback_query_origin(origins='all'):
         if flavor(msg) == 'callback_query' and origin_type_ok():
             if 'inline_message_id' in msg:
                 return msg['inline_message_id'],
-            else:
-                return msg['message']['chat']['id'], msg['message']['message_id']
+            return msg['message']['chat']['id'], msg['message']['message_id']
         else:
             return None
     return f
@@ -216,8 +213,7 @@ def per_invoice_payload():
     def f(msg):
         if 'successful_payment' in msg:
             return msg['successful_payment']['invoice_payload']
-        else:
-            return msg['invoice_payload']
+        return msg['invoice_payload']
 
     return _wrap_none(f)
 

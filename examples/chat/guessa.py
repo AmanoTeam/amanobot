@@ -25,8 +25,7 @@ class Player(amanobot.aio.helper.ChatHandler):
     def _hint(self, answer, guess):
         if answer > guess:
             return 'larger'
-        else:
-            return 'smaller'
+        return 'smaller'
 
     async def open(self, initial_msg, seed):
         await self.sender.sendMessage('Guess my number')

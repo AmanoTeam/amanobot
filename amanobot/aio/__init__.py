@@ -801,8 +801,7 @@ class Bot(_BotBase):
         if certificate:
             files = {'certificate': certificate}
             return await self._api_request('setWebhook', _rectify(p), files)
-        else:
-            return await self._api_request('setWebhook', _rectify(p))
+        return await self._api_request('setWebhook', _rectify(p))
 
     async def deleteWebhook(self,
                             drop_pending_updates=None):
@@ -981,12 +980,11 @@ class Bot(_BotBase):
         def dictify(data):
             if type(data) is bytes:
                 return json.loads(data.decode('utf-8'))
-            elif type(data) is str:
+            if type(data) is str:
                 return json.loads(data)
-            elif type(data) is dict:
+            if type(data) is dict:
                 return data
-            else:
-                raise ValueError()
+            raise ValueError()
 
         async def get_from_queue_unordered(qu):
             while 1:

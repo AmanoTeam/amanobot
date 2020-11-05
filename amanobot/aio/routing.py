@@ -23,10 +23,9 @@ def make_routing_table(obj, keys, prefix='on_'):
         if isinstance(k, tuple):
             if len(k) == 2:
                 return k
-            elif len(k) == 1:
+            if len(k) == 1:
                 return k[0], _create_invoker(obj, prefix+k[0])
-            else:
-                raise ValueError()
+            raise ValueError()
         else:
             return k, _create_invoker(obj, prefix+k)
 

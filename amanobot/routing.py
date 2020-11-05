@@ -127,8 +127,7 @@ def by_regex(extractor, regex, key=1):
         if match:
             index = key if isinstance(key, tuple) else (key,)
             return match.group(*index), (match,)
-        else:
-            return (None,),  # to distinguish with `None`
+        return (None,),  # to distinguish with `None`
     return f
 
 def process_key(processor, fn):
@@ -147,8 +146,7 @@ def process_key(processor, fn):
         k = fn(*aa, **kw)
         if isinstance(k, (tuple, list)):
             return (processor(k[0]),) + tuple(k[1:])
-        else:
-            return processor(k)
+        return processor(k)
     return f
 
 def lower_key(fn):
@@ -197,10 +195,9 @@ def make_routing_table(obj, keys, prefix='on_'):
         if isinstance(k, tuple):
             if len(k) == 2:
                 return k
-            elif len(k) == 1:
+            if len(k) == 1:
                 return k[0], lambda *aa, **kw: getattr(obj, prefix+k[0])(*aa, **kw)
-            else:
-                raise ValueError()
+            raise ValueError()
         else:
             return k, lambda *aa, **kw: getattr(obj, prefix+k)(*aa, **kw)
                       # Use `lambda` to delay evaluation of `getattr`.

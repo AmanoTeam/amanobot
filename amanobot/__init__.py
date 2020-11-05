@@ -32,22 +32,21 @@ def flavor(msg):
     """
     if 'message_id' in msg:
         return 'chat'
-    elif 'id' in msg and 'chat_instance' in msg:
+    if 'id' in msg and 'chat_instance' in msg:
         return 'callback_query'
-    elif 'id' in msg and 'query' in msg:
+    if 'id' in msg and 'query' in msg:
         return 'inline_query'
-    elif 'result_id' in msg:
+    if 'result_id' in msg:
         return 'chosen_inline_result'
-    elif 'id' in msg and 'shipping_address' in msg:
+    if 'id' in msg and 'shipping_address' in msg:
         return 'shipping_query'
-    elif 'id' in msg and 'total_amount' in msg:
+    if 'id' in msg and 'total_amount' in msg:
         return 'pre_checkout_query'
-    else:
-        top_keys = list(msg.keys())
-        if len(top_keys) == 1:
-            return top_keys[0]
+    top_keys = list(msg.keys())
+    if len(top_keys) == 1:
+        return top_keys[0]
 
-        raise exception.BadFlavor(msg)
+    raise exception.BadFlavor(msg)
 
 
 chat_flavors = ['chat']
@@ -120,8 +119,7 @@ def glance(msg, flavor='chat', long=False):
 
         if long:
             return content_type, msg['chat']['type'], msg['chat']['id'], msg['date'], msg['message_id']
-        else:
-            return content_type, msg['chat']['type'], msg['chat']['id']
+        return content_type, msg['chat']['type'], msg['chat']['id']
 
     def gl_callback_query():
         return msg['id'], msg['from']['id'], msg['data']
@@ -129,8 +127,7 @@ def glance(msg, flavor='chat', long=False):
     def gl_inline_query():
         if long:
             return msg['id'], msg['from']['id'], msg['query'], msg['offset']
-        else:
-            return msg['id'], msg['from']['id'], msg['query']
+        return msg['id'], msg['from']['id'], msg['query']
 
     def gl_chosen_inline_result():
         return msg['result_id'], msg['from']['id'], msg['query']
@@ -141,8 +138,7 @@ def glance(msg, flavor='chat', long=False):
     def gl_pre_checkout_query():
         if long:
             return msg['id'], msg['from']['id'], msg['invoice_payload'], msg['currency'], msg['total_amount']
-        else:
-            return msg['id'], msg['from']['id'], msg['invoice_payload']
+        return msg['id'], msg['from']['id'], msg['invoice_payload']
 
     try:
         fn = {'chat': gl_chat,
@@ -201,10 +197,9 @@ def origin_identifier(msg):
     """
     if 'message' in msg:
         return msg['message']['chat']['id'], msg['message']['message_id']
-    elif 'inline_message_id' in msg:
+    if 'inline_message_id' in msg:
         return msg['inline_message_id'],
-    else:
-        raise ValueError()
+    raise ValueError()
 
 
 def message_identifier(msg):
@@ -216,20 +211,18 @@ def message_identifier(msg):
     """
     if 'chat' in msg and 'message_id' in msg:
         return msg['chat']['id'], msg['message_id']
-    elif 'inline_message_id' in msg:
+    if 'inline_message_id' in msg:
         return msg['inline_message_id'],
-    else:
-        raise ValueError()
+    raise ValueError()
 
 
 def _dismantle_message_identifier(f):
     if isinstance(f, tuple):
         if len(f) == 2:
             return {'chat_id': f[0], 'message_id': f[1]}
-        elif len(f) == 1:
+        if len(f) == 1:
             return {'inline_message_id': f[0]}
-        else:
-            raise ValueError()
+        raise ValueError()
     else:
         return {'inline_message_id': f}
 
@@ -238,16 +231,14 @@ def _split_input_media_array(media_array):
     def ensure_dict(input_media):
         if isinstance(input_media, tuple) and hasattr(input_media, '_asdict'):
             return input_media._asdict()
-        elif isinstance(input_media, dict):
+        if isinstance(input_media, dict):
             return input_media
-        else:
-            raise ValueError()
+        raise ValueError()
 
     def given_attach_name(input_media):
         if isinstance(input_media['media'], tuple):
             return input_media['media'][0]
-        else:
-            return None
+        return None
 
     def attach_name_generator(used_names):
         x = 0
@@ -322,20 +313,18 @@ def _rectify(params):
     def make_jsonable(value):
         if isinstance(value, list):
             return [make_jsonable(v) for v in value]
-        elif isinstance(value, dict):
+        if isinstance(value, dict):
             return {k: make_jsonable(v) for k, v in value.items() if v is not None}
-        elif isinstance(value, tuple) and hasattr(value, '_asdict'):
+        if isinstance(value, tuple) and hasattr(value, '_asdict'):
             return {k: make_jsonable(v) for k, v in value._asdict().items() if v is not None}
-        else:
-            return value
+        return value
 
     def flatten(value):
         v = make_jsonable(value)
 
         if isinstance(v, (dict, list)):
             return json.dumps(v, separators=(',', ':'))
-        else:
-            return v
+        return v
 
     # remove None, then json-serialize if needed
     return {k: flatten(v) for k, v in params.items() if v is not None}
@@ -403,8 +392,7 @@ class Bot(_BotBase):
 
             if self._eventq[0].timestamp <= time.time():
                 return self._eventq.pop(0)
-            else:
-                return None
+            return None
 
         def event_at(self, when, data):
             """
@@ -1222,8 +1210,7 @@ class Bot(_BotBase):
         if certificate:
             files = {'certificate': certificate}
             return self._api_request('setWebhook', _rectify(p), files)
-        else:
-            return self._api_request('setWebhook', _rectify(p))
+        return self._api_request('setWebhook', _rectify(p))
 
     def deleteWebhook(self,
                       drop_pending_updates=None):
@@ -1421,12 +1408,11 @@ class Bot(_BotBase):
         def dictify(data):
             if type(data) is bytes:
                 return json.loads(data.decode('utf-8'))
-            elif type(data) is str:
+            if type(data) is str:
                 return json.loads(data)
-            elif type(data) is dict:
+            if type(data) is dict:
                 return data
-            else:
-                raise ValueError()
+            raise ValueError()
 
         def get_from_queue_unordered(qu):
             while 1:
@@ -1580,14 +1566,13 @@ class DelegatorBot(SpeakerBot):
     def _ensure_startable(self, delegate):
         if self._startable(delegate):
             return delegate
-        elif callable(delegate):
+        if callable(delegate):
             return threading.Thread(target=delegate)
-        elif type(delegate) is tuple and self._tuple_is_valid(delegate):
+        if type(delegate) is tuple and self._tuple_is_valid(delegate):
             func, args, kwargs = delegate
             return threading.Thread(target=func, args=args, kwargs=kwargs)
-        else:
-            raise RuntimeError(
-                'Delegate does not have the required methods, is not callable, and is not a valid tuple.')
+        raise RuntimeError(
+            'Delegate does not have the required methods, is not callable, and is not a valid tuple.')
 
     def handle(self, msg):
         self._mic.send(msg)

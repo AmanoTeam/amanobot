@@ -63,21 +63,19 @@ def _guess_filename(obj):
 def _filetuple(key, f):
     if not isinstance(f, tuple):
         return (_guess_filename(f) or key, f.read())
-    elif len(f) == 1:
+    if len(f) == 1:
         return (_guess_filename(f[0]) or key, f[0].read())
-    elif len(f) == 2:
+    if len(f) == 2:
         return (f[0], f[1].read())
-    elif len(f) == 3:
+    if len(f) == 3:
         return (f[0], f[1].read(), f[2])
-    else:
-        raise ValueError()
+    raise ValueError()
 
 
 def _fix_type(v):
     if isinstance(v, float):
         return str(v)
-    else:
-        return v
+    return v
 
 
 def _compose_fields(req, **user_kw):
@@ -94,8 +92,7 @@ def _default_timeout(req, **user_kw):
     name = _which_pool(req, **user_kw)
     if name is None:
         return _onetime_pool_spec[1]['timeout']
-    else:
-        return _pools[name].connection_pool_kw['timeout']
+    return _pools[name].connection_pool_kw['timeout']
 
 
 def _compose_kwargs(req, **user_kw):
@@ -145,19 +142,18 @@ def _parse(response, raise_errors):
 
     if data['ok']:
         return data['result']
-    elif not raise_errors:
+    if not raise_errors:
         return data
-    else:
-        description, error_code = data['description'], data['error_code']
+    description, error_code = data['description'], data['error_code']
 
-        # Look for specific error ...
-        for e in exception.TelegramError.__subclasses__():
-            n = len(e.DESCRIPTION_PATTERNS)
-            if any(map(re.search, e.DESCRIPTION_PATTERNS, n*[description], n*[re.IGNORECASE])):
-                raise e(description, error_code, data)
+    # Look for specific error ...
+    for e in exception.TelegramError.__subclasses__():
+        n = len(e.DESCRIPTION_PATTERNS)
+        if any(map(re.search, e.DESCRIPTION_PATTERNS, n*[description], n*[re.IGNORECASE])):
+            raise e(description, error_code, data)
 
-        # ... or raise generic error
-        raise exception.TelegramError(description, error_code, data)
+            # ... or raise generic error
+    raise exception.TelegramError(description, error_code, data)
 
 
 def request(req, raise_errors, **user_kw):

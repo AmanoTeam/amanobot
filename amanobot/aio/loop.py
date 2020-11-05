@@ -67,8 +67,7 @@ def _infer_handler_function(bot, h):
 
     if asyncio.iscoroutinefunction(handler):
         return create_task_for
-    else:
-        return handler
+    return handler
 
 
 class MessageLoop():

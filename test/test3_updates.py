@@ -36,10 +36,9 @@ def equivalent(data, nt):
         fields = list([k+'_' if k in ['from'] else k for k in keys])
 
         return all(map(equivalent, [data[k] for k in keys], [getattr(nt, f) for f in fields]))
-    elif type(data) is list:
+    if type(data) is list:
         return all(map(equivalent, data, nt))
-    else:
-        return data==nt
+    return data==nt
 
 def examine(result, type):
     try:

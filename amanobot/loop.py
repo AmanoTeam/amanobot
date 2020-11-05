@@ -82,12 +82,11 @@ class GetUpdatesLoop(RunForeverAsThread):
 def _dictify(data):
     if type(data) is bytes:
         return json.loads(data.decode('utf-8'))
-    elif type(data) is str:
+    if type(data) is str:
         return json.loads(data)
-    elif type(data) is dict:
+    if type(data) is dict:
         return data
-    else:
-        raise ValueError()
+    raise ValueError()
 
 
 def _extract_message(update):
@@ -107,10 +106,9 @@ def _extract_message(update):
 def _infer_handler_function(bot, h):
     if h is None:
         return bot.handle
-    elif isinstance(h, dict):
+    if isinstance(h, dict):
         return flavor_router(h)
-    else:
-        return h
+    return h
 
 
 class MessageLoop(RunForeverAsThread):
