@@ -914,6 +914,11 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('unpinChatMessage', _rectify(p))
 
+    def unpinAllChatMessages(self, chat_id):
+        """ See: https://core.telegram.org/bots/api#unpinallchatmessages """
+        p = _strip(locals())
+        return self._api_request('unpinAllChatMessages', _rectify(p))
+
     def leaveChat(self, chat_id):
         """ See: https://core.telegram.org/bots/api#leavechat """
         p = _strip(locals())
