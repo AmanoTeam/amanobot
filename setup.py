@@ -4,13 +4,11 @@ import re
 
 here = path.abspath(path.dirname(__file__))
 
-install_requires = ['urllib3>=1.25.11', 'aiohttp>=3.7.2']
 cmdclass = {}
 
 # Parse version
 with open(path.join(here, 'amanobot', '__init__.py')) as f:
-    m = re.search(r'^__version_info__ *= *\(([0-9]+), *([0-9]+), ([0-9]+)\)', f.read(), re.MULTILINE)
-    version = '.'.join(m.groups())
+    version = re.findall(r"__version__ = '(.+)'", f.read())[0]
 
 with open('README.md') as f:
     long_desc = f.read()
@@ -20,9 +18,8 @@ setup(
 
     name='amanobot',
     packages=['amanobot', 'amanobot.aio'],
-    # Do not filter out packages because we need the whole thing during `sdist`.
 
-    install_requires=install_requires,
+    install_requires=['urllib3>=1.25.11', 'aiohttp>=3.7.2'],
     python_requires='>=3.5.3',
 
     version=version,

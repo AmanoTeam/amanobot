@@ -1,9 +1,11 @@
 # amanobot changelog
 
-## 2.0.0 (2020-11-05)
-- Bot API 5.0
+## 2.0.0 (2020-11-06)
+- Bot API 5.0 additions (Some things may be missing or broken, please report)
+- Added the api_endpoint parameter to the Bot class to allow setting custom API endpoint
+- Initial typing hint support, not yet complete
 - Bump aiohttp to 3.7.2 and urllib3 to 1.25.11
-- Dropped Python support below 3.5.3
+- Dropped Python support below 3.5.3 and their compatibility hacks
 
 ## 1.8.1 (2020-04-26)
 - Hotfix for a bug that prevented amanobot from working
