@@ -1,5 +1,8 @@
 # amanobot changelog
 
+## 2.0.1 (2020-12-30)
+- Fixed a bug in download_file that prevented it from working
+
 ## 2.0.0 (2020-11-06)
 - Bot API 5.0 additions (Some things may be missing or broken, please report)
 - Added the api_endpoint parameter to the Bot class to allow setting custom API endpoint
