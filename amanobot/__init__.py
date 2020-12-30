@@ -1254,7 +1254,7 @@ class Bot(_BotBase):
         try:
             d = dest if _isfile(dest) else open(dest, 'wb')
 
-            r = api.download((self._token, f['file_path']), preload_content=False)
+            r = api.download((self._base_url, self._token, f['file_path']), preload_content=False)
 
             while 1:
                 data = r.read(self._file_chunk_size)
