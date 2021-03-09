@@ -3,8 +3,6 @@ class AmanobotException(Exception):
     pass
 
 class BadFlavor(AmanobotException):
-    def __init__(self, offender):
-        super(BadFlavor, self).__init__(offender)
 
     @property
     def offender(self):
@@ -22,9 +20,6 @@ class BadHTTPResponse(AmanobotException):
     - a bad gateway, e.g. when Telegram servers are down.
     """
 
-    def __init__(self, status, text, response):
-        super(BadHTTPResponse, self).__init__(status, text, response)
-
     @property
     def status(self):
         return self.args[0]
@@ -38,16 +33,12 @@ class BadHTTPResponse(AmanobotException):
         return self.args[2]
 
 class EventNotFound(AmanobotException):
-    def __init__(self, event):
-        super(EventNotFound, self).__init__(event)
 
     @property
     def event(self):
         return self.args[0]
 
 class WaitTooLong(AmanobotException):
-    def __init__(self, seconds):
-        super(WaitTooLong, self).__init__(seconds)
 
     @property
     def seconds(self):
@@ -73,9 +64,6 @@ class TelegramError(AmanobotException):
     of regular expressions. If an error's *description* matches any of the regular expressions,
     an exception of that subclass is raised.
     """
-
-    def __init__(self, description, error_code, json):
-        super(TelegramError, self).__init__(description, error_code, json)
 
     @property
     def description(self):

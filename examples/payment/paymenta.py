@@ -15,8 +15,6 @@ $ python3 script.py <bot-token> <payment-provider-token>
 """
 
 class OrderProcessor(amanobot.aio.helper.InvoiceHandler):
-    def __init__(self, *args, **kwargs):
-        super(OrderProcessor, self).__init__(*args, **kwargs)
 
     async def on_shipping_query(self, msg):
         query_id, from_id, invoice_payload = amanobot.glance(msg, flavor='shipping_query')
