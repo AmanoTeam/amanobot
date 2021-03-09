@@ -24,7 +24,7 @@ This is the chat-centric approach.
 Proposing is a private matter. This bot only works in a private chat.
 """
 
-propose_records = dict()
+propose_records = {}
 
 class Lover(amanobot.aio.helper.ChatHandler):
     keyboard = InlineKeyboardMarkup(inline_keyboard=[[

@@ -38,7 +38,7 @@ an inline keyboard) and answer-gathering (receiving callback query) in the same
 object.
 """
 
-user_ballots = dict()
+user_ballots = {}
 
 class DateCalculator(InlineUserHandler,
                      AnswererMixin,
