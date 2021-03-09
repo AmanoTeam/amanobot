@@ -57,7 +57,7 @@ def _find_first_key(d, keys):
     for k in keys:
         if k in d:
             return k
-    logging.error('No suggested keys %s in %s' % (str(keys), str(d)))
+    logging.error('No suggested keys %s in %s', str(keys), str(d))
     # Gets the first key after the update_id one.
     return list(d.keys())[1]
 
