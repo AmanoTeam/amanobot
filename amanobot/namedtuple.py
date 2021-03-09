@@ -542,6 +542,26 @@ PreCheckoutQuery = _create_class('PreCheckoutQuery', [
                    ])
 
 # incoming
+ChatInviteLink = _create_class('ChatInviteLink', [
+                     'invite_link',
+                     _Field('creator', constructor=User),
+                     'is_primary',
+                     'is_revoked',
+                     'expire_date',
+                     'member_limit',
+                 ])
+
+# incoming
+ChatMemberUpdated = _create_class('ChatMemberUpdated', [
+                        _Field('chat', constructor=Chat),
+                        _Field('from', constructor=User),
+                        'date',
+                        _Field('old_chat_member', constructor=ChatMember),
+                        _Field('new_chat_member', constructor=ChatMember),
+                        _Field('invite_link', constructor=ChatInviteLink),
+                    ])
+
+# incoming
 SuccessfulPayment = _create_class('SuccessfulPayment', [
                         'currency',
                         'total_amount',
@@ -679,8 +699,12 @@ Update = _create_class('Update', [
              _Field('inline_query', constructor=InlineQuery),
              _Field('chosen_inline_result', constructor=ChosenInlineResult),
              _Field('callback_query', constructor=CallbackQuery),
+             _Field('shipping_query', constructor=ShippingQuery),
+             _Field('pre_checkout_query', constructor=PreCheckoutQuery),
              _Field('poll', constructor=Poll),
-             _Field('poll_answer', constructor=PollAnswer)
+             _Field('poll_answer', constructor=PollAnswer),
+             _Field('my_chat_member', constructor=ChatMemberUpdated),
+             _Field('chat_member', constructor=ChatMemberUpdated)
          ])
 
 
