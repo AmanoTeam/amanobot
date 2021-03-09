@@ -225,8 +225,7 @@ def _dismantle_message_identifier(f):
         if len(f) == 1:
             return {'inline_message_id': f[0]}
         raise ValueError()
-    else:
-        return {'inline_message_id': f}
+    return {'inline_message_id': f}
 
 
 def _split_input_media_array(media_array):
@@ -384,7 +383,7 @@ class Bot(_BotBase):
 
                 if e.timestamp != event.timestamp:
                     raise exception.EventNotFound(event)
-                elif id(e) == id(event):
+                if id(e) == id(event):
                     self._eventq.pop(i)
                     return
 

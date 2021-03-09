@@ -26,8 +26,7 @@ def make_routing_table(obj, keys, prefix='on_'):
             if len(k) == 1:
                 return k[0], _create_invoker(obj, prefix+k[0])
             raise ValueError()
-        else:
-            return k, _create_invoker(obj, prefix+k)
+        return k, _create_invoker(obj, prefix+k)
 
     return dict([maptuple(k) for k in keys])
 
