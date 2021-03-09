@@ -554,7 +554,7 @@ ChatInviteLink = _create_class('ChatInviteLink', [
 # incoming
 ChatMemberUpdated = _create_class('ChatMemberUpdated', [
                         _Field('chat', constructor=Chat),
-                        _Field('from', constructor=User),
+                        _Field('from_', constructor=User),
                         'date',
                         _Field('old_chat_member', constructor=ChatMember),
                         _Field('new_chat_member', constructor=ChatMember),
