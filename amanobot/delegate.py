@@ -163,8 +163,7 @@ def per_event_source_id(event_space):
             if v['source']['space'] == event_space:
                 return v['source']['id']
             return None
-        else:
-            return None
+        return None
     return _wrap_none(f)
 
 def per_callback_query_chat_id(types='all'):
@@ -203,8 +202,7 @@ def per_callback_query_origin(origins='all'):
             if 'inline_message_id' in msg:
                 return msg['inline_message_id'],
             return msg['message']['chat']['id'], msg['message']['message_id']
-        else:
-            return None
+        return None
     return f
 
 def per_invoice_payload():
