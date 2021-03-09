@@ -90,14 +90,16 @@ def _dictify(data):
 def _extract_message(update):
     key = _find_first_key(update, ['message',
                                    'edited_message',
+                                   'poll',
                                    'channel_post',
                                    'edited_channel_post',
                                    'callback_query',
                                    'inline_query',
                                    'chosen_inline_result',
-                                   'my_chat_member',
                                    'shipping_query',
-                                   'pre_checkout_query'])
+                                   'pre_checkout_query',
+                                   'my_chat_member',
+                                   'chat_member'])
     return key, update[key]
 
 
