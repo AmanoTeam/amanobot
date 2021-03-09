@@ -1,5 +1,4 @@
 import time
-import queue
 import amanobot
 from amanobot.loop import OrderedWebhook
 

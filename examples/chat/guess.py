@@ -1,7 +1,6 @@
 import sys
 import time
 import random
-import traceback
 import amanobot
 from amanobot.loop import MessageLoop
 from amanobot.delegate import per_chat_id, create_open, pave_event_space
