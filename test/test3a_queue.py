@@ -1,4 +1,3 @@
-import time
 import asyncio
 import amanobot.aio
 from amanobot.aio.loop import OrderedWebhook

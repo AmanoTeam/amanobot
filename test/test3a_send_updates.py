@@ -1,8 +1,6 @@
 # coding=utf8
 
 import asyncio
-import time
-import threading
 import pprint
 import sys
 import traceback

@@ -7,8 +7,7 @@ import amanobot.helper
 from amanobot.loop import MessageLoop
 from amanobot.namedtuple import (
     InlineQueryResultArticle, InputTextMessageContent,
-    InlineKeyboardMarkup, InlineKeyboardButton,
-    ReplyKeyboardMarkup, KeyboardButton)
+    InlineKeyboardMarkup, InlineKeyboardButton)
 from amanobot.delegate import (
     per_inline_from_id, create_open, pave_event_space,
     intercept_callback_query_origin)

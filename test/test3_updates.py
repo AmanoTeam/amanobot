@@ -1,7 +1,5 @@
 # coding=utf8
 
-import time
-import threading
 import pprint
 import sys
 import traceback
