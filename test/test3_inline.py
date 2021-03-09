@@ -39,7 +39,7 @@ def examine(result, type):
         traceback.print_exc()
         answer = raw_input('Do you want to continue? [y] ')
         if answer != 'y':
-            exit(1)
+            sys.exit(1)
 
 def on_inline_query(msg):
     def compute():

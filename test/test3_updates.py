@@ -52,7 +52,7 @@ def examine(result, type):
         traceback.print_exc()
         answer = input('Do you want to continue? [y] ')
         if answer != 'y':
-            exit(1)
+            sys.exit(1)
 
 expected_content_type = None
 content_type_iterator = iter([
