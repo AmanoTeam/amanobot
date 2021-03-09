@@ -42,7 +42,7 @@ def examine(result, type):
         print('Do you want to continue? [y]', end=' ')
         answer = input()
         if answer != 'y':
-            exit(1)
+            sys.exit(1)
 
 
 def on_inline_query(msg):

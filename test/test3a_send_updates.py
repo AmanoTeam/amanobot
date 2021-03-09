@@ -40,14 +40,14 @@ def examine(result, type):
         print('Do you want to continue? [y]', end=' ')
         answer = input()
         if answer != 'y':
-            exit(1)
+            sys.exit(1)
 
 async def send_everything(msg):
     content_type, chat_type, chat_id, msg_date, msg_id = amanobot.glance(msg, long=True)
 
     if chat_id != USER_ID:
         print('Unauthorized user:', chat_id)
-        exit(1)
+        sys.exit(1)
 
     print('Received message from ID: %d' % chat_id)
     print('Start sending various messages ...')

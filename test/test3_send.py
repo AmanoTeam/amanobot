@@ -56,14 +56,14 @@ def examine(result, type):
         traceback.print_exc()
         answer = input('Do you want to continue? [y] ')
         if answer != 'y':
-            exit(1)
+            sys.exit(1)
 
 def send_everything_on_contact(msg):
     content_type, chat_type, chat_id, msg_date, msg_id = amanobot.glance(msg, long=True)
 
     if chat_id != USER_ID:
         print('Unauthorized user:', msg['from']['id'])
-        exit(1)
+        sys.exit(1)
 
     print('Received message from ID: %d' % chat_id)
     print('Start sending various messages ...')
