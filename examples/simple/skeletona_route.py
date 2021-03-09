@@ -106,14 +106,12 @@ def on_inline_query(msg):
 
         if result_type == 'a':
             return articles
-        elif result_type == 'p':
+        if result_type == 'p':
             return photos
-        else:
-            results = articles if random.randint(0,1) else photos
-            if result_type == 'b':
-                return dict(results=results, switch_pm_text='Back to Bot', switch_pm_parameter='Optional_start_parameter')
-            else:
-                return dict(results=results)
+        results = articles if random.randint(0,1) else photos
+        if result_type == 'b':
+            return dict(results=results, switch_pm_text='Back to Bot', switch_pm_parameter='Optional_start_parameter')
+        return dict(results=results)
 
     answerer.answer(msg, compute)
 
