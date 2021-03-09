@@ -916,6 +916,26 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('exportChatInviteLink', _rectify(p))
 
+    def createChatInviteLink(self, chat_id,
+                             expire_date: int = None,
+                             member_limit: int = None):
+        """ See: https://core.telegram.org/bots/api#createchatinvitelink """
+        p = _strip(locals())
+        return self._api_request('createChatInviteLink', _rectify(p))
+
+    def editChatInviteLink(self, chat_id,
+                           invite_link: str,
+                           expire_date: int = None,
+                           member_limit: int = None):
+        """ See: https://core.telegram.org/bots/api#editchatinvitelink """
+        p = _strip(locals())
+        return self._api_request('editChatInviteLink', _rectify(p))
+
+    def revokeChatInviteLink(self, chat_id, invite_link: str):
+        """ See: https://core.telegram.org/bots/api#revokechatinvitelink """
+        p = _strip(locals())
+        return self._api_request('revokeChatInviteLink', _rectify(p))
+
     def setChatPhoto(self, chat_id: Union[int, str], photo):
         """ See: https://core.telegram.org/bots/api#setchatphoto """
         p = _strip(locals(), more=['photo'])
