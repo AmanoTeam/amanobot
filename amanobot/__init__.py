@@ -6,6 +6,7 @@ import json
 import queue
 import threading
 import time
+import logging
 import traceback
 from typing import Union
 
@@ -56,7 +57,9 @@ def _find_first_key(d, keys):
     for k in keys:
         if k in d:
             return k
-    raise KeyError('No suggested keys %s in %s' % (str(keys), str(d)))
+    logging.error('No suggested keys %s in %s' % (str(keys), str(d)))
+    # Gets the first key after the update_id one.
+    return list(d.keys())[1]
 
 
 all_content_types = [
