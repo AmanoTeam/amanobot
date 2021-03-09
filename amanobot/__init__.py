@@ -461,10 +461,10 @@ class Bot(_BotBase):
 
         self._scheduler = self.Scheduler()
 
-        self._router = helper.Router(flavor, {'chat': self.on_chat_message,
-                                              'callback_query': self.on_callback_query,
-                                              'inline_query': self.on_inline_query,
-                                              'chosen_inline_result': self.on_chosen_inline_result})
+        self._router = helper.Router(flavor, {'chat': lambda msg: self.on_chat_message(msg),
+                                              'callback_query': lambda msg: self.on_callback_query(msg),
+                                              'inline_query': lambda msg: self.on_inline_query(msg),
+                                              'chosen_inline_result': lambda msg: self.on_chosen_inline_result(msg)})
         # use lambda to delay evaluation of self.on_ZZZ to runtime because
         # I don't want to require defining all methods right here.
 

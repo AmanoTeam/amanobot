@@ -198,9 +198,12 @@ def make_routing_table(obj, keys, prefix='on_'):
             if len(k) == 2:
                 return k
             if len(k) == 1:
-                return k[0], getattr(obj, prefix+k[0])
+                return k[0], lambda *aa, **kw: getattr(obj, prefix+k[0])(*aa, **kw)
             raise ValueError()
-        return k, getattr(obj, prefix+k)
+        return k, lambda *aa, **kw: getattr(obj, prefix+k)(*aa, **kw)
+                  # Use `lambda` to delay evaluation of `getattr`.
+                  # I don't want to require definition of all methods.
+                  # Let users define only the ones he needs.
 
     return dict([maptuple(k) for k in keys])
 
