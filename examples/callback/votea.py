@@ -23,7 +23,7 @@ It statically captures callback query according to the originating chat id.
 This is the chat-centric approach.
 """
 
-votes = dict()
+votes = {}
 
 class VoteCounter(amanobot.aio.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
