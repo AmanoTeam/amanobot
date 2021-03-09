@@ -592,8 +592,10 @@ class Bot(_BotBase):
         p = _strip(locals())
         return await self._api_request('answerCallbackQuery', _rectify(p))
 
-    async def setMyCommands(self, commands=[]):
+    async def setMyCommands(self, commands=None):
         """ See: https://core.telegram.org/bots/api#setmycommands """
+        if commands is None:
+            commands = []
         p = _strip(locals())
         return await self._api_request('setMyCommands', _rectify(p))
 
