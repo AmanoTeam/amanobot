@@ -342,11 +342,13 @@ ChatMember = _create_class('ChatMember', [
                  _Field('user', constructor=User),
                  'status',
                  'custom_title',
-                 'until_date',
+                 'is_anonymous',
                  'can_be_edited',
+                 'can_manage_chat',
                  'can_post_messages',
                  'can_edit_messages',
                  'can_delete_messages',
+                 'can_manage_voice_chats',
                  'can_restrict_members',
                  'can_promote_members',
                  'can_change_info',
@@ -358,6 +360,7 @@ ChatMember = _create_class('ChatMember', [
                  'can_send_polls',
                  'can_send_other_messages',
                  'can_add_web_page_previews',
+                 'until_date',
              ])
 
 
@@ -608,9 +611,35 @@ PassportData = _create_class('PassportData', [
                ])
 
 # incoming
+ProximityAlertTriggered = _create_class('ProximityAlertTriggered', [
+                              _Field('traveler', constructor=User),
+                              _Field('watcher', constructor=User),
+                              'distance',
+                          ])
+
+# incoming
+VoiceChatStarted = _create_class('VoiceChatStarted', [])
+
+# incoming
+VoiceChatEnded = _create_class('VoiceChatEnded', [
+                     'duration',
+                 ])
+
+# incoming
+VoiceChatParticipantsInvited = _create_class('VoiceChatParticipantsInvited', [
+                                   _Field('users', constructor=UserArray),
+                               ])
+
+# incoming
+MessageAutoDeleteTimerChanged = _create_class('MessageAutoDeleteTimerChanged', [
+                                    'message_auto_delete_time',
+                                ])
+
+# incoming
 Message = _create_class('Message', [
               'message_id',
               _Field('from_', constructor=User),
+              _Field('sender_chat', constructor=Chat),
               'date',
               _Field('chat', constructor=Chat),
               _Field('forward_from', constructor=User),
@@ -626,23 +655,23 @@ Message = _create_class('Message', [
               'author_signature',
               'text',
               _Field('entities', constructor=MessageEntityArray),
-              _Field('caption_entities', constructor=MessageEntityArray),
+              _Field('animation', constructor=Animation),
               _Field('audio', constructor=Audio),
               _Field('document', constructor=Document),
-              _Field('game', constructor=Game),
               _Field('photo', constructor=PhotoSizeArray),
               _Field('sticker', constructor=Sticker),
               _Field('video', constructor=Video),
-              _Field('voice', constructor=Voice),
               _Field('video_note', constructor=VideoNote),
-              _Field('new_chat_members', constructor=UserArray),
+              _Field('voice', constructor=Voice),
               'caption',
+              _Field('caption_entities', constructor=MessageEntityArray),
               _Field('contact', constructor=Contact),
-              _Field('location', constructor=Location),
-              _Field('venue', constructor=Venue),
-              _Field('poll', constructor=Poll),
               _Field('dice', constructor=Dice),
-              _Field('new_chat_member', constructor=User),
+              _Field('game', constructor=Game),
+              _Field('poll', constructor=Poll),
+              _Field('venue', constructor=Venue),
+              _Field('location', constructor=Location),
+              _Field('new_chat_members', constructor=UserArray),
               _Field('left_chat_member', constructor=User),
               'new_chat_title',
               _Field('new_chat_photo', constructor=PhotoSizeArray),
@@ -650,6 +679,7 @@ Message = _create_class('Message', [
               'group_chat_created',
               'supergroup_chat_created',
               'channel_chat_created',
+              _Field('message_auto_delete_timer_changed', constructor=MessageAutoDeleteTimerChanged),
               'migrate_to_chat_id',
               'migrate_from_chat_id',
               _Field('pinned_message', constructor=_Message),
@@ -657,7 +687,11 @@ Message = _create_class('Message', [
               _Field('successful_payment', constructor=SuccessfulPayment),
               'connected_website',
               _Field('passport_data', constructor=PassportData),
-              _Field('reply_markup', constructor=InlineKeyboardMarkup)
+              _Field('proximity_alert_triggered', constructor=ProximityAlertTriggered),
+              _Field('voice_chat_started', constructor=VoiceChatStarted),
+              _Field('voice_chat_ended', constructor=VoiceChatEnded),
+              _Field('voice_chat_participants_invited', constructor=VoiceChatParticipantsInvited),
+              _Field('reply_markup', constructor=InlineKeyboardMarkup),
           ])
 
 # incoming

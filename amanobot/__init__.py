@@ -834,7 +834,8 @@ class Bot(_BotBase):
         return self._api_request('getFile', _rectify(p))
 
     def kickChatMember(self, chat_id: Union[int, str], user_id,
-                       until_date=None):
+                       until_date: int = None,
+                       revoke_messages: bool = None):
         """ See: https://core.telegram.org/bots/api#kickchatmember """
         p = _strip(locals())
         return self._api_request('kickChatMember', _rectify(p))
@@ -870,14 +871,17 @@ class Bot(_BotBase):
         return self._api_request('restrictChatMember', _rectify(p))
 
     def promoteChatMember(self, chat_id: Union[int, str], user_id,
-                          can_change_info=None,
+                          is_anonymous=None,
+                          can_manage_chat=None,
                           can_post_messages=None,
                           can_edit_messages=None,
                           can_delete_messages=None,
-                          can_invite_users=None,
+                          can_manage_voice_chats=None,
                           can_restrict_members=None,
-                          can_pin_messages=None,
-                          can_promote_members=None):
+                          can_promote_members=None,
+                          can_change_info=None,
+                          can_invite_users=None,
+                          can_pin_messages=None):
         """ See: https://core.telegram.org/bots/api#promotechatmember """
         p = _strip(locals())
         return self._api_request('promoteChatMember', _rectify(p))
