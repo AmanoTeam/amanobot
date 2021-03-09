@@ -14,8 +14,6 @@ $ python3 script.py <bot-token> <payment-provider-token>
 """
 
 class OrderProcessor(amanobot.helper.InvoiceHandler):
-    def __init__(self, *args, **kwargs):
-        super(OrderProcessor, self).__init__(*args, **kwargs)
 
     @staticmethod
     def on_shipping_query(msg):

@@ -11,8 +11,6 @@ It demonstrates answering inline query and getting chosen inline results.
 """
 
 class InlineHandler(amanobot.helper.InlineUserHandler, amanobot.helper.AnswererMixin):
-    def __init__(self, *args, **kwargs):
-        super(InlineHandler, self).__init__(*args, **kwargs)
 
     def on_inline_query(self, msg):
         def compute_answer():
