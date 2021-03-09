@@ -60,7 +60,7 @@ def per_chat_id_except(s, types='all'):
                           if (types == 'all' or msg['chat']['type'] in types) and msg['chat']['id'] not in s
                           else None)
 
-def per_from_id(flavors=chat_flavors+inline_flavors):
+def per_from_id(flavors=None):
     """
     :param flavors:
         ``all`` or a list of flavors
@@ -69,12 +69,14 @@ def per_from_id(flavors=chat_flavors+inline_flavors):
         a seeder function that returns the from id only if the message flavor is
         in ``flavors``.
     """
+    if flavors is None:
+        flavors = chat_flavors+inline_flavors
     return _wrap_none(lambda msg:
                           msg['from']['id']
                           if flavors == 'all' or flavor(msg) in flavors
                           else None)
 
-def per_from_id_in(s, flavors=chat_flavors+inline_flavors):
+def per_from_id_in(s, flavors=None):
     """
     :param s:
         a list or set of from id
@@ -86,12 +88,14 @@ def per_from_id_in(s, flavors=chat_flavors+inline_flavors):
         a seeder function that returns the from id only if the from id is in ``s``
         and message flavor is in ``flavors``.
     """
+    if flavors is None:
+        flavors = chat_flavors+inline_flavors
     return _wrap_none(lambda msg:
                           msg['from']['id']
                           if (flavors == 'all' or flavor(msg) in flavors) and msg['from']['id'] in s
                           else None)
 
-def per_from_id_except(s, flavors=chat_flavors+inline_flavors):
+def per_from_id_except(s, flavors=None):
     """
     :param s:
         a list or set of from id
@@ -103,6 +107,8 @@ def per_from_id_except(s, flavors=chat_flavors+inline_flavors):
         a seeder function that returns the from id only if the from id is *not* in ``s``
         and message flavor is in ``flavors``.
     """
+    if flavors is None:
+        flavors = chat_flavors+inline_flavors
     return _wrap_none(lambda msg:
                           msg['from']['id']
                           if (flavors == 'all' or flavor(msg) in flavors) and msg['from']['id'] not in s

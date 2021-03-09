@@ -308,7 +308,9 @@ class _BotBase:
         self._file_chunk_size = 65536
 
 
-def _strip(params, more=[]):
+def _strip(params, more=None):
+    if more is None:
+        more = []
     return {key: value for key, value in params.items() if key not in ['self'] + more}
 
 
@@ -997,8 +999,10 @@ class Bot(_BotBase):
         p = _strip(locals())
         return self._api_request('answerCallbackQuery', _rectify(p))
 
-    def setMyCommands(self, commands=[]):
+    def setMyCommands(self, commands=None):
         """ See: https://core.telegram.org/bots/api#setmycommands """
+        if commands is None:
+            commands = []
         p = _strip(locals())
         return self._api_request('setMyCommands', _rectify(p))
 
