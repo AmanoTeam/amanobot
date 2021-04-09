@@ -1396,14 +1396,17 @@ class Bot(_BotBase):
         def relay_to_collector(update):
             key = _find_first_key(update, ['message',
                                            'edited_message',
-                                           'poll',
                                            'channel_post',
                                            'edited_channel_post',
-                                           'callback_query',
                                            'inline_query',
                                            'chosen_inline_result',
+                                           'callback_query',
                                            'shipping_query',
-                                           'pre_checkout_query'])
+                                           'pre_checkout_query',
+                                           'poll',
+                                           'poll_answer',
+                                           'my_chat_member',
+                                           'chat_member'])
             collect_queue.put(update[key])
             return update['update_id']
 
