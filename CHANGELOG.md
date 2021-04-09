@@ -1,5 +1,9 @@
 # amanobot changelog
 
+## 2.1.0 (2021-04-22)
+- Bot API 5.1
+- See all bot API changes in https://core.telegram.org/bots/api#recent-changes.
+
 ## 2.0.1 (2020-12-30)
 - Fixed a bug in download_file that prevented it from working
 
